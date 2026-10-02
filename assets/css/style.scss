@@ -10,3 +10,29 @@
   display: block;
   margin: 0 auto;
 }
+
+.page-header {
+  color: #2a5542;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url("../img/banner_aiw.jpg");
+  background-size: cover;
+  background-position: center;
+  border-bottom: 4px solid #2a5542;
+}
+
+.project-tagline {
+  opacity: 1;
+}
+
+.project-tagline strong {
+  color: #2a5542;
+}
+
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  color: #2a5542;
+}
