@@ -1,6 +1,6 @@
 ---
 title: UD 1. Introducción al entorno de desarrollo, los servidores de aplicaciones Web y sus funcionalidades.
-description: "<strong>Profesor:</strong> Matías Montávez Sánchez | <strong>Módulo:</strong> Implantación de Aplicaciones web"
+description: "<strong>Profesor:</strong> Matías Montávez Sánchez <br> <strong>Módulo:</strong> Implantación de Aplicaciones web"
 ---
 [⌂ Volver al inicio](index.md)
 
