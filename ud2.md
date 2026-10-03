@@ -40,6 +40,7 @@ La práctica utilizará la pila Apache, PHP y MySQL. Las versiones concretas de 
 - Instalar y configurar Moodle en Ubuntu Server 24.04.
 - Crear una base de datos y comprender la estructura de directorios de Moodle.
 - Crear un curso con recursos y actividades, y adaptar su apariencia.
+- Crear un complemento local sencillo en PHP y visualizar su salida dentro de Moodle.
 - Aplicar medidas de seguridad, comprobar el funcionamiento y valorar el rendimiento.
 - Publicar la plataforma de forma segura y documentar el proceso.
 
@@ -52,6 +53,7 @@ Se evaluará que el alumnado sea capaz de:
 - Relacionar Apache, PHP, MySQL, Moodle y el directorio de datos.
 - Instalar la aplicación, crear su base de datos y completar su configuración.
 - Organizar un curso y añadir contenidos y actividades coherentes.
+- Crear una página sencilla mediante un complemento local, usando la API de Moodle y controlando el acceso.
 - Personalizar la interfaz sin comprometer la actualización del sistema.
 - Aplicar controles básicos de seguridad y realizar pruebas funcionales y de rendimiento.
 - Publicar la plataforma mediante HTTPS y aportar evidencias del trabajo realizado.
@@ -267,6 +269,106 @@ Desde la administración del sitio se puede seleccionar un tema, configurar el l
 
 Antes de instalar un tema o complemento, comprueba que sea compatible con la versión de Moodle, que proceda de una fuente fiable y que tenga mantenimiento activo. Conserva una copia de seguridad antes de actualizarlo. No modifiques directamente los archivos del núcleo: las actualizaciones podrían sobrescribir los cambios.
 
+### 10.1. Cambiar el tema desde Moodle
+
+El tema se cambia desde la administración del sitio, sin escribir PHP:
+
+1. Inicia sesión con una cuenta de administrador.
+2. Abre **Administración del sitio > Apariencia > Temas > Selector de temas**.
+3. Selecciona el tema disponible y pulsa **Cambiar tema**. Si aparecen opciones para escritorio y móvil, selecciona el tema en cada apartado.
+4. Comprueba la portada, un curso y una actividad con distintos tamaños de pantalla.
+
+Para instalar un tema que todavía no está disponible, descárgalo del directorio oficial de plugins de Moodle y comprueba que sea compatible con Moodle 5.1. Instálalo desde **Administración del sitio > Plugins > Instalar plugins** y, cuando Moodle lo haya detectado, selecciónalo desde el selector de temas.
+
+Si solo se quieren cambiar colores, logotipo o tipografía, revisa primero las opciones de configuración del tema instalado. En **Boost**, se pueden personalizar estilos desde su configuración avanzada, por ejemplo cargando un preset o utilizando el campo **Raw SCSS** si está disponible. Esto es SCSS/CSS, no PHP. Después de cambiar el tema o sus estilos, purga las cachés de Moodle y verifica el resultado como docente y estudiante.
+
+No edites directamente los archivos del núcleo ni los del tema instalado: las actualizaciones pueden sobrescribir esos cambios. Para una personalización extensa, crea un tema hijo o un tema propio siguiendo las API de Moodle.
+
+### 10.2. Ejercicio: programación básica en PHP para Moodle
+
+PHP no se escribe en una etiqueta o recurso del curso para ejecutarlo. Para que el código se ejecute de forma integrada y segura, se crea un complemento. En esta práctica construiremos un **complemento local** que genera una página de Moodle con un saludo y la fecha del servidor. El aviso aparecerá con el estilo del tema activo.
+
+En Moodle 5.1, crea la carpeta `saludo` dentro de `public/local/`. El componente se llamará `local_saludo` y tendrá esta estructura:
+
+```text
+public/local/saludo/
+|-- version.php
+|-- index.php
+|-- lang/
+	|-- en/local_saludo.php
+	|-- es/local_saludo.php
+```
+
+#### Archivo `version.php`
+
+Este archivo identifica el complemento y declara la versión mínima de Moodle compatible:
+
+```php
+<?php
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->component = 'local_saludo';
+$plugin->version = 2026100300;
+$plugin->requires = 2025100600;
+```
+
+#### Archivo `index.php`
+
+La página carga Moodle, exige que el usuario haya iniciado sesión y utiliza el sistema de salida de Moodle para mostrar el contenido:
+
+```php
+<?php
+require(__DIR__ . '/../../../config.php');
+require_login();
+
+$context = context_system::instance();
+$PAGE->set_context($context);
+$PAGE->set_url(new moodle_url('/local/saludo/index.php'));
+$PAGE->set_title(get_string('pluginname', 'local_saludo'));
+$PAGE->set_heading(get_string('pluginname', 'local_saludo'));
+
+echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('heading', 'local_saludo'));
+echo $OUTPUT->notification(
+	s(get_string('welcome', 'local_saludo', fullname($USER))),
+	\core\output\notification::NOTIFY_INFO
+);
+echo html_writer::div(s(get_string('serverdate', 'local_saludo', userdate(time()))));
+echo $OUTPUT->footer();
+```
+
+#### Archivos de idioma
+
+En `lang/es/local_saludo.php` añade:
+
+```php
+<?php
+$string['pluginname'] = 'Saludo PHP';
+$string['heading'] = 'Una página generada con PHP';
+$string['welcome'] = '¡Hola, {$a}! Este mensaje lo genera un complemento de Moodle.';
+$string['serverdate'] = 'Fecha y hora del servidor: {$a}';
+```
+
+En `lang/en/local_saludo.php` añade las cadenas de reserva:
+
+```php
+<?php
+$string['pluginname'] = 'PHP greeting';
+$string['heading'] = 'A page generated with PHP';
+$string['welcome'] = 'Hello, {$a}! This message is generated by a Moodle plugin.';
+$string['serverdate'] = 'Server date and time: {$a}';
+```
+
+#### Instalación y prueba
+
+1. Copia la carpeta `saludo` a `/var/www/moodle/public/local/saludo`, conservando los permisos de lectura del servidor web. No hagas escribible todo el código de Moodle por `www-data`.
+2. Inicia sesión como administrador y abre `/admin/index.php` para que Moodle detecte e instale el complemento.
+3. Abre `https://tu-dominio/local/saludo/index.php` (o la URL correspondiente a tu laboratorio).
+4. Comprueba que Moodle muestra el saludo, el aviso con el estilo del tema y la fecha. Cambia el texto del saludo, purga las cachés si es necesario y verifica el cambio.
+5. Cierra la sesión e intenta acceder de nuevo: `require_login()` debe redirigir a la página de acceso.
+
+La práctica enseña cómo PHP produce contenido dentro de Moodle. Si el objetivo es cambiar los colores de toda la plataforma, se debe personalizar el tema mediante sus opciones y CSS/SCSS, no intentar hacerlo insertando PHP en el contenido del curso. No modifiques los archivos del núcleo ni permitas ejecutar scripts PHP subidos como recursos.
+
 ## 11. Mecanismos de seguridad
 
 Moodle incluye mecanismos de autenticación, roles y capacidades, permisos por contexto, gestión de sesiones, validación de formularios y registro de eventos. Estas funciones deben configurarse correctamente y complementarse con la seguridad del servidor:
@@ -320,6 +422,7 @@ Instala Moodle en una máquina virtual con Ubuntu Server 24.04 y prepara un curs
 - Un esquema de la arquitectura y una tabla con las versiones de los componentes.
 - Evidencias de la creación de la base de datos y de la configuración de Moodle, sin mostrar contraseñas.
 - Un curso con al menos tres secciones, dos recursos y dos actividades.
+- El complemento `local_saludo` instalado y capturas de la página generada; incluye una breve explicación de `require_login()` y de cómo Moodle muestra el resultado.
 - Una personalización visual y una explicación de la licencia de los materiales utilizados.
 - Una lista de comprobaciones de seguridad y funcionamiento, con resultados.
 - Una prueba sencilla de rendimiento, indicando método, carga aplicada y observaciones.
@@ -329,6 +432,7 @@ Instala Moodle en una máquina virtual con Ubuntu Server 24.04 y prepara un curs
 ## 15. Fuentes y documentación
 
 - [Documentación oficial de Moodle](https://docs.moodle.org/)
+- [Desarrollo de complementos locales en Moodle 5.1](https://moodledev.io/docs/5.1/apis/plugintypes/local)
 - [Requisitos de servidor de Moodle 5.1](https://moodledev.io/general/releases/5.1#server-requirements)
 - [Requisitos del servidor Moodle](https://docs.moodle.org/501/en/Server_requirements)
 - [Instalación de Moodle](https://docs.moodle.org/501/en/Installing_Moodle)
