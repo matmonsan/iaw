@@ -12,14 +12,17 @@ description: "<strong>Profesor:</strong> Matías Montávez Sánchez <br> <strong
 - [4. Tipos de gestores de contenidos](#4-tipos-de-gestores-de-contenidos)
 - [5. Licencias de uso](#5-licencias-de-uso)
 - [6. Moodle y sus requerimientos](#6-moodle-y-sus-requerimientos)
+      - [Práctica 1: instalación de LMS](#práctica-1-instalación-de-lms)
 - [7. Instalación de Moodle en Ubuntu Server 2404](#7-instalación-de-moodle-en-ubuntu-server-2404)
+      - [Práctica 2: instalación de Moodle 5.1 en Ubuntu 24.04](#práctica-2-instalación-de-moodle-51-en-ubuntu-2404)
 - [8. Estructura de Moodle](#8-estructura-de-moodle)
 - [9. Creación de contenidos](#9-creación-de-contenidos)
 - [10. Personalización de la interfaz](#10-personalización-de-la-interfaz)
+      - [Práctica 3: personalización del tema y saludo en PHP](#103-práctica-3-personalización-del-tema-y-saludo-en-php)
 - [11. Mecanismos de seguridad](#11-mecanismos-de-seguridad)
 - [12. Verificación y rendimiento](#12-verificación-y-rendimiento)
 - [13. Publicación](#13-publicación)
-- [14. Proyecto práctico](#14-proyecto-práctico)
+- [14. Proyecto práctico](#14-proyecto-práctico-final)
 - [15. Fuentes y documentación](#15-fuentes-y-documentación)
 
 ---
@@ -165,25 +168,27 @@ Hay que ser consciente de las implicaciones legales del software que se usa. En 
 
 Antes de instalar un complemento o publicar un recurso, se debe verificar su procedencia, licencia, compatibilidad con la versión instalada y política de actualizaciones.
 
-### **Práctica 1: LMS gratuitos alternativos a Moodle**
+### **Práctica 1:** instalación de LMS
 
 Existen otros LMS de código abierto o con edición gratuita. Elige **uno** de la siguiente lista:
 
-| LMS | Tecnología | Descarga para Windows | Guía de instalación paso a paso |
-| --- | --- | --- | --- |
-| **Chamilo** | PHP + MySQL/MariaDB | [Descargar Chamilo](https://chamilo.org/en/download/) | [Ver guía (XAMPP)](https://docs.chamilo.org/administration-guide/admin-guide/installation)  |
-| **Open edX (Tutor)** | Python + Docker | [Descargar Tutor](https://docs.tutor.edly.io/install.html) | [Ver guía (WSL2 y Docker)](https://discuss.openedx.org/t/how-to-install-openedx-v20-with-tutor-on-windows-os-with-wsl2/17417)  |
-| **Canvas LMS** (Community) | Ruby on Rails + PostgreSQL | [Quick Start / Descarga](https://github.com/instructure/canvas-lms/wiki/Quick-Start) | [Ver guía (Docker)](https://github.com/instructure/canvas-lms/wiki/Quick-Start)  |
-| **ILIAS** | PHP + MySQL/MariaDB | [Descargar ILIAS](https://www.ilias.de/en/download/) | [Tutorial](https://iliastutorials.com/faq/how-to-install-ilias/) / [Guía Oficial](https://github.com/ILIAS-eLearning/ILIAS/blob/release_11/docs/configuration/install.md)  |
-| **Sakai** | Java | [Descargar Sakai](https://www.sakailms.org/download/) | [Guía Oficial](https://sakaiproject.atlassian.net/wiki/spaces/DOC/pages/32201507113/Sakai+22+Install+Guide+Source)  |
-| **Opigno LMS** | Drupal (PHP) | [Descargar Opigno](https://www.opigno.org/en/download) | [Ver guía](https://www.valuebound.com/resources/blog/how-install-opigno-lms)  |
+La columna **Nota máxima** indica el límite de nota para cada LMS según la dificultad relativa de su instalación en Windows y la investigación que requiere. La nota obtenida dentro de ese límite dependerá de la calidad de la investigación, la instalación, las pruebas y la documentación. El LMS con el reto de instalación mayor permite optar a 10 puntos.
+
+| LMS | Tecnología | Descarga para Windows | Guía de instalación paso a paso | Nota máxima |
+| --- | --- | --- | --- | ---: |
+| **Chamilo** | PHP + MySQL/MariaDB | [Descargar Chamilo](https://chamilo.org/en/download/) | [Ver guía (XAMPP)](https://docs.chamilo.org/administration-guide/admin-guide/installation) | 7 |
+| **Open edX (Tutor)** | Python + Docker | [Descargar Tutor](https://docs.tutor.edly.io/install.html) | [Ver guía (WSL2 y Docker)](https://discuss.openedx.org/t/how-to-install-openedx-v20-with-tutor-on-windows-os-with-wsl2/17417) | 9 |
+| **Canvas LMS** (Community) | Ruby on Rails + PostgreSQL | [Quick Start / Descarga](https://github.com/instructure/canvas-lms/wiki/Quick-Start) | [Ver guía (Docker)](https://github.com/instructure/canvas-lms/wiki/Quick-Start) | 9 |
+| **ILIAS** | PHP + MySQL/MariaDB | [Descargar ILIAS](https://www.ilias.de/en/download/) | [Tutorial](https://iliastutorials.com/faq/how-to-install-ilias/) / [Guía Oficial](https://github.com/ILIAS-eLearning/ILIAS/blob/release_11/docs/configuration/install.md) | 8 |
+| **Sakai** | Java | [Descargar Sakai](https://www.sakailms.org/download/) | [Guía Oficial](https://sakaiproject.atlassian.net/wiki/spaces/DOC/pages/32201507113/Sakai+22+Install+Guide+Source) | 10 |
+| **Opigno LMS** | Drupal (PHP) | [Descargar Opigno](https://www.opigno.org/en/download) | [Ver guía](https://www.valuebound.com/resources/blog/how-install-opigno-lms) | 8 |
 
 Las guías de ILIAS y Chamilo parten de un servidor local; puedes montarlo con XAMPP (https://www.apachefriends.org/download.html). Algunos LMS no tienen instalador para Windows y se ejecutan con Docker Desktop o con un servidor local como XAMPP. Los enlaces pueden cambiar: si alguno no funciona, búscalo desde la web oficial del proyecto.
 
 **Investiga y documenta:**
 
 1. Licencia exacta, versión estable actual y fecha de la última publicación.
-2. Requisitos de software y hardware.
+2. Requisitos de software y hardware. Tenoclogías sobre las que trabaja.
 3. Funcionalidades principales: cursos, tareas, cuestionarios, foros y calificaciones.
 4. Comparativa con otros LMS: ventajas, inconvenientes, comunidad y documentación.
 
@@ -197,7 +202,7 @@ Las guías de ILIAS y Chamilo parten de un servidor local; puedes montarlo con X
    - Crea un usuario alumno, matricúlalo y accede con él para realizar la actividad.
 4. Si el LMS no es compatible con Windows de forma directa, indica el motivo y la alternativa que has usado.
 
-**Entrega:** un informe breve con la investigación, capturas de pantalla de la instalación y de cada comprobación, y una conclusión sobre en qué casos elegirías este LMS en lugar de Moodle.
+**Entrega:** un informe con la investigación, capturas de pantalla de la instalación y de cada comprobación, y una conclusión sobre en qué casos elegirías este LMS.
 
 ## 6. Moodle y sus requerimientos
 
@@ -641,6 +646,22 @@ sudo crontab -u www-data -l
 
 En el área de administración, comprueba después que la última ejecución del cron es reciente y que no hay tareas atascadas.
 
+### 7.7 **Práctica 2:** instalación de Moodle 5.1 en Ubuntu 24.04
+
+**Enunciado**
+
+Despliega Moodle 5.1 en una máquina virtual con Ubuntu Server 24.04 LTS y deja la plataforma operativa y accesible desde el equipo anfitrión. Utiliza como guía los pasos de instalación de este apartado y consulta la documentación oficial para comprobar los requisitos y las versiones compatibles.
+
+Entrega una memoria que incluya:
+
+- Las características de la máquina virtual y la configuración de red utilizada, sin incluir contraseñas ni otros datos sensibles.
+- Los pasos y comandos principales para instalar y configurar Apache, PHP, MySQL y Moodle.
+- La configuración de la base de datos y de `moodledata`, explicando cómo se evita que los datos y archivos sensibles queden expuestos por HTTP.
+- Evidencias de acceso a Moodle, de la creación de la cuenta administradora y de la ejecución correcta de las tareas programadas.
+- Las comprobaciones realizadas y los problemas encontrados, junto con la solución aplicada.
+
+Al finalizar, verifica que el sitio carga desde el equipo anfitrión, que puedes iniciar sesión con la cuenta administradora y que el cron se ejecuta.
+
 ## 8. Estructura de Moodle
 
 En la instalación se distinguen tres ubicaciones importantes:
@@ -685,7 +706,7 @@ Si solo se quieren cambiar colores, logotipo o tipografía, revisa primero las o
 
 No edites directamente los archivos del núcleo ni los del tema instalado: las actualizaciones pueden sobrescribir esos cambios. Para una personalización extensa, crea un tema hijo o un tema propio siguiendo las API de Moodle.
 
-### 10.2. Ejercicio: programación básica en PHP para Moodle
+### 10.2. Programación básica en PHP para Moodle
 
 PHP no se escribe en una etiqueta o recurso del curso para ejecutarlo. Para que el código se ejecute de forma integrada y segura, se crea un complemento. En esta práctica construiremos un **complemento local** que genera una página de Moodle con un saludo y la fecha del servidor. El aviso aparecerá con el estilo del tema activo.
 
@@ -770,6 +791,24 @@ $string['serverdate'] = 'Server date and time: {$a}';
 
 La práctica enseña cómo PHP produce contenido dentro de Moodle. Si el objetivo es cambiar los colores de toda la plataforma, se debe personalizar el tema mediante sus opciones y CSS/SCSS, no intentar hacerlo insertando PHP en el contenido del curso. No modifiques los archivos del núcleo ni permitas ejecutar scripts PHP subidos como recursos.
 
+### 10.3 **Práctica 3:** personalización del tema y saludo en PHP
+
+**Enunciado**
+
+En la instalación de Moodle 5.1 realizada en la práctica anterior, personaliza la apariencia del sitio y desarrolla el complemento local `local_saludo` siguiendo los pasos de los apartados 10.1 y 10.2.
+
+Realiza las siguientes tareas:
+
+1. Selecciona un tema compatible con Moodle 5.1. Si no hay otro tema instalado, utiliza **Boost**.
+2. Personaliza la apariencia mediante las opciones del tema: cambia al menos los colores y añade o configura un logotipo. Si utilizas Boost, puedes aplicar un preset o emplear **Raw SCSS** para los estilos.
+3. Crea el complemento local `local_saludo` con los archivos y cadenas de idioma indicados en el apartado 10.2. La página debe mostrar un saludo personalizado con el nombre de la persona usuaria y la fecha y hora del servidor.
+4. Instala el complemento desde la administración del sitio y comprueba que su página usa el tema personalizado.
+5. Verifica el acceso con una sesión iniciada y comprueba que, al cerrar la sesión, Moodle solicita autenticarse para acceder a la página.
+
+Entrega una memoria con capturas del tema antes y después de personalizarlo, la estructura y el código del complemento, y la página de saludo funcionando. Incluye una breve explicación de los cambios realizados y de las pruebas de acceso. No incluyas contraseñas ni datos personales reales.
+
+No modifiques archivos del núcleo ni del tema instalado, y no publiques código PHP como recurso del curso. Los cambios visuales deben hacerse desde las opciones del tema o mediante SCSS/CSS; el saludo debe implementarse como complemento de Moodle.
+
 ## 11. Mecanismos de seguridad
 
 Moodle incluye mecanismos de autenticación, roles y capacidades, permisos por contexto, gestión de sesiones, validación de formularios y registro de eventos. Estas funciones deben configurarse correctamente y complementarse con la seguridad del servidor:
@@ -816,19 +855,28 @@ El dominio del ejemplo debe sustituirse por uno real configurado previamente. No
 
 Antes de anunciar el sitio, verifica desde una red externa el acceso HTTPS, el inicio de sesión, la carga de recursos, los permisos, las copias de seguridad y la ausencia de errores. Documenta la versión instalada, los cambios realizados, las cuentas entregadas de forma segura y el procedimiento de recuperación.
 
-## 14. Proyecto práctico
+## 14. Proyecto práctico final
 
-Instala Moodle en una máquina virtual con Ubuntu Server 24.04 y prepara un curso de demostración. Entrega:
+### Enunciado
 
-- Un esquema de la arquitectura y una tabla con las versiones de los componentes.
-- Evidencias de la creación de la base de datos y de la configuración de Moodle, sin mostrar contraseñas.
-- Un curso con al menos tres secciones, dos recursos y dos actividades.
-- El complemento `local_saludo` instalado y capturas de la página generada; incluye una breve explicación de `require_login()` y de cómo Moodle muestra el resultado.
-- Una personalización visual y una explicación de la licencia de los materiales utilizados.
-- Una lista de comprobaciones de seguridad y funcionamiento, con resultados.
-- Una prueba sencilla de rendimiento, indicando método, carga aplicada y observaciones.
-- Una publicación HTTPS, si se dispone de dominio; en caso contrario, documenta qué elementos faltan para publicarla de forma segura.
-- Una breve guía para actualizar y restaurar la plataforma.
+Asume el papel de responsable técnico de un centro que necesita una plataforma de aprendizaje para presentar un curso de demostración. Instala y configura **Moodle 5.1 en Ubuntu Server 24.04 LTS**, prepara un curso usable y documenta cómo has comprobado que la plataforma funciona y está protegida. Puedes reutilizar la máquina virtual de la práctica 2 y el complemento de la práctica 3, pero el proyecto debe presentarse como una instalación completa y coherente.
+
+### Trabajo que debes realizar
+
+1. **Diseña la instalación.** Describe la máquina virtual y su configuración de red. Incluye un esquema sencillo que muestre el equipo cliente, Ubuntu, Apache, PHP, Moodle, MySQL y el directorio `moodledata`. Indica las versiones efectivamente instaladas y comprueba su compatibilidad con Moodle 5.1.
+2. **Instala y configura Moodle.** Documenta los pasos principales, la creación de la base de datos y del usuario de conexión, la ubicación y los permisos de `moodledata`, y la configuración de Apache. Añade evidencias de que se puede acceder a Moodle e iniciar sesión. No incluyas contraseñas, claves ni otros secretos.
+3. **Crea un curso de demostración.** Organízalo en al menos tres secciones relacionadas con un tema formativo. Añade al menos dos recursos (por ejemplo, una página y un archivo o enlace) y dos actividades (por ejemplo, un cuestionario y una tarea). Explica brevemente qué aprenderá el alumnado y comprueba la vista del curso.
+4. **Personaliza la plataforma y añade el saludo.** Aplica una personalización visual desde las opciones del tema y deja instalado el complemento `local_saludo`. Incluye una captura de la página funcionando y explica para qué sirve `require_login()` y cómo el complemento utiliza la salida de Moodle.
+5. **Verifica seguridad y funcionamiento.** Presenta una lista de comprobación con el resultado de cada prueba: acceso al sitio, inicio de sesión, navegación por el curso, apertura de recursos, envío o realización de actividades, ejecución del cron y protección de `moodledata`. Añade una prueba sencilla de rendimiento, indicando el método utilizado, la carga aplicada y las observaciones; no hace falta someter el servidor a una carga elevada.
+6. **Explica la publicación y el mantenimiento.** Si dispones de un dominio, publica el sitio con HTTPS y verifica el certificado. Si no, describe qué configuración y recursos hacen falta antes de publicarlo de forma segura. Incluye instrucciones breves para actualizar Moodle y para realizar y restaurar una copia de seguridad de la base de datos y de `moodledata`.
+
+### Entrega
+
+Entrega una memoria ordenada con el esquema, las versiones, los pasos esenciales, las pruebas y sus resultados. Acompáñala de capturas legibles del sitio, del curso y del complemento; oculta nombres, direcciones u otros datos personales que no sean necesarios. No es necesario copiar todos los comandos de la unidad: selecciona los que permitan reproducir y entender tu instalación.
+
+### Criterios de finalización
+
+El proyecto estará completo cuando Moodle sea accesible en el entorno elegido, el curso incluya los contenidos y actividades solicitados, el tema y `local_saludo` funcionen, y la memoria aporte evidencias de las verificaciones y explique las medidas de seguridad y mantenimiento. Si algún requisito no se puede completar (por ejemplo, publicar con HTTPS por no disponer de dominio), indícalo y justifica qué faltaría para hacerlo.
 
 ## 15. Fuentes y documentación
 
