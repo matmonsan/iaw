@@ -859,11 +859,11 @@ Antes de anunciar el sitio, verifica desde una red externa el acceso HTTPS, el i
 
 ### Enunciado
 
-Prepara en **Moodle 5.1** un curso de demostración para un centro educativo. Partiendo de la instalación realizada en la práctica 2, crea y personaliza el curso, incorpora recursos y actividades, y gestiona una cuenta de alumno para comprobar cómo se ve y se utiliza desde su perfil.
+Prepara en **Moodle** un curso de demostración para un centro educativo. Partiendo de la instalación realizada en la práctica 2, crea y personaliza el curso, incorpora recursos y actividades, y gestiona una cuenta de alumno para comprobar cómo se ve y se utiliza desde su perfil.
 
 ### Temas a elegir
 
-Cada alumno tendrá asignado **uno** de estos temas introductorios. Se trabajarán con los apuntes, ejemplos y contenidos vistos en clase; no es necesario realizar investigación adicional:
+Cada alumno tendrá asignado uno de estos temas introductorios:
 
 1. Servidores.
 2. Sistemas operativos.
