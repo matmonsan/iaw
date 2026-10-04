@@ -69,6 +69,46 @@ Los CMS se pueden clasificar atendiendo al uso que se hace de ellos:
 | Gestor documental | Almacenamiento, clasificación y flujo de documentos | Alfresco, SharePoint |
 | CMS desacoplado o *headless* | Gestiona contenidos y los entrega mediante una API a distintos clientes | Strapi, Directus |
 
+```mermaid
+flowchart TD
+    A[Gestores de contenidos] --> B[Blogs, foros y wikis]
+    A --> C[Plataformas e-learning LMS]
+    A --> D[Portales y CMS]
+    B --> B1[WordPress, Blogger]
+    C --> C1[Moodle, Claroline, Dokeos]
+    D --> D1[Joomla, Drupal]
+```
+
+### Blogs, foros y wikis
+
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wordpress-Logo.svg?width=120" alt="Logotipo de WordPress" width="120">
+
+*Logotipo de WordPress, uno de los gestores de blogs más usados. Fuente: Wikimedia Commons.*
+
+- **Blogs:** sitios web en los que se publican artículos de uno o varios autores en orden cronológico inverso. Los lectores pueden comentar cada entrada y es habitual ofrecer sindicación mediante RSS o Atom. Pueden usarse servicios con alojamiento gratuito (Blogger, WordPress.com) o instalarse en un servidor propio (WordPress), lo que da control total pero exige disponer de ese servidor.
+- **Foros:** espacios para compartir opiniones y formar comunidades en torno a un interés. Se diferencian de los blogs en que admiten más usuarios y las conversaciones se anidan. WordPress, Joomla o Moodle incluyen foros propios.
+- **Wikis:** sitios cuyas páginas pueden ser editadas por varios usuarios desde el navegador. Guardan un historial de cambios que permite recuperar versiones anteriores e identificar al autor de cada modificación. Sus páginas se escriben en wikitexto y se enlazan entre sí, una estructura más sencilla que una base de datos.
+
+### Plataformas de e-learning
+
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Moodle-logo.svg?width=200" alt="Logotipo de Moodle" width="200">
+
+*Logotipo de Moodle. Fuente: Wikimedia Commons.*
+
+```mermaid
+flowchart LR
+    P[Profesor] -->|crea cursos, tareas y cuestionarios| L[(LMS)]
+    L -->|contenidos y actividades| A[Alumno]
+    A -->|entregas y respuestas| L
+    L -->|calificaciones y seguimiento| P
+```
+
+Son gestores de contenidos orientados a la gestión de cursos. Incluyen herramientas de comunicación y colaboración entre los participantes, así como cuestionarios y tareas para valorar su aprendizaje. Son una de las soluciones más usadas en la educación semipresencial y a distancia. Ejemplos: Moodle, Claroline, Dokeos o WebCT.
+
+### Portales y gestores de contenidos (CMS)
+
+Los portales de contenidos son sitios de gran envergadura con funciones variadas, como los de un periódico: noticias, anuncios, repositorios de documentos, blogs, foros, ofertas de empleo o información meteorológica. Gestores como Joomla o Drupal permiten crearlos y administrarlos sin grandes conocimientos de programación web.
+
 Moodle es un LMS: además de publicar páginas, organiza el aprendizaje en cursos y ofrece herramientas de matriculación, seguimiento, comunicación y evaluación. La elección debe basarse en el propósito, el número de usuarios, las integraciones, los conocimientos de administración y los recursos disponibles.
 
 ## 5. Licencias de uso
@@ -81,7 +121,83 @@ Una licencia establece qué se puede hacer con un programa o con una obra. No se
 
 Moodle se distribuye bajo la licencia **GNU GPL versión 3 o posterior**. Esta licencia permite usar y modificar el programa y redistribuirlo respetando sus condiciones. Los temas, complementos y materiales educativos pueden tener licencias diferentes: hay que comprobarlas por separado. Para contenidos educativos pueden emplearse licencias Creative Commons, que especifican condiciones como atribución, uso no comercial o compartir con la misma licencia.
 
+### La licencia de uso
+
+La licencia es el documento con el que el autor expresa los límites y el alcance del uso que se puede hacer de su obra: copia, reproducción, modificación, traducción y adaptación. Debe especificar, al menos, qué se permite en cuanto a:
+
+- Reproducción o copia.
+- Realización de obras derivadas o adaptaciones.
+- Beneficio económico.
+
+Las licencias van desde las más restrictivas, en las que el autor se reserva todos los derechos, hasta las más permisivas, cuyo caso extremo es el dominio público. En todas se respetan los **derechos morales**: nadie puede atribuirse la autoría de una obra que no ha creado y, si se conoce al autor, hay que citarlo.
+
+### Tipos de licencias
+
+```mermaid
+flowchart LR
+    A["Copyright ©<br/>todos los derechos reservados"] --> B["Creative Commons<br/>algunos derechos reservados"] --> C["Copyleft<br/>libre con la misma licencia"] --> D["Dominio público<br/>sin restricciones"]
+```
+
+*De la licencia más restrictiva (izquierda) a la más permisiva (derecha). Las licencias CC abarcan un rango amplio según las condiciones elegidas.*
+
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Copyright.svg?width=80" alt="Símbolo de copyright" width="80">
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Copyleft.svg?width=80" alt="Símbolo de copyleft" width="80">
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cc.logo.circle.svg?width=80" alt="Logotipo de Creative Commons" width="80">
+
+*Símbolos de copyright, copyleft y Creative Commons. Fuente: Wikimedia Commons.*
+
+- **Copyright (©):** el autor se reserva todos los derechos.
+- **Copyleft:** permite la libre distribución de copias y versiones modificadas, exigiendo que las obras derivadas mantengan los mismos derechos. Nació con el software libre, cuyo autor incluye el código fuente para que se use, modifique y distribuya. Puede ser *completa* (permite cualquier modificación excepto cambiar la licencia) o *parcial* (limita las partes modificables).
+- **Creative Commons (CC):** suelen usarse para contenidos más que para software y siguen el lema «algunos derechos reservados». El autor elige qué derechos cede de entre los que posee.
+
+En todas las licencias CC se presupone que el autor concede los derechos de copia y distribución. Sobre esa base, se combinan estas condiciones:
+
+| Condición | Significado |
+| --- | --- |
+| Reconocimiento (*Attribution*) | Se permite copiar, distribuir y comunicar la obra y sus derivadas siempre que se cite al autor original. |
+| No comercial (*Non-Commercial*) | Se permite su uso siempre que no tenga fines comerciales. |
+| Sin obras derivadas (*No Derivatives*) | Se permite copiar y distribuir la obra original, pero no crear trabajos derivados. |
+| Compartir igual (*Share Alike*) | Se permiten obras derivadas siempre que se distribuyan con una licencia idéntica a la original. |
+
+Una obra con licencia copyleft completa cumple *share-alike*, pero una obra *share-alike* no tiene por qué ser copyleft completa: si tiene algún derecho restringido, sería copyleft parcial. Las licencias CC se han adaptado a la legislación de distintos países mediante el proyecto iCommons (International Commons).
+
+Hay que ser consciente de las implicaciones legales del software que se usa. En el mejor de los casos, incumplir una licencia obliga a desinstalar el programa o pagar por su uso, pero también existen multas por incumplimiento.
+
 Antes de instalar un complemento o publicar un recurso, se debe verificar su procedencia, licencia, compatibilidad con la versión instalada y política de actualizaciones.
+
+### Práctica 1: LMS gratuitos alternativos a Moodle
+
+Existen otros LMS de código abierto o con edición gratuita. Elige **uno** de la siguiente lista:
+
+| LMS | Tecnología | Descarga para Windows | Guía de instalación paso a paso |
+| --- | --- | --- | --- |
+| Chamilo | PHP + MySQL/MariaDB | https://chamilo.org/en/download/ | https://docs.chamilo.org/administration-guide/admin-guide/installation (inglés, con XAMPP) |
+| Open edX (mediante Tutor) | Python + Docker | https://docs.tutor.edly.io/install.html | https://discuss.openedx.org/t/how-to-install-openedx-v20-with-tutor-on-windows-os-with-wsl2/17417 (inglés, con WSL2 y Docker Desktop) |
+| Canvas LMS (edición Community) | Ruby on Rails + PostgreSQL | https://github.com/instructure/canvas-lms/wiki/Quick-Start | https://github.com/instructure/canvas-lms/wiki/Quick-Start (inglés, con Docker; no hay guía específica para Windows) |
+| ILIAS | PHP + MySQL/MariaDB | https://www.ilias.de/en/download/ | https://iliastutorials.com/faq/how-to-install-ilias/ (inglés) y https://github.com/ILIAS-eLearning/ILIAS/blob/release_11/docs/configuration/install.md (documentación oficial) |
+| Sakai | Java | https://www.sakailms.org/download/ | https://sakaiproject.atlassian.net/wiki/spaces/DOC/pages/32201507113/Sakai+22+Install+Guide+Source (inglés, documentación oficial) |
+| Opigno LMS | Drupal (PHP) | https://www.opigno.org/en/download | https://www.valuebound.com/resources/blog/how-install-opigno-lms (inglés) |
+
+Las guías de ILIAS y Chamilo parten de un servidor local; puedes montarlo con XAMPP (https://www.apachefriends.org/download.html). Algunos LMS no tienen instalador para Windows y se ejecutan con Docker Desktop o con un servidor local como XAMPP. Los enlaces pueden cambiar: si alguno no funciona, búscalo desde la web oficial del proyecto.
+
+**Investiga y documenta:**
+
+1. Licencia exacta (que debes localizar tú), versión estable actual y fecha de la última publicación.
+2. Requisitos de software y hardware.
+3. Funcionalidades principales: cursos, tareas, cuestionarios, foros y calificaciones.
+4. Comparativa con Moodle: ventajas, inconvenientes, comunidad y documentación.
+
+**Instalación y comprobación en Windows:**
+
+1. Elige un método de instalación compatible con Windows: instalador oficial, paquete de servidor local (XAMPP o WampServer, para los LMS en PHP) o Docker Desktop. Justifica tu elección.
+2. Instala el LMS en tu equipo siguiendo la documentación oficial y anota los pasos y los problemas encontrados.
+3. Comprueba su funcionamiento:
+   - Accede como administrador.
+   - Crea un curso con al menos un recurso y una tarea o cuestionario.
+   - Crea un usuario alumno, matricúlalo y accede con él para realizar la actividad.
+4. Si el LMS no es compatible con Windows de forma directa, indica el motivo y la alternativa que has usado.
+
+**Entrega:** un informe breve con la investigación, capturas de pantalla de la instalación y de cada comprobación, y una conclusión sobre en qué casos elegirías este LMS en lugar de Moodle.
 
 ## 6. Moodle y sus requerimientos
 
@@ -118,29 +234,130 @@ Comprueba las versiones realmente instaladas antes de continuar: `php -v` y `mys
 
 La siguiente práctica es una base para un entorno de laboratorio. En producción se debe elegir una rama de Moodle que continúe recibiendo actualizaciones, aplicar HTTPS y adaptar la capacidad del servidor.
 
-### 7.1 Actualizar e instalar los servicios
+### 7.1 Comprobar, actualizar e instalar los servicios necesarios
 
-Como MySQL ya está instalado, no instales otro servidor de base de datos. Actualiza el sistema e instala Apache, Git, PHP y las extensiones necesarias. Asegúrate de que el servidor MySQL existente es 8.4 o posterior y de que PHP cumple los requisitos de Moodle 5.1 antes de continuar.
+### Comprobación de servicios y paquetes necesarios
+
+Antes de instalar nada, comprueba Apache, PHP y MySQL, que ya están instalados en este servidor. Así evitarás reinstalar servicios que ya funcionan:
 
 ```bash
 sudo apt update
 sudo apt upgrade
-sudo apt install apache2 git \\
-	php libapache2-mod-php php-cli php-mysql php-xml php-curl \
-	php-gd php-intl php-mbstring php-soap php-zip php-opcache
-sudo systemctl enable --now apache2 mysql
+sudo systemctl is-active apache2 mysql
+sudo apache2ctl configtest
+apache2 -v
 php -v
+php -r 'echo PHP_INT_SIZE * 8, PHP_EOL;'
+php -m
 mysql --version
-sudo systemctl status apache2 mysql
+sudo mysql -NBe 'SELECT VERSION();'
+```
+![comprobaciones1](./assets/img/comprobaciones1.png)
+![comprobaciones2](./assets/img/comprobaciones2.png)
+
+Apache y MySQL deben aparecer como `active` y la prueba de Apache debe indicar `Syntax OK`. PHP debe ser de 64 bits y tener, como mínimo, las extensiones `curl`, `gd`, `intl`, `mbstring`, `mysqli`, `soap`, `xml`, `zip`, `Zend OPcache` y `sodium`. Comprueba también si están instalados los paquetes requeridos:
+
+```bash
+dpkg -s apache2 git php libapache2-mod-php php-cli php-mysql \
+	php-xml php-curl php-gd php-intl php-mbstring php-soap \
+	php-zip php-opcache
 ```
 
-Comprueba que el servicio `mysql` está activo y que el paquete `php-mysql` está instalado para permitir la conexión desde PHP. En Ubuntu 24.04, el paquete MySQL de los repositorios de Ubuntu puede ser 8.0, versión que no alcanza el mínimo de Moodle 5.1; consulta la versión antes de continuar. Los nombres de algunos paquetes de PHP pueden variar si se utiliza otra versión.
+Si `dpkg -s` indica que falta algún paquete de esta lista, ejecuta el siguiente comando. `apt` instalará los que falten y mantendrá los que ya estén instalados:
 
-En Ubuntu 24.04, revisa `/etc/php/8.3/apache2/php.ini` y ajusta `max_input_vars` al menos a `5000`. Configura `upload_max_filesize` y `post_max_size` de acuerdo con el tamaño de los archivos que permitirá el curso. Después de modificar PHP, reinicia Apache:
+```bash
+sudo apt install apache2 git \
+	php libapache2-mod-php php-cli php-mysql php-xml php-curl \
+	php-gd php-intl php-mbstring php-soap php-zip php-opcache
+```
+
+Si Apache no está instalado, el comando anterior lo instalará. No instales de nuevo MySQL si ya está presente. 
+
+### Actualización de MySQL a la versión 8.4
+
+Moodle 5.1 requiere MySQL 8.4 o posterior. Como esta instalación está recién hecha y no contiene datos que quieras conservar, puedes actualizar MySQL 8.0 directamente desde el repositorio APT oficial de Oracle. Estos comandos descargan el paquete oficial `mysql-apt-config_0.8.40-1_all.deb` y configuran el repositorio:
+
+```bash
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.40-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.40-1_all.deb
+```
+
+En el menú, selecciona **1. MySQL Server & Cluster** y pulsa Intro. En la siguiente lista selecciona **3. mysql-8.4-lts** y pulsa Intro. Al volver al menú inicial, selecciona **3. Ok** y pulsa Intro para guardar y salir; no vuelvas a entrar en la opción 1. Luego ejecuta estos comandos para comprobar que APT propone MySQL 8.4 e instalar la actualización:
+
+```bash
+sudo apt update
+apt-cache policy mysql-server
+```
+
+En la salida, confirma que `Candidate` empieza por `8.4`. Si muestra otra versión, no continúes: vuelve a configurar el repositorio con `sudo dpkg-reconfigure mysql-apt-config` y selecciona **mysql-8.4-lts**. Si indica 8.4, actualiza e inicia el servicio:
+
+```bash
+sudo apt install mysql-server
+sudo systemctl enable --now mysql
+```
+
+Al terminar, confirma la versión del servidor y que el servicio está activo:
+
+```bash
+sudo systemctl status mysql --no-pager
+sudo mysql -NBe 'SELECT VERSION();'
+```
+
+La versión debe ser 8.4 o posterior antes de continuar con Moodle. Si MySQL no arranca, consulta el registro con `sudo journalctl -u mysql -n 100 --no-pager`.
+
+### Inicio de los servicios
+
+Cuando los servicios estén instalados, habilítalos e inicia los que estuvieran inactivos:
+
+```bash
+sudo systemctl enable --now apache2 mysql
+```
+
+### Configuración de PHP para Moodle
+
+En Ubuntu 24.04, la configuración de PHP 8.3 para Apache está en `/etc/php/8.3/apache2/php.ini`. En estos pasos se permitirá subir archivos de hasta `100M`; `post_max_size` se establece en `110M` para incluir también los datos adicionales de la petición. Si necesitas otro límite, sustituye esos valores por los que quieras usar, manteniendo `post_max_size` igual o superior a `upload_max_filesize`.
+
+Establece `max_input_vars` en `5000`, el mínimo recomendado para Moodle:
+
+```bash
+sudo sed -i -E 's/^[[:space:]]*;?[[:space:]]*max_input_vars[[:space:]]*=.*/max_input_vars = 5000/' /etc/php/8.3/apache2/php.ini
+```
+
+Establece el tamaño máximo de cada archivo subido en `100M`:
+
+```bash
+sudo sed -i -E 's/^[[:space:]]*;?[[:space:]]*upload_max_filesize[[:space:]]*=.*/upload_max_filesize = 100M/' /etc/php/8.3/apache2/php.ini
+```
+
+Establece el tamaño máximo total de los datos enviados en una petición en `110M`:
+
+```bash
+sudo sed -i -E 's/^[[:space:]]*;?[[:space:]]*post_max_size[[:space:]]*=.*/post_max_size = 110M/' /etc/php/8.3/apache2/php.ini
+```
+
+Comprueba que los tres valores han quedado configurados:
+
+```bash
+grep -E '^[[:space:]]*(max_input_vars|upload_max_filesize|post_max_size)[[:space:]]*=' /etc/php/8.3/apache2/php.ini
+```
+
+La salida debe incluir `max_input_vars = 5000`, `upload_max_filesize = 100M` y `post_max_size = 110M`.
+
+![Comprobaciones 3](./assets/img/comprobaciones3.png)
+
+Reinicia Apache para que PHP cargue la nueva configuración:
 
 ```bash
 sudo systemctl restart apache2
 ```
+
+Por último, confirma que Apache sigue activo:
+
+```bash
+sudo systemctl is-active apache2
+```
+
+El resultado esperado es `active`.
 
 ### 7.2 Crear la base de datos
 
@@ -166,76 +383,260 @@ La aplicación debe conectarse con `moodleuser`, no con el usuario administrador
 
 ### 7.3 Descargar Moodle y preparar los directorios
 
-Elige una rama estable que esté mantenida y sea compatible con las versiones de PHP y MySQL de este servidor. El nombre de rama del ejemplo es orientativo y debe actualizarse si deja de tener soporte.
+En este apartado se descargará Moodle 5.1. La palabra *rama* indica la línea de desarrollo que se descarga; `MOODLE_501_STABLE` es la rama estable de Moodle 5.1. Asegúrate de que la versión de Moodle elegida sigue mantenida y es compatible con PHP y MySQL antes de continuar.
+
+Comprueba que Git está disponible:
 
 ```bash
-sudo git clone --branch MOODLE_501_STABLE \
-	https://github.com/moodle/moodle.git /var/www/moodle
+git --version
+```
+
+Descarga el código de Moodle en `/var/www/moodle`. Ejecuta este comando una sola vez; si el directorio ya existe porque el comando se ejecutó antes, no lo repitas:
+
+```bash
+sudo git clone --branch MOODLE_501_STABLE https://github.com/moodle/moodle.git /var/www/moodle
+```
+
+Comprueba que se ha descargado la rama correcta y que existe el directorio público que Apache utilizará:
+
+```bash
+git -C /var/www/moodle branch --show-current
+```
+
+El resultado esperado es `MOODLE_501_STABLE`. Comprueba ahora que existe `public`:
+
+```bash
+test -d /var/www/moodle/public && echo "Directorio public encontrado"
+```
+
+Asigna el código a `root` y al grupo `www-data`. De este modo Apache podrá leerlo, pero no modificarlo:
+
+```bash
 sudo chown -R root:www-data /var/www/moodle
+```
+
+Comprueba el propietario y los permisos del directorio:
+
+```bash
+ls -ld /var/www/moodle
+```
+
+El resultado debe ser similar a este; el número, la fecha y el tamaño variarán:
+
+```text
+drwxr-xr-x 1x root www-data 4096 oct  4 10:35 /var/www/moodle
+```
+
+Comprueba que el propietario es `root`, el grupo es `www-data` y los permisos son `drwxr-xr-x`. Si el grupo es `root`, vuelve a ejecutar el comando `chown`.
+
+Crea `/var/moodledata`, donde Moodle guardará archivos de usuarios y cursos. Esta carpeta queda fuera del directorio público de Apache y solo el servicio web y el administrador podrán acceder a ella:
+
+```bash
 sudo install -d -o www-data -g www-data -m 770 /var/moodledata
 ```
 
-`/var/moodledata` contiene archivos de usuarios y cursos. Debe estar fuera del directorio público de Apache y ser escribible por el usuario del servicio web. El código de Moodle no necesita permisos de escritura para el servidor web en una instalación normal.
+Comprueba que se creó con el propietario y los permisos esperados:
+
+```bash
+ls -ld /var/moodledata
+```
+
+El resultado debe mostrar `www-data` como propietario y grupo, y permisos `drwxrwx---`. No coloques `moodledata` dentro de `/var/www/moodle` ni de `/var/www/moodle/public`.
 
 ### 7.4 Configurar Apache
 
-En Moodle 5.1, configura el directorio `public` como raíz web. De esta forma no se exponen directamente al navegador otros archivos del código fuente. Si utilizas otra rama, sigue las instrucciones de instalación correspondientes a esa versión.
+En Moodle 5.1, el directorio `public` es la raíz web. De esta forma no se exponen directamente al navegador otros archivos del código fuente. Si utilizas otra rama, sigue las instrucciones de instalación correspondientes a esa versión.
 
-Crea `/etc/apache2/sites-available/moodle.conf` con una configuración similar a esta. Sustituye `moodle.ejemplo.local` por el nombre DNS del laboratorio o del servidor:
+#### Paso 1. Averiguar la IP del servidor
+
+Si no tienes un nombre DNS, accederás a Moodle mediante la IP de la máquina. Anótala:
+
+```bash
+hostname -I
+```
+
+#### Paso 2. Crear el archivo del sitio
+
+Abre un archivo nuevo con el editor `nano`:
+
+```bash
+sudo nano /etc/apache2/sites-available/moodle.conf
+```
+
+Pega este contenido. Sustituye `192.168.0.36` por la IP del paso 1 si es distinta (también sirve un nombre DNS del laboratorio):
 
 ```apache
 <VirtualHost *:80>
-		ServerName moodle.ejemplo.local
-		DocumentRoot /var/www/moodle/public
+    ServerName 192.168.0.36
+    DocumentRoot /var/www/moodle/public
 
-		<Directory /var/www/moodle/public>
-				AllowOverride None
-				Options FollowSymLinks
-				Require all granted
-		</Directory>
+    <Directory /var/www/moodle/public>
+        AllowOverride None
+        Options FollowSymLinks
+        Require all granted
+    </Directory>
 
-		ErrorLog ${APACHE_LOG_DIR}/moodle_error.log
-		CustomLog ${APACHE_LOG_DIR}/moodle_access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/moodle_error.log
+    CustomLog ${APACHE_LOG_DIR}/moodle_access.log combined
 </VirtualHost>
 ```
 
-Activa el sitio y comprueba que la configuración de Apache es válida:
+Guarda con `Ctrl+O`, pulsa `Enter` y sal con `Ctrl+X`.
+
+#### Paso 3. Comprobar que el archivo se ha guardado
+
+```bash
+cat /etc/apache2/sites-available/moodle.conf
+```
+
+#### Paso 4. Activar el módulo `rewrite`
 
 ```bash
 sudo a2enmod rewrite
+```
+
+#### Paso 5. Activar el sitio de Moodle
+
+```bash
 sudo a2ensite moodle.conf
+```
+
+#### Paso 6. Desactivar el sitio por defecto
+
+Así Apache no muestra la página de bienvenida en lugar de Moodle:
+
+```bash
 sudo a2dissite 000-default.conf
+```
+
+#### Paso 7. Comprobar la configuración
+
+```bash
 sudo apache2ctl configtest
+```
+
+Debe mostrar `Syntax OK`. Puede aparecer antes un aviso sobre `ServerName`, que no es un error. Si aparece otro mensaje de error, revisa el archivo del paso 2.
+
+#### Paso 8. Aplicar los cambios
+
+```bash
 sudo systemctl reload apache2
 ```
 
-Si `configtest` no devuelve `Syntax OK`, consulta el mensaje de error y corrige la configuración antes de continuar.
+#### Paso 9. Comprobar que Apache responde
+
+```bash
+sudo systemctl is-active apache2
+curl -I http://localhost
+```
+
+El primer comando debe mostrar `active`. El segundo debe devolver una respuesta `HTTP/1.1 200 OK` o `302 Found`, que indica que Apache sirve Moodle.
 
 ### 7.5 Completar la instalación
 
-Desde un equipo que resuelva el nombre configurado, abre `http://moodle.ejemplo.local` y sigue el instalador. Selecciona el idioma, confirma las rutas y proporciona los datos de conexión a MySQL:
+#### Acceder desde el host de Windows
+
+La instalación se hace desde el navegador del equipo Windows (el host) que ejecuta la máquina virtual. Sigue estos pasos:
+
+1. **Comprueba la IP de la VM.** En la VM ejecuta `hostname -I`. En este laboratorio es `192.168.0.36`.
+2. **Comprueba que el host llega a la VM.** En PowerShell de Windows:
+
+   ```powershell
+   ping 192.168.0.36
+   ```
+
+   Deben aparecer respuestas (`Respuesta desde 192.168.0.36`). Si no responde, la VM debe tener la red en **modo puente** (*bridge*), de modo que esté en la misma red que el host. Con NAT, el host no ve la IP de la VM sin reenviar puertos.
+3. **Comprueba que el puerto 80 está accesible.** En PowerShell:
+
+   ```powershell
+   Test-NetConnection 192.168.0.36 -Port 80
+   ```
+
+   Debe mostrar `TcpTestSucceeded : True`. Si da `False`, comprueba que Apache está activo en la VM (`sudo systemctl is-active apache2`) y que el cortafuegos no bloquea el puerto (`sudo ufw status`; si está activo, `sudo ufw allow 80/tcp`).
+4. **Abre el navegador** del host y escribe en la barra de direcciones `http://192.168.0.36`. Debe cargarse el instalador de Moodle. Usa la misma IP que pusiste en `ServerName` del apartado 7.4; si accedes con otra dirección, Moodle puede mostrar un error o redirigir.
+
+![Instalación de Moodle](./assets/img/mod_install.png)
+
+5. **Opcional: usar un nombre en lugar de la IP.** Si prefieres `moodle.ejemplo.local`, cambia `ServerName` en el 7.4 por ese nombre y, en Windows, añade la línea `192.168.0.36 moodle.ejemplo.local` al archivo `C:\Windows\System32\drivers\etc\hosts`. Para editarlo, abre el Bloc de notas **como administrador**. Después accede a `http://moodle.ejemplo.local`.
+
+#### Datos del instalador
+
+Sigue el instalador. Selecciona el idioma, confirma las rutas y proporciona los datos de conexión a MySQL:
 
 - Tipo de base de datos: MySQL mejorado (controlador `mysqli`).
 - Servidor: `localhost`.
 - Base de datos: `moodle`.
 - Usuario: `moodleuser`.
 - Contraseña: la definida al crear el usuario.
-- Directorio de datos: `/var/moodledata`.
+- Directorio de datos: `/var/moodledata`. El instalador propone `/var/www/moodledata`: cámbialo por `/var/moodledata`, que es el directorio creado en el apartado 7.3.
+
+#### Crear el archivo `config.php` a mano
+
+Al terminar la configuración, Moodle muestra la pantalla «Configuración finalizada» con el contenido del archivo `config.php`. Moodle no puede crearlo por sí mismo porque `/var/www/moodle` pertenece a `root` y Apache (`www-data`) no tiene permiso de escritura. Es lo esperado y lo más seguro, así que debes crearlo tú.
+
+1. Abre el archivo en la raíz de Moodle (no en `public`):
+
+   ```bash
+   sudo nano /var/www/moodle/config.php
+   ```
+
+2. Pega el contenido que muestra el instalador, desde `<?php` hasta `require_once(__DIR__ . '/lib/setup.php');`. Guarda con `Ctrl+O`, `Enter` y sal con `Ctrl+X`.
+
+3. Comprueba que se ha guardado correctamente. La primera línea debe ser `<?php  // Moodle configuration file`:
+
+   ```bash
+   head -n 5 /var/www/moodle/config.php
+   ```
+
+4. El archivo contiene la contraseña de la base de datos: asigna propietario y permisos para que Apache solo pueda leerlo:
+
+   ```bash
+   sudo chown root:www-data /var/www/moodle/config.php
+   sudo chmod 640 /var/www/moodle/config.php
+   ```
+
+5. Verifica el resultado. Debe mostrar `-rw-r----- 1 root www-data`:
+
+   ```bash
+   ls -l /var/www/moodle/config.php
+   ```
+
+6. Vuelve al navegador y pulsa el botón para continuar, o recarga `http://192.168.0.36`. Moodle detectará `config.php` y seguirá con las comprobaciones y la creación de tablas, que tarda varios minutos. No cierres ni recargues la página mientras avanza.
 
 Completa la configuración del sitio y crea una cuenta de administración con una contraseña única. No reutilices las credenciales de la base de datos. Al finalizar, verifica que Moodle recomienda eliminar o proteger el instalador y que el directorio de datos no es accesible mediante una URL.
 
+![Instalación finalizada](./assets/img/end_install.png)
+
 ### 7.6 Configurar las tareas programadas
 
-Moodle necesita ejecutar tareas periódicas para enviar notificaciones, procesar tareas y mantener el sitio. Configura el cron para que se ejecute cada minuto como `www-data`:
+Moodle necesita ejecutar tareas periódicas para enviar notificaciones, procesar tareas y mantener el sitio. Configura el cron para que se ejecute cada minuto como `www-data`.
+
+> **Aclaración:** si `sudo crontab` responde `crontab: command not found`, el servicio `cron` no está instalado. Instálalo y actívalo antes de continuar:
+>
+> ```bash
+> sudo apt install -y cron
+> sudo systemctl enable --now cron
+> sudo systemctl is-active cron
+> ```
+>
+> El último comando debe mostrar `active`.
+
+Edita el cron del usuario `www-data` (la primera vez te pide elegir un editor; elige `nano`):
 
 ```bash
 sudo crontab -u www-data -e
 ```
 
-Añade esta línea:
+Añade esta línea, guarda con `Ctrl+O`, `Enter` y sal con `Ctrl+X`:
 
 ```cron
 * * * * * /usr/bin/php /var/www/moodle/admin/cli/cron.php >/dev/null
+```
+
+Comprueba que se ha guardado:
+
+```bash
+sudo crontab -u www-data -l
 ```
 
 En el área de administración, comprueba después que la última ejecución del cron es reciente y que no hay tareas atascadas.
