@@ -180,7 +180,7 @@ La columna **Nota máxima** indica el límite de nota para cada LMS según la di
 | **Open edX (Tutor)** | Python + Docker | [Descargar Tutor](https://docs.tutor.edly.io/install.html) | [Ver guía (WSL2 y Docker)](https://discuss.openedx.org/t/how-to-install-openedx-v20-with-tutor-on-windows-os-with-wsl2/17417) | 9 |
 | **Canvas LMS** (Community) | Ruby on Rails + PostgreSQL | [Quick Start / Descarga](https://github.com/instructure/canvas-lms/wiki/Quick-Start) | [Ver guía (Docker)](https://github.com/instructure/canvas-lms/wiki/Quick-Start) | 9 |
 | **ILIAS** | PHP + MySQL/MariaDB | [Descargar ILIAS](https://www.ilias.de/en/download/) | [Tutorial](https://iliastutorials.com/faq/how-to-install-ilias/) / [Guía Oficial](https://github.com/ILIAS-eLearning/ILIAS/blob/release_11/docs/configuration/install.md) | 8 |
-| **Sakai** | Java | [Descargar Sakai](https://www.sakailms.org/download/) | [Guía Oficial](https://sakaiproject.atlassian.net/wiki/spaces/DOC/pages/32201507113/Sakai+22+Install+Guide+Source) | 10 |
+| **Sakai** | Java | [Descargar Sakai](https://www.sakailms.org/try-sakai-lms-free) | [Guía Oficial](https://sakaiproject.atlassian.net/wiki/spaces/DOC/pages/32201507113/Sakai+22+Install+Guide+Source) | 10 |
 | **Opigno LMS** | Drupal (PHP) | [Descargar Opigno](https://www.opigno.org/en/download) | [Ver guía](https://www.valuebound.com/resources/blog/how-install-opigno-lms) | 8 |
 
 Las guías de ILIAS y Chamilo parten de un servidor local; puedes montarlo con XAMPP (https://www.apachefriends.org/download.html). Algunos LMS no tienen instalador para Windows y se ejecutan con Docker Desktop o con un servidor local como XAMPP. Los enlaces pueden cambiar: si alguno no funciona, búscalo desde la web oficial del proyecto.
