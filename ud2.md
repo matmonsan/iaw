@@ -22,7 +22,7 @@ description: "<strong>Profesor:</strong> Matías Montávez Sánchez <br> <strong
 - [11. Mecanismos de seguridad](#11-mecanismos-de-seguridad)
 - [12. Verificación y rendimiento](#12-verificación-y-rendimiento)
 - [13. Publicación](#13-publicación)
-- [14. Proyecto práctico](#14-proyecto-práctico-final)
+- [14. Proyecto práctico final](#14-proyecto-práctico-final)
 - [15. Fuentes y documentación](#15-fuentes-y-documentación)
 
 ---
@@ -859,24 +859,39 @@ Antes de anunciar el sitio, verifica desde una red externa el acceso HTTPS, el i
 
 ### Enunciado
 
-Asume el papel de responsable técnico de un centro que necesita una plataforma de aprendizaje para presentar un curso de demostración. Instala y configura **Moodle 5.1 en Ubuntu Server 24.04 LTS**, prepara un curso usable y documenta cómo has comprobado que la plataforma funciona y está protegida. Puedes reutilizar la máquina virtual de la práctica 2 y el complemento de la práctica 3, pero el proyecto debe presentarse como una instalación completa y coherente.
+Prepara en **Moodle 5.1** un curso de demostración para un centro educativo. Partiendo de la instalación realizada en la práctica 2, crea y personaliza el curso, incorpora recursos y actividades, y gestiona una cuenta de alumno para comprobar cómo se ve y se utiliza desde su perfil.
+
+### Temas a elegir
+
+Cada alumno tendrá asignado **uno** de estos temas introductorios. Se trabajarán con los apuntes, ejemplos y contenidos vistos en clase; no es necesario realizar investigación adicional:
+
+1. Servidores.
+2. Sistemas operativos.
+3. Comandos Linux.
+4. Copias de seguridad.
+5. Lenguajes de programación.
+6. Hardware de equipos.
+7. Direccionamiento IP.
+8. Redes informáticas.
+9. DNS.
+10. Monitorización de sistemas.
+11. Bases de datos.
+12. Máquinas virtuales.
 
 ### Trabajo que debes realizar
 
-1. **Diseña la instalación.** Describe la máquina virtual y su configuración de red. Incluye un esquema sencillo que muestre el equipo cliente, Ubuntu, Apache, PHP, Moodle, MySQL y el directorio `moodledata`. Indica las versiones efectivamente instaladas y comprueba su compatibilidad con Moodle 5.1.
-2. **Instala y configura Moodle.** Documenta los pasos principales, la creación de la base de datos y del usuario de conexión, la ubicación y los permisos de `moodledata`, y la configuración de Apache. Añade evidencias de que se puede acceder a Moodle e iniciar sesión. No incluyas contraseñas, claves ni otros secretos.
-3. **Crea un curso de demostración.** Organízalo en al menos tres secciones relacionadas con un tema formativo. Añade al menos dos recursos (por ejemplo, una página y un archivo o enlace) y dos actividades (por ejemplo, un cuestionario y una tarea). Explica brevemente qué aprenderá el alumnado y comprueba la vista del curso.
-4. **Personaliza la plataforma y añade el saludo.** Aplica una personalización visual desde las opciones del tema y deja instalado el complemento `local_saludo`. Incluye una captura de la página funcionando y explica para qué sirve `require_login()` y cómo el complemento utiliza la salida de Moodle.
-5. **Verifica seguridad y funcionamiento.** Presenta una lista de comprobación con el resultado de cada prueba: acceso al sitio, inicio de sesión, navegación por el curso, apertura de recursos, envío o realización de actividades, ejecución del cron y protección de `moodledata`. Añade una prueba sencilla de rendimiento, indicando el método utilizado, la carga aplicada y las observaciones; no hace falta someter el servidor a una carga elevada.
-6. **Explica la publicación y el mantenimiento.** Si dispones de un dominio, publica el sitio con HTTPS y verifica el certificado. Si no, describe qué configuración y recursos hacen falta antes de publicarlo de forma segura. Incluye instrucciones breves para actualizar Moodle y para realizar y restaurar una copia de seguridad de la base de datos y de `moodledata`.
+1. **Crea un curso de demostración.** Elige uno de los temas de la lista y organiza el curso en al menos tres secciones. Explica brevemente qué aprenderá el alumnado.
+2. **Personaliza el curso.** Configura su presentación y añade una descripción, una imagen o elementos visuales relacionados con el tema. Incorpora al menos dos recursos (por ejemplo, una página y un archivo o enlace) y dos actividades (por ejemplo, un cuestionario y una tarea).
+3. **Gestiona al alumnado.** Crea una cuenta de alumno de prueba y matricúlala en el curso. Revisa su perfil y accede al curso con esa cuenta para comprobar cómo se presenta el contenido y qué opciones tiene disponibles.
+4. **Comprueba el funcionamiento.** Desde la cuenta de alumno, abre los recursos y realiza o envía las actividades. Registra los resultados y añade capturas legibles de la vista del curso, su personalización, la matrícula y el perfil del alumno. Oculta cualquier dato personal innecesario.
 
 ### Entrega
 
-Entrega una memoria ordenada con el esquema, las versiones, los pasos esenciales, las pruebas y sus resultados. Acompáñala de capturas legibles del sitio, del curso y del complemento; oculta nombres, direcciones u otros datos personales que no sean necesarios. No es necesario copiar todos los comandos de la unidad: selecciona los que permitan reproducir y entender tu instalación.
+Entrega una memoria ordenada que describa el tema y la organización del curso, las personalizaciones realizadas, los recursos y actividades incluidos y las comprobaciones efectuadas con la cuenta de alumno. Acompáñala de capturas legibles del curso y de la gestión del alumno (matrícula y perfil); oculta cualquier dato personal innecesario.
 
 ### Criterios de finalización
 
-El proyecto estará completo cuando Moodle sea accesible en el entorno elegido, el curso incluya los contenidos y actividades solicitados, el tema y `local_saludo` funcionen, y la memoria aporte evidencias de las verificaciones y explique las medidas de seguridad y mantenimiento. Si algún requisito no se puede completar (por ejemplo, publicar con HTTPS por no disponer de dominio), indícalo y justifica qué faltaría para hacerlo.
+El proyecto estará completo cuando el curso esté organizado en al menos tres secciones, incluya las personalizaciones, recursos y actividades solicitados, y una cuenta de alumno esté matriculada y permita comprobar la vista del curso, el perfil y la realización de las actividades. La memoria debe explicar el trabajo y aportar evidencias de estas comprobaciones.
 
 ## 15. Fuentes y documentación
 
