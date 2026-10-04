@@ -165,32 +165,32 @@ Hay que ser consciente de las implicaciones legales del software que se usa. En 
 
 Antes de instalar un complemento o publicar un recurso, se debe verificar su procedencia, licencia, compatibilidad con la versión instalada y política de actualizaciones.
 
-### Práctica 1: LMS gratuitos alternativos a Moodle
+### **Práctica 1: LMS gratuitos alternativos a Moodle**
 
 Existen otros LMS de código abierto o con edición gratuita. Elige **uno** de la siguiente lista:
 
 | LMS | Tecnología | Descarga para Windows | Guía de instalación paso a paso |
 | --- | --- | --- | --- |
-| Chamilo | PHP + MySQL/MariaDB | https://chamilo.org/en/download/ | https://docs.chamilo.org/administration-guide/admin-guide/installation (inglés, con XAMPP) |
-| Open edX (mediante Tutor) | Python + Docker | https://docs.tutor.edly.io/install.html | https://discuss.openedx.org/t/how-to-install-openedx-v20-with-tutor-on-windows-os-with-wsl2/17417 (inglés, con WSL2 y Docker Desktop) |
-| Canvas LMS (edición Community) | Ruby on Rails + PostgreSQL | https://github.com/instructure/canvas-lms/wiki/Quick-Start | https://github.com/instructure/canvas-lms/wiki/Quick-Start (inglés, con Docker; no hay guía específica para Windows) |
-| ILIAS | PHP + MySQL/MariaDB | https://www.ilias.de/en/download/ | https://iliastutorials.com/faq/how-to-install-ilias/ (inglés) y https://github.com/ILIAS-eLearning/ILIAS/blob/release_11/docs/configuration/install.md (documentación oficial) |
-| Sakai | Java | https://www.sakailms.org/download/ | https://sakaiproject.atlassian.net/wiki/spaces/DOC/pages/32201507113/Sakai+22+Install+Guide+Source (inglés, documentación oficial) |
-| Opigno LMS | Drupal (PHP) | https://www.opigno.org/en/download | https://www.valuebound.com/resources/blog/how-install-opigno-lms (inglés) |
+| **Chamilo** | PHP + MySQL/MariaDB | [Descargar Chamilo](https://chamilo.org/en/download/) | [Ver guía (XAMPP)](https://docs.chamilo.org/administration-guide/admin-guide/installation)  |
+| **Open edX (Tutor)** | Python + Docker | [Descargar Tutor](https://docs.tutor.edly.io/install.html) | [Ver guía (WSL2 y Docker)](https://discuss.openedx.org/t/how-to-install-openedx-v20-with-tutor-on-windows-os-with-wsl2/17417)  |
+| **Canvas LMS** (Community) | Ruby on Rails + PostgreSQL | [Quick Start / Descarga](https://github.com/instructure/canvas-lms/wiki/Quick-Start) | [Ver guía (Docker)](https://github.com/instructure/canvas-lms/wiki/Quick-Start)  |
+| **ILIAS** | PHP + MySQL/MariaDB | [Descargar ILIAS](https://www.ilias.de/en/download/) | [Tutorial](https://iliastutorials.com/faq/how-to-install-ilias/) / [Guía Oficial](https://github.com/ILIAS-eLearning/ILIAS/blob/release_11/docs/configuration/install.md)  |
+| **Sakai** | Java | [Descargar Sakai](https://www.sakailms.org/download/) | [Guía Oficial](https://sakaiproject.atlassian.net/wiki/spaces/DOC/pages/32201507113/Sakai+22+Install+Guide+Source)  |
+| **Opigno LMS** | Drupal (PHP) | [Descargar Opigno](https://www.opigno.org/en/download) | [Ver guía](https://www.valuebound.com/resources/blog/how-install-opigno-lms)  |
 
 Las guías de ILIAS y Chamilo parten de un servidor local; puedes montarlo con XAMPP (https://www.apachefriends.org/download.html). Algunos LMS no tienen instalador para Windows y se ejecutan con Docker Desktop o con un servidor local como XAMPP. Los enlaces pueden cambiar: si alguno no funciona, búscalo desde la web oficial del proyecto.
 
 **Investiga y documenta:**
 
-1. Licencia exacta (que debes localizar tú), versión estable actual y fecha de la última publicación.
+1. Licencia exacta, versión estable actual y fecha de la última publicación.
 2. Requisitos de software y hardware.
 3. Funcionalidades principales: cursos, tareas, cuestionarios, foros y calificaciones.
-4. Comparativa con Moodle: ventajas, inconvenientes, comunidad y documentación.
+4. Comparativa con otros LMS: ventajas, inconvenientes, comunidad y documentación.
 
 **Instalación y comprobación en Windows:**
 
 1. Elige un método de instalación compatible con Windows: instalador oficial, paquete de servidor local (XAMPP o WampServer, para los LMS en PHP) o Docker Desktop. Justifica tu elección.
-2. Instala el LMS en tu equipo siguiendo la documentación oficial y anota los pasos y los problemas encontrados.
+2. Instala el LMS en tu equipo siguiendo la documentación oficial y anota los pasos y los problemas encontrados. Documenta la instalación paso a paso.
 3. Comprueba su funcionamiento:
    - Accede como administrador.
    - Crea un curso con al menos un recurso y una tarea o cuestionario.
