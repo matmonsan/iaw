@@ -116,6 +116,10 @@ Moodle es un LMS: además de publicar páginas, organiza el aprendizaje en curso
 
 ## 5. Licencias de uso
 
+<video controls>
+  <source src="./assets/img/Licencias_de_software.mp4" type="video/mp4">
+</video>
+
 Una licencia establece qué se puede hacer con un programa o con una obra. No se debe confundir que un producto sea gratuito con que carezca de licencia o de condiciones de uso.
 
 - **Software propietario:** el titular conserva el control del código y concede permisos de uso bajo unas condiciones determinadas.
