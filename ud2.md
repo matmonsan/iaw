@@ -116,7 +116,7 @@ Moodle es un LMS: además de publicar páginas, organiza el aprendizaje en curso
 
 ## 5. Licencias de uso
 
-<video controls>
+<video controls width="480" style="max-width: 100%">
   <source src="./assets/img/Licencias_de_software.mp4" type="video/mp4">
 </video>
 
