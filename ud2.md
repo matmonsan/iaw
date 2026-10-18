@@ -668,26 +668,258 @@ Al finalizar, verifica que el sitio carga desde el equipo anfitrión, que puedes
 
 ## 8. Estructura de Moodle
 
-En la instalación se distinguen tres ubicaciones importantes:
+Para entender Moodle conviene separar la **estructura técnica de la instalación** de la **estructura académica que ve el alumnado**. La primera permite que el servicio funcione y conserve sus datos; la segunda organiza los cursos y el aprendizaje.
 
-- **Código de Moodle** (`/var/www/moodle`): aplicación, complementos y temas. Apache publica únicamente la raíz web indicada para la versión instalada.
-- **Directorio de datos** (`/var/moodledata`): archivos subidos, cachés y otros datos. No debe estar dentro de la raíz pública ni servirse directamente por HTTP.
-- **Base de datos** (`moodle`): usuarios, cursos, actividades, configuración y referencias a los archivos.
+### 8.1. Estructura técnica
 
-En la plataforma, la organización habitual es **categorías > cursos > secciones o temas > recursos y actividades**. Las categorías agrupan cursos; las secciones estructuran cada curso; los recursos presentan información y las actividades requieren una participación del alumnado.
+En la instalación de la práctica hay tres componentes persistentes:
+
+- **Código de Moodle** (`/var/www/moodle`): aplicación PHP, temas y complementos. En Moodle 5.1, la raíz servida por el servidor web se encuentra en `public/`; Apache debe apuntar a esa raíz pública, no al directorio de datos.
+- **Directorio de datos** (`/var/moodledata`): archivos que suben los usuarios, archivos de los cursos, cachés y datos temporales. Debe estar fuera de la raíz pública y ser legible/escribible por el usuario del servidor web, pero no descargable directamente mediante una URL.
+- **Base de datos** (`moodle`): usuarios, cursos, matriculaciones, permisos, calificaciones, ajustes y metadatos de los archivos. Moodle relaciona estos registros con el contenido almacenado en `moodledata`.
+
+Un archivo PDF, por ejemplo, **no se guarda como un archivo público con el nombre original** dentro del código. Moodle administra su almacenamiento en `moodledata` y controla su acceso a través de la aplicación. Por eso no se debe mover, editar ni publicar manualmente el contenido de `moodledata`. Las copias de seguridad deben coordinar una copia de la base de datos con otra de `moodledata` y conservar también el código, los complementos y las versiones correspondientes.
+
+### 8.2. Organización académica
+
+La organización más habitual es **categorías > cursos > secciones > actividades y recursos**. Una categoría puede representar un departamento o nivel; un curso contiene una asignatura o formación concreta; y las secciones dividen el curso en unidades manejables. La sección inicial suele servir para la bienvenida, las instrucciones y los avisos generales.
+
+```mermaid
+flowchart TD
+    A["Sitio Moodle"] --> B["Categoría: Informática"]
+    B --> C["Curso: Aplicaciones web"]
+    C --> D["Sección 0: Inicio"]
+    C --> E["Sección 1: Fundamentos"]
+    C --> F["Sección 2: Prácticas"]
+    D --> G["Página: guía del curso"]
+    D --> H["Foro: avisos"]
+    E --> I["Archivo: apuntes PDF"]
+    E --> J["Cuestionario: repaso"]
+    F --> K["Tarea: entrega de práctica"]
+```
+
+La **categoría** facilita localizar y administrar cursos; no es una sección ni una unidad didáctica. El **formato del curso** determina cómo se presentan las secciones:
+
+| Formato | Cómo organiza el curso | Ejemplo de uso |
+|---|---|---|
+| **Temas** | Secciones que el docente titula y ordena por unidades o resultados de aprendizaje. | Tema 1: HTML; tema 2: CSS; tema 3: accesibilidad. |
+| **Semanal** | Secciones asociadas a semanas a partir de la fecha de inicio. | Curso de ocho semanas con una unidad y una entrega por semana. |
+| **Actividad única** | El curso muestra una actividad principal. | Curso cuyo propósito es realizar una encuesta o participar en un foro. |
+| **Otros formatos** | Formatos adicionales, como mosaicos o rejilla, si están instalados y habilitados. | Curso introductorio en el que cada mosaico representa un módulo. |
+
+La disponibilidad y el nombre de los formatos dependen de la versión, el tema y los complementos instalados. En las opciones del curso también se puede elegir si se muestran todas las secciones en una página o una sección por página. La segunda opción puede facilitar la navegación en cursos extensos. Consulta [formatos de curso en MoodleDocs](https://docs.moodle.org/501/en/Course_formats).
+
+Dentro de cada sección se combinan dos clases de elementos:
+
+- **Recursos**, que presentan o enlazan información para consultar.
+- **Actividades**, que proponen una acción del estudiante, como entregar un trabajo, responder preguntas o debatir.
+
+### 8.3. Usuarios, roles y permisos
+
+Un usuario puede participar en cursos distintos con roles distintos. Los permisos se controlan mediante **roles** y **contextos** —por ejemplo, el sitio, una categoría, un curso o una actividad concreta—; no es necesario convertir a cada docente en administrador para que pueda gestionar su curso.
+
+| Rol habitual | Función y ejemplo |
+|---|---|
+| **Administrador del sitio** | Configura Moodle, instala actualizaciones y complementos y administra la plataforma completa. Debe asignarse a muy pocas cuentas. |
+| **Gestor** | Administra categorías o cursos según los permisos que tenga. |
+| **Profesor con permiso de edición** | Diseña el curso, añade recursos y actividades, configura grupos y califica. |
+| **Profesor sin permiso de edición** | Puede acompañar al alumnado y calificar, pero no modificar el contenido del curso. |
+| **Estudiante** | Accede a los materiales, participa en las actividades y consulta sus resultados. |
+| **Invitado** | Accede solo a las partes que el curso permite y normalmente no puede participar en actividades que requieren entrega o seguimiento individual. |
+
+La **matriculación** determina quién puede entrar en un curso. Puede hacerse manualmente por el docente, mediante automatriculación con clave o mediante cohortes, si el sitio está configurado para ello. La matriculación y el rol son conceptos relacionados, pero distintos: primero se concede acceso al curso y después se determina qué acciones permite el rol. Para una comprobación realista, revisa el curso con el rol de estudiante o con una cuenta de prueba, no solo desde la vista del docente.
+
+#### Gestionar participantes de un curso
+
+Los participantes son los usuarios matriculados en el curso. Para consultar y gestionar la lista, abre el curso y selecciona **Participantes**. Las opciones y su ubicación exacta pueden variar ligeramente según el tema, los permisos y los métodos de matriculación habilitados.
+
+**Añadir a una persona manualmente:**
+
+1. En **Participantes**, pulsa **Matricular usuarios**.
+2. Busca el usuario por nombre, apellido o correo. Si no aparece, primero hay que crear su cuenta o solicitar que se registre, según la configuración del sitio.
+3. Selecciona el **rol** que tendrá en este curso (por ejemplo, Estudiante o Profesor sin permiso de edición) y, si procede, establece el periodo de matriculación.
+4. Confirma la acción y comprueba que la persona aparece en la lista con el rol esperado.
+
+Este procedimiento requiere que la matriculación manual esté habilitada y que quien lo realiza tenga los permisos adecuados. Para incorporar un grupo amplio o recurrente, el administrador puede crear cuentas mediante **Administración del sitio > Usuarios > Cuentas > Subir usuarios** usando un CSV, o gestionar una **cohorte** y matricularla en el curso si esa opción está configurada. Antes de procesar un archivo grande, prueba con unas pocas cuentas y revisa la vista previa. El CSV contiene datos personales: compártelo por un canal seguro, limita quién puede acceder y elimina las copias temporales cuando ya no hagan falta.
+
+**Cambiar el rol o suspender el acceso:** desde la lista de participantes, utiliza las acciones de edición de matriculación de esa persona para cambiar su rol o suspenderla. La suspensión es útil cuando se quiere impedir temporalmente el acceso y conservar su inscripción en la lista; puede reactivarse más adelante. Revisa también las fechas de inicio y fin de la matriculación, pues una fecha vencida puede impedir el acceso.
+
+**Quitar de un curso:** en las acciones de matriculación, selecciona **Cancelar matriculación** o **Anular la matriculación**, y confirma. Esto quita el acceso por ese método de matriculación, pero **no elimina necesariamente la cuenta de usuario del sitio**: la persona podría seguir inscrita en otros cursos. Antes de confirmar, revisa el aviso de Moodle y las políticas de conservación de calificaciones y datos de actividad; los efectos sobre datos existentes pueden depender del método de matriculación y de la configuración. Si solo se necesita una pausa, suspender suele ser más apropiado que cancelar.
+
+Al final, comprueba la lista, el rol asignado y el acceso desde la perspectiva del participante. Para más información, consulta la documentación oficial sobre [matriculación manual](https://docs.moodle.org/501/en/Manual_enrolment), [participantes del curso](https://docs.moodle.org/501/en/Participants) y [subida de usuarios](https://docs.moodle.org/501/en/Upload_users).
 
 ## 9. Creación de contenidos
 
-Una vez iniciada la sesión como administrador:
+El contenido de un curso debe responder a una secuencia didáctica: **orientar, explicar, practicar, recibir retroalimentación y comprobar el aprendizaje**. Antes de subir documentos, planifica las secciones y decide qué hará el alumnado en cada una. Moodle no es únicamente un repositorio de archivos: sus actividades permiten interacción, seguimiento y evaluación.
 
-1. Crea una categoría para el departamento o nivel educativo.
-2. Crea un curso y define nombre, descripción, formato, fechas y método de matriculación.
-3. Añade secciones con una secuencia de aprendizaje clara.
-4. Incorpora recursos: archivos, páginas, enlaces, libros o etiquetas.
-5. Añade actividades: tareas, cuestionarios, foros, consultas o talleres.
-6. Matricula participantes con los roles adecuados y revisa el curso con el rol de estudiante.
+### 9.1. Preparar un curso
 
-Utiliza nombres descriptivos, formatos accesibles y materiales cuya licencia permita su uso. Evita subir datos personales que no sean necesarios y limita el tamaño de los archivos a lo requerido por la actividad.
+![Curso de ejemplo](./assets/img/cursoEjemplo.png)
+
+Con el rol de administrador o de docente con permisos:
+
+1. **Crea o selecciona una categoría.** Desde la administración de cursos, organiza las categorías con una jerarquía sencilla, por ejemplo `Informática > Desarrollo web`. Evita crear una categoría distinta para cada curso si no aporta valor a la navegación.
+2. **Crea el curso.** Abre la categoría y selecciona **Crear un nuevo curso**. Indica un nombre completo reconocible (por ejemplo, *Aplicaciones web — 1.º ASIR*), un nombre corto (por ejemplo, `AW-ASIR1`), una descripción y, cuando corresponda, fechas de inicio y finalización.
+3. **Configura su formato y apariencia.** Elige Temas o Semanal, define el número inicial de secciones y decide la disposición. El formato se puede cambiar después; revisa el resultado porque algunos formatos interpretan las secciones de manera diferente.
+4. **Configura el acceso.** Revisa los métodos de matriculación, la disponibilidad y la visibilidad del curso. Una clave de automatriculación no sustituye una política de acceso adecuada: compártela solo con el grupo previsto y cámbiala cuando deje de ser necesaria.
+5. **Matricula al equipo docente y al alumnado.** Asigna el rol mínimo necesario. Si se usa automatriculación, verifica que el método esté habilitado y que sus fechas y límites sean los esperados.
+6. **Activa el modo de edición.** En la página del curso, usa **Activar edición**. En la sección deseada, selecciona **Añadir una actividad o un recurso**, elige el elemento y completa su formulario.
+7. **Ordena y comprueba.** Arrastra los elementos para establecer el orden de lectura, utiliza títulos claros y abre el curso como estudiante para verificar permisos, enlaces, fechas y disponibilidad.
+
+La ventana **Añadir una actividad o un recurso** permite buscar y seleccionar el tipo de elemento que se incorporará a la sección. La captura oficial siguiente ilustra el selector; su aspecto y la lista de opciones pueden variar según la versión y los complementos habilitados.
+
+![añadir](./assets/img/add.png)
+
+### 9.2. Recursos: presentar información
+
+Los recursos permiten explicar, orientar y proporcionar materiales. Se configuran desde el selector de la sección correspondiente. Estos son recursos habituales de Moodle:
+
+![Recursos](./assets/img/recursos.png)
+
+| Recurso | Qué permite hacer | Ejemplo |
+|---|---|---|
+| **Archivo** | Publicar un archivo individual, como PDF, imagen, presentación o plantilla. | `guia-practica-01.pdf`, con un nombre comprensible en vez de `doc_final_v7.pdf`. |
+| **Carpeta** | Agrupar varios archivos relacionados en un solo elemento. | Carpeta con datos de ejemplo, instrucciones y una plantilla descargable. |
+| **Página** | Crear contenido HTML dentro de Moodle, con texto, imágenes, enlaces y medios compatibles. | Página “Antes de empezar” con objetivos, requisitos previos y enlaces. |
+| **Libro** | Organizar contenido en capítulos y subcapítulos con navegación interna. | Manual breve de instalación con capítulos de preparación, configuración y verificación. |
+| **URL** | Enlazar una fuente externa. | Enlace a la documentación oficial de PHP o a un vídeo educativo con licencia adecuada. |
+| **Etiqueta** (puede mostrarse como texto y medios en algunas versiones) | Insertar texto, encabezados o elementos visuales directamente en la página principal del curso. | Un encabezado “Material de la unidad” o una indicación corta entre dos actividades. |
+| **Paquete IMS de contenido** | Mostrar un paquete educativo IMS Content Package, si se dispone de uno compatible. | Material de autoestudio exportado desde una herramienta de autoría. |
+
+**¿Página o archivo?** Utiliza una página cuando el contenido sea breve, deba leerse en el navegador o necesite actualizarse con facilidad. Usa un archivo cuando sea importante descargarlo, imprimirlo o conservar su formato original. Una carpeta es preferible a publicar muchos archivos sueltos si estos pertenecen a una misma práctica. Para un enlace externo, proporciona un texto descriptivo y verifica que no requiera una cuenta o permiso que el alumnado no tenga.
+
+### 9.3. Actividades: practicar, colaborar y evaluar
+
+Las actividades solicitan una acción y, según su configuración, registran entregas, respuestas, participación, calificaciones o finalización. La actividad apropiada depende de lo que se quiere observar: no conviene elegir un cuestionario solo porque sea el elemento más rápido de crear.
+
+| Actividad | Uso principal | Ejemplo de consigna |
+|---|---|---|
+| **Tarea** | Recibir archivos o texto en línea, establecer una fecha límite y calificar con nota, comentarios o rúbrica. | “Entrega el informe en PDF. Incluye capturas de las pruebas y responde a los tres apartados de la rúbrica.” |
+| **Cuestionario** | Combinar preguntas, intentos, límites de tiempo, retroalimentación y calificación automática o manual. | Prueba de repaso con preguntas de opción múltiple, verdadero/falso y respuesta breve. |
+| **Foro** | Mantener debates, anuncios o preguntas y respuestas. Puede permitir suscripciones y calificación de participación. | “Describe un problema de accesibilidad encontrado en una web y propone una mejora razonada.” |
+| **Lección** | Presentar páginas de contenido intercaladas con preguntas y rutas según las respuestas. | Recorrido ramificado para decidir cómo responder ante un error de configuración. |
+| **Consulta** | Recoger rápidamente la elección entre opciones. | Elegir una fecha de exposición o el tema de un proyecto. |
+| **Retroalimentación / Encuesta** | Recoger opiniones y respuestas; el nombre y las opciones disponibles dependen de la instalación. | Encuesta anónima de satisfacción al acabar la unidad. |
+| **Glosario** | Construir una colección de definiciones que puede ser colaborativa. | Diccionario compartido de términos de redes o desarrollo web. |
+| **Taller** | Gestionar entregas y evaluación entre iguales con fases y criterios definidos por el docente. | Cada estudiante entrega un diseño y evalúa dos propuestas mediante una rúbrica. |
+| **Base de datos** | Recopilar fichas estructuradas aportadas por los participantes. | Catálogo de herramientas con nombre, finalidad y enlace. |
+| **Paquete SCORM** | Ejecutar contenido de aprendizaje empaquetado y registrar los datos que exponga el paquete. | Módulo interactivo de una herramienta de autoría compatible. |
+| **H5P u otras actividades interactivas** | Crear o integrar contenido interactivo cuando la herramienta o el complemento esté instalado y habilitado. | Vídeo interactivo con preguntas incrustadas. |
+
+#### Ejemplo: configurar una tarea
+
+Para recibir una práctica en PDF:
+
+1. En la sección **Prácticas**, selecciona **Añadir una actividad o un recurso > Tarea**.
+2. Escribe un nombre específico, por ejemplo, **Práctica 1: validar el formulario**. En la descripción incluye el objetivo, los pasos mínimos, el formato de entrega y los criterios de evaluación.
+3. Establece las fechas de disponibilidad y entrega. Decide si se permitirán entregas tardías y si se habilitarán varios intentos.
+4. En **Tipos de entrega**, habilita el envío de archivos y limita la cantidad y el tamaño a lo necesario. Si se quiere que el alumnado redacte dentro de Moodle, habilita texto en línea en lugar de —o además de— archivos.
+5. En **Calificación**, configura la escala o rúbrica. Explica los criterios antes de la entrega: por ejemplo, funcionamiento (50 %), justificación (30 %) y presentación accesible (20 %).
+6. Guarda los cambios y realiza una entrega de prueba como estudiante. Comprueba que se puede abrir la consigna, cargar el archivo y ver el estado de entrega.
+
+#### Ejemplo: configurar un cuestionario
+
+Un cuestionario de repaso puede tener cinco preguntas de opción múltiple, dos preguntas de verdadero/falso y una respuesta breve. Define si cada pregunta se califica automáticamente, cuántos intentos se permiten, si el orden de preguntas se mezcla y cuándo se muestran las respuestas correctas. Para una actividad formativa, proporciona retroalimentación tras cada respuesta y permite varios intentos; para una prueba sumativa, comunica de antemano los intentos, el tiempo y las fechas.
+
+Las preguntas se guardan en el **banco de preguntas** y pueden organizarse en categorías para reutilizarlas. Antes de abrir el cuestionario, previsualízalo: comprueba la puntuación total, la respuesta correcta, la retroalimentación, el tiempo y la visualización en móvil.
+
+#### Banco de preguntas: crear, organizar y reutilizar
+
+El banco de preguntas permite almacenar preguntas fuera de un cuestionario concreto, mantenerlas organizadas y añadirlas a uno o varios cuestionarios del curso. Según los permisos y la configuración del sitio, se accede desde el menú del curso mediante **Más > Banco de preguntas** o desde la administración del cuestionario. Los rótulos pueden cambiar entre versiones o temas.
+
+Una forma práctica de organizarlo es crear categorías por unidad y objetivo, por ejemplo:
+
+```text
+Aplicaciones web
+├── Unidad 1 - HTML
+│   ├── Conceptos
+│   └── Aplicación
+├── Unidad 2 - CSS
+└── Unidad 3 - Accesibilidad
+```
+
+Las categorías pueden tener subcategorías. Al crear una pregunta, elige dónde guardarla, ponle un nombre interno reconocible (por ejemplo, `U1_HTML_semantica_01`) y redacta el enunciado para el alumnado. El nombre interno sirve para localizarla en el banco; no sustituye el enunciado que verá quien realiza el cuestionario. Si copias o reutilizas preguntas, verifica que la categoría de destino sea la correcta y que la redacción siga siendo válida.
+
+**Tipos habituales de pregunta:**
+
+| Tipo | Cuándo usarlo | Ejemplo |
+|---|---|---|
+| **Opción múltiple** | Una o varias respuestas correctas, con calificación y retroalimentación configurables. | “¿Qué elemento HTML representa la navegación principal?” |
+| **Verdadero/falso** | Comprobar una afirmación sencilla; evita enunciados ambiguos o con dobles negaciones. | “El atributo `alt` puede ofrecer una alternativa textual a una imagen.” |
+| **Respuesta corta** | Comparar la respuesta escrita con una o varias respuestas aceptadas. | Escribir el nombre de un elemento HTML. Hay que prever variantes y mayúsculas si corresponde. |
+| **Numérica** | Evaluar un valor numérico, con tolerancia si procede. | Calcular el porcentaje de una nota. |
+| **Emparejamiento** | Relacionar conceptos de dos listas. | Asociar cada elemento HTML con su función. |
+| **Ensayo** | Recibir una respuesta extensa que requiere calificación manual. | Justificar cómo se mejoraría la accesibilidad de un formulario. |
+| **Calculada** | Generar valores numéricos a partir de conjuntos de datos, si se necesita variar los parámetros. | Resolver un cálculo con valores distintos en cada intento. |
+| **Arrastrar y soltar** | Relacionar elementos o ubicarlos en un texto o imagen; los tipos disponibles dependen de la instalación. | Arrastrar etiquetas a las partes de un formulario. |
+
+**Añadir preguntas a un cuestionario:**
+
+1. Crea una actividad **Cuestionario** y guarda sus ajustes de disponibilidad, intentos, calificación y revisión.
+2. En el cuestionario, abre **Añadir pregunta** o **Añadir** y elige preguntas del banco.
+3. Filtra por categoría y selecciona las preguntas adecuadas. Ajusta la puntuación máxima de cada una y la calificación total del cuestionario.
+4. Para variar los cuestionarios, añade **preguntas aleatorias** de una categoría. Moodle seleccionará preguntas de esa categoría en cada intento. Asegúrate de que hay suficientes preguntas equivalentes y que todas tienen dificultad y puntuación comparables; si el banco contiene menos preguntas que las solicitadas, no se podrá formar el conjunto esperado.
+5. Usa la vista previa y realiza un intento de prueba para confirmar que las preguntas aparecen, que la puntuación suma lo previsto y que la retroalimentación se muestra en el momento adecuado.
+
+**Ejemplo de banco y cuestionario:** crea la categoría `Unidad 1 - HTML > Conceptos` e incorpora ocho preguntas de opción múltiple sobre estructura semántica, cada una con puntuación y explicación de la respuesta. En un cuestionario de repaso, selecciona cinco preguntas al azar de esa categoría y permite tres intentos con retroalimentación inmediata. Para una evaluación calificada, especifica además el tiempo, las fechas y el comportamiento de revisión, y comprueba que las preguntas aleatorias cubren los mismos objetivos.
+
+También se pueden importar y exportar preguntas desde las opciones del banco. Los formatos admitidos dependen de la instalación; **Moodle XML** es una opción habitual para intercambiar preguntas con sus datos y organización compatibles, y **GIFT** es un formato de texto útil para preguntas sencillas. Después de importar, revisa las preguntas en el banco y previsualiza un cuestionario: la importación no garantiza que el formato, las respuestas o la retroalimentación hayan quedado como se pretendía.
+
+Ejemplo sencillo de pregunta de opción múltiple en **GIFT**:
+
+```text
+::HTML - elemento semantico::
+¿Qué elemento identifica el contenido principal de una página? {
+=<main>
+~<footer>
+~<small>
+}
+```
+
+La línea que empieza por `=` marca la respuesta correcta y `~` introduce distractores. Guarda el texto con la codificación esperada por el sitio e impórtalo eligiendo GIFT como formato; después, verifica el enunciado y las respuestas desde el banco.
+
+**Vídeo: banco de preguntas de Moodle**
+
+[![Miniatura del vídeo sobre el banco de preguntas de Moodle](https://img.youtube.com/vi/eUBI1cXSoFw/hqdefault.jpg)](https://youtu.be/eUBI1cXSoFw?si=EZiDmN3f7Ng8JDEa)
+
+Consulta la documentación oficial sobre [actividades](https://docs.moodle.org/501/en/Activities), [recursos](https://docs.moodle.org/501/en/Resources), [cuestionarios](https://docs.moodle.org/501/en/Quiz_activity), [banco de preguntas](https://docs.moodle.org/501/en/Question_bank), [importación de preguntas](https://docs.moodle.org/501/en/Import_questions) y [formato GIFT](https://docs.moodle.org/501/en/GIFT_format).
+
+### 9.4. Ejemplo de curso completo
+
+Este ejemplo organiza una unidad titulada **Aplicaciones web: formularios accesibles**. Cada sección presenta un objetivo, un material para aprender y una acción que permite practicar o demostrar el aprendizaje:
+
+| Sección | Objetivo | Recursos | Actividades |
+|---|---|---|---|
+| **Inicio: cómo trabajar** | Entender el calendario, la forma de evaluación y el funcionamiento del curso. | Página de bienvenida, libro con la guía y enlace a la documentación de Moodle. | Foro de avisos y consulta para escoger horario de tutoría. |
+| **1. Conceptos y ejemplos** | Reconocer los controles y mensajes habituales de un formulario. | Página con explicación, imágenes con texto alternativo y glosario. | Cuestionario breve de diagnóstico, sin nota o con intentos ilimitados. |
+| **2. Diseño y accesibilidad** | Aplicar etiquetas, instrucciones y mensajes de error comprensibles. | Archivo PDF de referencia y carpeta de ejemplos. | Foro de análisis: cada estudiante propone una mejora para un formulario. |
+| **3. Construcción guiada** | Implementar un formulario y comprobar su comportamiento. | Libro con pasos y página con requisitos de validación. | Lección ramificada con decisiones sobre los mensajes de error. |
+| **4. Entrega y revisión** | Entregar una solución y justificar las decisiones tomadas. | Página con el enunciado y los criterios de calificación. | Tarea con entrega de archivos y rúbrica; opcionalmente, taller para revisión entre iguales. |
+| **Cierre** | Valorar el progreso e identificar dudas pendientes. | Resumen de la unidad y enlaces de ampliación. | Cuestionario final y encuesta de autoevaluación. |
+
+La tabla es un modelo, no una receta obligatoria: las actividades se deben adaptar al objetivo y a la evaluación. Por ejemplo, si se evalúa una destreza práctica, una tarea con evidencias y rúbrica aporta más información que una prueba basada solo en preguntas de memoria.
+
+### 9.5. Seguimiento, accesibilidad y publicación
+
+Antes de dar el curso por preparado, revisa la **disponibilidad y el seguimiento**:
+
+- **Restricción de acceso:** una actividad puede abrirse a partir de una fecha, tras completar otra actividad o al alcanzar una calificación. Explica las condiciones al alumnado y evita encadenamientos que puedan bloquearle accidentalmente.
+- **Finalización de actividad:** se puede marcar manualmente o configurarse para que Moodle la registre cuando el estudiante la vea, entregue una tarea o alcance una nota. La finalización solo es útil si los criterios representan una acción significativa.
+- **Calificaciones:** comprueba la escala, el peso de cada elemento y la categoría del libro de calificaciones. Una tarea puede estar visible y, aun así, no tener nota configurada como se espera.
+- **Grupos:** si se trabaja por equipos, configura los grupos o agrupamientos y comprueba quién puede ver y responder a cada actividad.
+- **Visibilidad:** un curso oculto o una actividad no disponible no se mostrarán al alumnado aunque el docente los vea en modo de edición.
+
+También aplica buenas prácticas al crear materiales:
+
+1. Usa títulos concretos y consistentes, como **“Unidad 2 — Validación de formularios”**, en vez de **“Material nuevo”**.
+2. Divide textos largos con encabezados, listas y enlaces cuyo texto describa el destino. Evita “haz clic aquí” como único contexto.
+3. Añade texto alternativo a imágenes informativas; si una imagen es decorativa, no repitas en el texto lo que ya comunica.
+4. No transmitas información únicamente mediante el color. Comprueba contraste, tamaño de letra y lectura desde móvil.
+5. Añade subtítulos o transcripción a vídeos cuando estén disponibles. Evita documentos escaneados que no permitan seleccionar o leer el texto.
+6. Comprueba la licencia del material externo y cita la fuente cuando corresponda. No publiques datos personales, listados de notas ni información de otros estudiantes.
+7. Prueba cada enlace, recurso y actividad con una cuenta de estudiante. Comprueba también las fechas, las condiciones de acceso, el límite de subida y los avisos que recibe el participante.
+
+Cuando todo funcione, deja el curso visible en el momento adecuado y comunica cómo matricularse, dónde empezar y a quién pedir ayuda. La documentación oficial de [la página principal del curso](https://docs.moodle.org/501/en/Course_homepage) describe la interfaz que verá el participante.
 
 ## 10. Personalización de la interfaz
 
