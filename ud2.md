@@ -18,7 +18,7 @@ description: "<strong>Profesor:</strong> Matías Montávez Sánchez <br> <strong
 - [8. Estructura de Moodle](#8-estructura-de-moodle)
 - [9. Creación de contenidos](#9-creación-de-contenidos)
 - [10. Personalización de la interfaz](#10-personalización-de-la-interfaz)
-  - [Práctica 3: personalización del tema y saludo en PHP](#103-práctica-3-personalización-del-tema-y-saludo-en-php)
+  - [Práctica 3: personalización del tema y listado de cursos en PHP](#103-práctica-3-personalización-del-tema-y-listado-de-cursos-en-php)
 - [11. Mecanismos de seguridad](#11-mecanismos-de-seguridad)
 - [12. Verificación y rendimiento](#12-verificación-y-rendimiento)
 - [13. Publicación](#13-publicación)
@@ -938,66 +938,130 @@ El tema se cambia desde la administración del sitio, sin escribir PHP:
 
 Para instalar un tema que todavía no está disponible, descárgalo del directorio oficial de plugins de Moodle y comprueba que sea compatible con Moodle 5.1. Instálalo desde **Administración del sitio > Plugins > Instalar plugins** y, cuando Moodle lo haya detectado, selecciónalo desde el selector de temas.
 
-Si solo se quieren cambiar colores, logotipo o tipografía, revisa primero las opciones de configuración del tema instalado. En **Boost**, se pueden personalizar estilos desde su configuración avanzada, por ejemplo cargando un preset o utilizando el campo **Raw SCSS** si está disponible. Esto es SCSS/CSS, no PHP. Después de cambiar el tema o sus estilos, purga las cachés de Moodle y verifica el resultado como docente y estudiante.
+#### Personalizar Boost en Moodle 5.1
 
-No edites directamente los archivos del núcleo ni los del tema instalado: las actualizaciones pueden sobrescribir esos cambios. Para una personalización extensa, crea un tema hijo o un tema propio siguiendo las API de Moodle.
+Si el sitio utiliza el tema **Boost** y solo se quieren cambiar colores, logotipo o tipografía, no hace falta crear un tema ni escribir PHP:
+
+1. Inicia sesión como administrador y abre **Administración del sitio > Apariencia > Temas > Boost**. Si no ves esa opción directamente, entra en **Selector de temas**, localiza Boost y pulsa su icono de configuración.
+2. En **Ajustes generales**, selecciona un **Preset** o sube un archivo de preset `.scss` para cambiar el aspecto general. En esta misma página puedes configurar el **Color de marca** y subir el **Logotipo** y el **Logotipo compacto**, si esos campos aparecen en tu instalación.
+3. Para escribir estilos propios, busca la sección **Ajustes avanzados** y pega el código en **SCSS en bruto (Raw SCSS)**. Por ejemplo:
+
+   ```scss
+   body {
+       font-family: Georgia, serif;
+   }
+
+   a {
+       color: #7a1f5c;
+   }
+   ```
+
+   El campo **SCSS inicial en bruto (Raw initial SCSS)** se procesa antes que los estilos del tema y se suele usar para cambiar variables SCSS; **SCSS en bruto** se procesa después y sirve para añadir o ajustar reglas CSS. Para empezar, utiliza **SCSS en bruto** y guarda los cambios.
+4. Purga las cachés desde **Administración del sitio > Desarrollo > Purgar todas las cachés** y revisa el resultado en una página del curso.
+
+Los nombres pueden variar ligeramente según el idioma de la interfaz. Estos campos pertenecen a la configuración de Boost y contienen SCSS/CSS, no PHP. No edites directamente los archivos de Boost: una actualización podría sobrescribir esos cambios.
+
+Para una personalización extensa, crea un tema hijo o un tema propio siguiendo las API de Moodle.
 
 ### 10.2. Programación básica en PHP para Moodle
 
 PHP no se escribe en una etiqueta o recurso del curso para ejecutarlo. Para que el código se ejecute de forma integrada y segura, se crea un complemento. En esta práctica construiremos un **complemento local** que genera una página de Moodle con un saludo y la fecha del servidor. El aviso aparecerá con el estilo del tema activo.
 
-En Moodle 5.1, crea la carpeta `saludo` dentro de `public/local/`. El componente se llamará `local_saludo` y tendrá esta estructura:
+En esta práctica crearás un complemento local llamado `local_saludo`. En la instalación de Moodle 5.1 del apartado 7, el código está en `/var/www/moodle` y la raíz web es `public`, así que los archivos del complemento irán en `/var/www/moodle/public/local/saludo`. La estructura será:
 
 ```text
 public/local/saludo/
-|-- version.php
-|-- index.php
-|-- lang/
-	|-- en/local_saludo.php
-	|-- es/local_saludo.php
+├── version.php
+├── index.php
+└── lang/
+    ├── en/local_saludo.php
+    └── es/local_saludo.php
 ```
 
-#### Archivo `version.php`
+Los comandos siguientes usan esa ruta. Si Moodle está instalado en otro directorio, sustituye `/var/www/moodle` por la ruta correspondiente. Antes de instalar un complemento o ejecutar una actualización, realiza una copia de seguridad de Moodle, la base de datos y `moodledata`.
 
-Este archivo identifica el complemento y declara la versión mínima de Moodle compatible:
+#### 1. Crear las carpetas del complemento
+
+```bash
+sudo mkdir -p /var/www/moodle/public/local/saludo/lang/es
+sudo mkdir -p /var/www/moodle/public/local/saludo/lang/en
+```
+
+#### 2. Crear `version.php`
+
+Abre el archivo:
+
+```bash
+sudo nano /var/www/moodle/public/local/saludo/version.php
+```
+
+Pega este contenido:
 
 ```php
 <?php
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_saludo';
-$plugin->version = 2026100300;
+$plugin->version = 2026102300;
 $plugin->requires = 2025100600;
 ```
 
-#### Archivo `index.php`
+Guarda con `Ctrl+O`, pulsa `Intro` y sal con `Ctrl+X`. `$plugin->version` identifica la versión de este complemento. `$plugin->requires` indica la versión mínima de Moodle requerida; `2025100600` corresponde a Moodle 5.1.0. Comprueba la versión de tu instalación con:
 
-La página carga Moodle, exige que el usuario haya iniciado sesión y utiliza el sistema de salida de Moodle para mostrar el contenido:
+```bash
+grep -E '^\$version[[:space:]]*=' /var/www/moodle/version.php
+```
+
+Si tu Moodle es anterior a 5.1, ajusta `$plugin->requires` a una versión compatible. No continúes si el requisito es superior a la versión instalada.
+
+#### 3. Crear `index.php`
+
+Abre el archivo:
+
+```bash
+sudo nano /var/www/moodle/public/local/saludo/index.php
+```
+
+Pega este código:
 
 ```php
 <?php
 require(__DIR__ . '/../../../config.php');
+
 require_login();
 
 $context = context_system::instance();
+
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/local/saludo/index.php'));
 $PAGE->set_title(get_string('pluginname', 'local_saludo'));
 $PAGE->set_heading(get_string('pluginname', 'local_saludo'));
 
 echo $OUTPUT->header();
+
 echo $OUTPUT->heading(get_string('heading', 'local_saludo'));
+
 echo $OUTPUT->notification(
-	s(get_string('welcome', 'local_saludo', fullname($USER))),
-	\core\output\notification::NOTIFY_INFO
+    s(get_string('welcome', 'local_saludo', fullname($USER))),
+    \core\output\notification::NOTIFY_INFO
 );
-echo html_writer::div(s(get_string('serverdate', 'local_saludo', userdate(time()))));
+
+echo html_writer::div(
+    s(get_string('serverdate', 'local_saludo', userdate(time())))
+);
+
 echo $OUTPUT->footer();
 ```
 
-#### Archivos de idioma
+Guarda y cierra Nano. El archivo carga la configuración de Moodle, exige una sesión iniciada y utiliza la salida del tema activo. `s()` escapa el texto antes de mostrarlo como HTML.
 
-En `lang/es/local_saludo.php` añade:
+#### 4. Crear el archivo de idioma español
+
+```bash
+sudo nano /var/www/moodle/public/local/saludo/lang/es/local_saludo.php
+```
+
+En Nano, pega:
 
 ```php
 <?php
@@ -1007,7 +1071,17 @@ $string['welcome'] = '¡Hola, {$a}! Este mensaje lo genera un complemento de Moo
 $string['serverdate'] = 'Fecha y hora del servidor: {$a}';
 ```
 
-En `lang/en/local_saludo.php` añade las cadenas de reserva:
+Guarda y cierra Nano.
+
+#### 5. Crear el archivo de idioma inglés
+
+Abre el archivo:
+
+```bash
+sudo nano /var/www/moodle/public/local/saludo/lang/en/local_saludo.php
+```
+
+Pega las cadenas en inglés:
 
 ```php
 <?php
@@ -1017,33 +1091,200 @@ $string['welcome'] = 'Hello, {$a}! This message is generated by a Moodle plugin.
 $string['serverdate'] = 'Server date and time: {$a}';
 ```
 
-#### Instalación y prueba
+Guarda y cierra Nano. Moodle mostrará las cadenas del idioma seleccionado por cada usuario.
+![Saludo](./assets/img/saludo.png)
 
-1. Copia la carpeta `saludo` a `/var/www/moodle/public/local/saludo`, conservando los permisos de lectura del servidor web. No hagas escribible todo el código de Moodle por `www-data`.
-2. Inicia sesión como administrador y abre `/admin/index.php` para que Moodle detecte e instale el complemento.
-3. Abre `https://tu-dominio/local/saludo/index.php` (o la URL correspondiente a tu laboratorio).
-4. Comprueba que Moodle muestra el saludo, el aviso con el estilo del tema y la fecha. Cambia el texto del saludo, purga las cachés si es necesario y verifica el cambio.
-5. Cierra la sesión e intenta acceder de nuevo: `require_login()` debe redirigir a la página de acceso.
+#### 6. Comprobar la sintaxis de PHP
+
+Ejecuta cada comprobación. Todas deben mostrar `No syntax errors detected`:
+
+```bash
+php -l /var/www/moodle/public/local/saludo/version.php
+```
+
+```bash
+php -l /var/www/moodle/public/local/saludo/index.php
+```
+
+```bash
+php -l /var/www/moodle/public/local/saludo/lang/es/local_saludo.php
+```
+
+```bash
+php -l /var/www/moodle/public/local/saludo/lang/en/local_saludo.php
+```
+
+#### 7. Asignar permisos de lectura
+
+El código de Moodle debe poder ser leído por Apache, pero no debe ser modificable por el servidor web. Para mantener el propietario y grupo usados en esta instalación:
+
+```bash
+sudo chown -R root:www-data /var/www/moodle/public/local/saludo
+sudo find /var/www/moodle/public/local/saludo -type d -exec chmod 755 {} \;
+sudo find /var/www/moodle/public/local/saludo -type f -exec chmod 644 {} \;
+```
+
+Estos comandos dejan al propietario `root` como responsable de los archivos y permiten que Apache (`www-data`) los lea. No hagas escribible todo el código de Moodle por `www-data`.
+
+#### 8. Instalar el complemento
+
+Inicia sesión en Moodle como administrador y abre **Administración del sitio > Notificaciones** (o `/admin/index.php`). Moodle detectará el nuevo complemento y mostrará la pantalla para completar la instalación.
+
+También se puede ejecutar la actualización desde la terminal:
+
+```bash
+sudo -u www-data php /var/www/moodle/admin/cli/upgrade.php
+```
+
+Este comando puede aplicar todas las actualizaciones pendientes de Moodle y sus complementos, no solo instalar `local_saludo`. Ejecútalo únicamente después de revisar las actualizaciones pendientes y tener una copia de seguridad.
+
+#### 9. Purgar las cachés
+
+Si cambias las cadenas de idioma y Moodle aún muestra el texto anterior, purga las cachés:
+
+```bash
+sudo -u www-data php /var/www/moodle/admin/cli/purge_caches.php
+```
+
+#### 10. Abrir y probar la página
+
+En el navegador, abre:
+
+```text
+http://localhost/local/saludo/index.php
+```
+
+Si accedes desde otro equipo o la instalación utiliza un dominio o subcarpeta, sustituye `localhost` por la dirección y ruta de tu sitio; por ejemplo, `http://192.168.0.36/local/saludo/index.php`.
+
+Comprueba que aparecen el saludo con el nombre de la persona usuaria, el aviso con el estilo del tema y la fecha y hora. Cierra la sesión e intenta abrir la página de nuevo: `require_login()` debe redirigir a la pantalla de acceso.
+
+![Resultado final](./assets/img/resultado.png)
 
 La práctica enseña cómo PHP produce contenido dentro de Moodle. Si el objetivo es cambiar los colores de toda la plataforma, se debe personalizar el tema mediante sus opciones y CSS/SCSS, no intentar hacerlo insertando PHP en el contenido del curso. No modifiques los archivos del núcleo ni permitas ejecutar scripts PHP subidos como recursos.
 
-### 10.3 **Práctica 3:** personalización del tema y saludo en PHP
+### 10.3 **Práctica 3:** personalización del tema y listado de cursos en PHP
 
 **Enunciado**
 
-En la instalación de Moodle 5.1 realizada en la práctica anterior, personaliza la apariencia del sitio y desarrolla el complemento local `local_saludo` siguiendo los pasos de los apartados 10.1 y 10.2.
+En la instalación de Moodle 5.1 realizada en la práctica anterior, personaliza la apariencia del sitio y crea un complemento local nuevo, `local_miscursos`, que muestre a cada persona usuaria la lista de cursos en los que está matriculada, con enlace a cada curso. No hace falta saber PHP: se proporciona el código de los archivos y debes decidir cómo crearlos, instalarlos y comprobarlos con lo aprendido en 10.1 y 10.2.
 
 Realiza las siguientes tareas:
 
 1. Selecciona un tema compatible con Moodle 5.1. Si no hay otro tema instalado, utiliza **Boost**.
-2. Personaliza la apariencia mediante las opciones del tema: cambia al menos los colores y añade o configura un logotipo. Si utilizas Boost, puedes aplicar un preset o emplear **Raw SCSS** para los estilos.
-3. Crea el complemento local `local_saludo` con los archivos y cadenas de idioma indicados en el apartado 10.2. La página debe mostrar un saludo personalizado con el nombre de la persona usuaria y la fecha y hora del servidor.
+2. Personaliza la apariencia mediante las opciones del tema: cambia al menos los colores y añade o configura un logotipo. Si utilizas Boost, puedes aplicar un preset o emplear **SCSS en bruto** para los estilos, como se explica en el apartado 10.1.
+3. Crea el complemento `local_miscursos` con la estructura y el código indicados más abajo.
 4. Instala el complemento desde la administración del sitio y comprueba que su página usa el tema personalizado.
-5. Verifica el acceso con una sesión iniciada y comprueba que, al cerrar la sesión, Moodle solicita autenticarse para acceder a la página.
+5. Matricula una cuenta de prueba en uno o dos cursos y comprueba que la página los lista; comprueba también el mensaje que aparece cuando no hay ningún curso.
+6. Cierra la sesión y verifica que, al intentar abrir la página, Moodle solicita autenticarse.
 
-Entrega una memoria con capturas del tema antes y después de personalizarlo, la estructura y el código del complemento, y la página de saludo funcionando. Incluye una breve explicación de los cambios realizados y de las pruebas de acceso. No incluyas contraseñas ni datos personales reales.
+#### Estructura del complemento
 
-No modifiques archivos del núcleo ni del tema instalado, y no publiques código PHP como recurso del curso. Los cambios visuales deben hacerse desde las opciones del tema o mediante SCSS/CSS; el saludo debe implementarse como complemento de Moodle.
+```text
+public/local/miscursos/
+├── version.php
+├── index.php
+└── lang/
+    ├── en/local_miscursos.php
+    └── es/local_miscursos.php
+```
+
+Ubícalo en `/var/www/moodle/public/local/miscursos`. Usa el mismo método de trabajo, permisos e instalación que en el apartado 10.2.
+
+#### `version.php`
+
+```php
+<?php
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->component = 'local_miscursos';
+$plugin->version = 2026102300;
+$plugin->requires = 2025100600;
+```
+
+#### `index.php`
+
+```php
+<?php
+require(__DIR__ . '/../../../config.php');
+
+// Obliga a iniciar sesión.
+require_login();
+
+// Configuración de la página.
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url(new moodle_url('/local/miscursos/index.php'));
+$PAGE->set_title(get_string('pluginname', 'local_miscursos'));
+$PAGE->set_heading(get_string('pluginname', 'local_miscursos'));
+
+// Cursos en los que está matriculada la persona que ha iniciado sesión.
+$courses = enrol_get_my_courses();
+
+echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('heading', 'local_miscursos'));
+
+if (empty($courses)) {
+    echo $OUTPUT->notification(
+        get_string('nocourses', 'local_miscursos'),
+        \core\output\notification::NOTIFY_INFO
+    );
+} else {
+    echo html_writer::tag('p', get_string('total', 'local_miscursos', count($courses)));
+
+    $table = new html_table();
+    $table->head = [
+        get_string('course', 'local_miscursos'),
+        get_string('shortname', 'local_miscursos'),
+        get_string('startdate', 'local_miscursos'),
+    ];
+
+    foreach ($courses as $course) {
+        $url = new moodle_url('/course/view.php', ['id' => $course->id]);
+        $table->data[] = [
+            html_writer::link($url, format_string($course->fullname)),
+            format_string($course->shortname),
+            userdate($course->startdate, get_string('strftimedatefullshort', 'langconfig')),
+        ];
+    }
+
+    echo html_writer::table($table);
+}
+
+echo $OUTPUT->footer();
+```
+
+En resumen: `require_login()` exige sesión iniciada, `enrol_get_my_courses()` obtiene los cursos de la persona usuaria y el resto genera la tabla con la salida del tema activo.
+
+#### `lang/es/local_miscursos.php`
+
+```php
+<?php
+$string['pluginname'] = 'Mis cursos';
+$string['heading'] = 'Cursos en los que estoy matriculado';
+$string['total'] = 'Estás matriculado en {$a} curso(s).';
+$string['nocourses'] = 'Todavía no estás matriculado en ningún curso.';
+$string['course'] = 'Curso';
+$string['shortname'] = 'Nombre corto';
+$string['startdate'] = 'Fecha de inicio';
+```
+
+#### `lang/en/local_miscursos.php`
+
+```php
+<?php
+$string['pluginname'] = 'My courses';
+$string['heading'] = 'Courses I am enrolled in';
+$string['total'] = 'You are enrolled in {$a} course(s).';
+$string['nocourses'] = 'You are not enrolled in any course yet.';
+$string['course'] = 'Course';
+$string['shortname'] = 'Short name';
+$string['startdate'] = 'Start date';
+```
+
+**Entrega**
+
+Entrega una memoria con capturas del tema antes y después de personalizarlo, la estructura y el código del complemento, y la página «Mis cursos» funcionando con y sin cursos matriculados. Incluye una breve explicación de los cambios realizados y de las pruebas de acceso. No incluyas contraseñas ni datos personales reales.
+
+No modifiques archivos del núcleo ni del tema instalado, y no publiques código PHP como recurso del curso. Los cambios visuales deben hacerse desde las opciones del tema o mediante SCSS/CSS; la lista de cursos debe implementarse como complemento de Moodle.
 
 ## 11. Mecanismos de seguridad
 
@@ -1133,6 +1374,7 @@ El proyecto estará completo cuando el curso esté organizado en al menos tres s
 
 - [Documentación oficial de Moodle](https://docs.moodle.org/)
 - [Desarrollo de complementos locales en Moodle 5.1](https://moodledev.io/docs/5.1/apis/plugintypes/local)
+- [Archivo `version.php` y requisitos de versión de un complemento](https://moodledev.io/docs/5.1/apis/commonfiles/version.php)
 - [Requisitos de servidor de Moodle 5.1](https://moodledev.io/general/releases/5.1#server-requirements)
 - [Requisitos del servidor Moodle](https://docs.moodle.org/501/en/Server_requirements)
 - [Instalación de Moodle](https://docs.moodle.org/501/en/Installing_Moodle)
