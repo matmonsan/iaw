@@ -1288,55 +1288,193 @@ No modifiques archivos del núcleo ni del tema instalado, y no publiques código
 
 ## 11. Mecanismos de seguridad
 
-Moodle incluye mecanismos de autenticación, roles y capacidades, permisos por contexto, gestión de sesiones, validación de formularios y registro de eventos. Estas funciones deben configurarse correctamente y complementarse con la seguridad del servidor:
+La seguridad de Moodle depende tanto de la configuración de la plataforma como de la del servidor. Moodle proporciona autenticación, roles y capacidades, permisos por contexto, protección de formularios, gestión de sesiones y registros de eventos; estas funciones reducen riesgos cuando se configuran y mantienen correctamente.
 
-- Mantener Ubuntu, Moodle, temas y complementos actualizados.
-- Publicar el sitio mediante HTTPS y redirigir HTTP a HTTPS.
-- Utilizar contraseñas robustas, limitar las cuentas administrativas y revisar los métodos de autenticación.
-- Asignar el mínimo de permisos necesario y no compartir cuentas.
-- Mantener `moodledata` fuera de la raíz pública y restringir sus permisos.
-- Restringir puertos con el cortafuegos; exponer solo los servicios necesarios, normalmente SSH y HTTPS.
-- Realizar copias de seguridad de la base de datos y de `moodledata`, y probar su restauración.
-- Revisar registros de Apache, tareas programadas, alertas y eventos de seguridad.
-- No instalar complementos sin verificar su origen y compatibilidad.
+### Proteger el servidor y la instalación
 
-La licencia de software libre no sustituye las obligaciones de privacidad, protección de datos ni las políticas del centro.
+- **Instala actualizaciones de seguridad** de Ubuntu, PHP, Apache, MySQL y Moodle. Antes de actualizar Moodle o un complemento, comprueba los requisitos de versión y realiza una copia de seguridad.
+- **Utiliza solo complementos necesarios**, obtenidos de fuentes fiables y compatibles con la versión instalada. Desinstala los que ya no se utilicen: mantenerlos instalados amplía la superficie de ataque.
+- **Mantén `moodledata` fuera de la raíz pública** de Apache. En esta instalación se encuentra en `/var/moodledata`, mientras que la raíz web es `/var/www/moodle/public`. Apache necesita acceder a los datos, pero estos no deben poder descargarse directamente desde una URL.
+- **Protege `config.php` y el código**. El código de Moodle no debería ser modificable por el usuario del servidor web en una instalación normal. El archivo `config.php` debe conservar permisos restrictivos; en esta práctica, `root:www-data` y modo `640`.
+- **Limita los servicios accesibles desde la red** mediante el cortafuegos. Para el acceso web se necesitan HTTP/HTTPS según la configuración; SSH debe limitarse a las personas y redes que administran el servidor. No expongas MySQL directamente a Internet.
+- **Usa HTTPS en todo el sitio** y evita que las sesiones de usuario se transmitan por HTTP. No publiques la plataforma hasta que el certificado TLS sea válido y el acceso seguro esté probado.
+
+### Proteger cuentas, roles y datos
+
+- Crea una cuenta individual para cada persona; no compartas cuentas administrativas. Utiliza contraseñas únicas y activa la autenticación multifactor si la versión y el método de acceso lo permiten.
+- Asigna únicamente los roles y capacidades necesarios. Un docente, por ejemplo, no necesita permisos de administración del sitio. Revisa también los permisos heredados en los contextos de sistema, categoría y curso.
+- Desactiva o elimina cuentas de prueba y accesos que ya no se necesiten. Revisa periódicamente las cuentas administrativas y los métodos de autenticación habilitados.
+- Configura copias de seguridad que incluyan, de forma coordinada, la base de datos y `moodledata`; conserva además el código, los complementos y la información de configuración necesaria para recuperar la misma versión. Guarda las copias en una ubicación separada y con acceso restringido.
+- **Comprueba que las copias se pueden restaurar** en un entorno de prueba. Una copia que nunca se ha restaurado no garantiza que el servicio pueda recuperarse.
+- Revisa los registros de Moodle y de Apache para detectar errores o accesos inusuales. Limita quién puede consultarlos y conserva solo los datos necesarios, de acuerdo con las políticas de privacidad del centro.
+
+La licencia de software libre no sustituye las obligaciones de privacidad, protección de datos ni las políticas del centro. Consulta también las [recomendaciones de seguridad de Moodle](https://docs.moodle.org/es/Recomendaciones_de_Seguridad) y la [guía de copias de seguridad del sitio](https://docs.moodle.org/all/es/Respaldo_del_sitio).
 
 ## 12. Verificación y rendimiento
 
-La instalación se considera operativa cuando se puede acceder, iniciar sesión, navegar por un curso, abrir recursos, completar una actividad y guardar los resultados. También hay que verificar el cron, la conexión con la base de datos y la carga de archivos.
+Antes de dar por terminada la instalación, realiza una comprobación funcional con una cuenta de prueba y verifica tanto Moodle como los servicios del servidor. Una lista básica de aceptación puede incluir:
+
+1. El sitio carga con la URL y el certificado esperados, sin errores de Apache o PHP.
+2. Una persona usuaria puede iniciar sesión, abrir un curso y consultar los recursos.
+3. Puede completar una actividad de prueba y comprobar que la entrega o calificación queda guardada.
+4. Se pueden subir y descargar archivos respetando los permisos del curso.
+5. El cron se ejecuta y las tareas programadas no muestran errores pendientes.
+6. La conexión con la base de datos funciona y existe una copia de seguridad reciente cuya restauración se ha probado.
 
 Comprobaciones básicas en el servidor:
 
 ```bash
 sudo systemctl is-active apache2 mysql
 sudo apache2ctl configtest
-curl -I http://moodle.ejemplo.local
+curl -I https://aula.ejemplo.org
 sudo tail -n 50 /var/log/apache2/moodle_error.log
 ```
 
-En Moodle, revisa **Administración del sitio > Servidor > Entorno** y el estado de las tareas programadas. Corrige las advertencias de requisitos antes de publicar. Para evaluar rendimiento, registra el tiempo de respuesta y el uso de CPU, memoria, disco y base de datos durante una prueba representativa; aumenta usuarios gradualmente y observa cuándo aparecen errores o degradación. No realices pruebas de carga contra sistemas ajenos ni contra producción sin autorización.
+Sustituye `aula.ejemplo.org` por el dominio que hayas configurado. `systemctl` debe indicar que los servicios están activos, `apache2ctl configtest` debe responder `Syntax OK` y `curl` debe mostrar una respuesta HTTP correcta. Si una prueba falla, consulta primero el mensaje de error correspondiente; no continúes a la publicación con fallos sin resolver.
 
-El rendimiento también depende de la caché, el almacenamiento, la configuración de PHP, el tamaño de los cursos, las consultas a la base de datos y el número de usuarios simultáneos. Cualquier cambio debe medirse antes y después.
+En Moodle, revisa **Administración del sitio > Servidor > Entorno** y **Administración del sitio > Servidor > Tareas programadas**. Corrige las advertencias de requisitos y comprueba que el cron se ejecuta con regularidad. Compara la hora de la última ejecución con el calendario configurado; si es necesario, consulta los registros del sistema y de Moodle.
+
+### Medir y mejorar el rendimiento
+
+El rendimiento no se deduce solo del número total de cuentas: depende sobre todo de cuántas personas utilizan el sitio al mismo tiempo y de qué hacen. Para obtener una medida útil:
+
+- Define una actividad representativa (por ejemplo, acceder al curso, abrir un recurso y enviar una respuesta) y anota el tiempo de respuesta inicial.
+- Durante la prueba observa CPU, memoria, espacio en disco y actividad de la base de datos. Herramientas como `top`, `free -h` y `df -h` ayudan a identificar saturación o falta de espacio.
+- Si se hacen pruebas de concurrencia, incrementa el número de usuarios virtuales poco a poco y registra cuándo aumentan los tiempos de respuesta, aparecen errores o se agotan los recursos. Utiliza únicamente una instalación propia o un entorno para el que tengas autorización; no hagas pruebas de carga sobre producción sin permiso y una ventana acordada.
+- Cambia una configuración cada vez y repite la misma prueba para comprobar si la mejora es real. Conserva los resultados anteriores para poder comparar.
+
+Entre los factores que se pueden revisar están el cron, las cachés de Moodle, OPcache de PHP, la configuración de Apache y MySQL, el almacenamiento y el tamaño de los archivos. No aumentes valores de memoria ni instales sistemas de caché sin medir el problema y comprobar la compatibilidad: una opción inadecuada puede empeorar la estabilidad.
+
+Como recurso audiovisual complementario, puedes consultar **¿Moodle lento? Optimizar Moodle, Rendimiento y Memoria RAM**. Haz clic en la miniatura para abrir el vídeo:
+
+[![Miniatura del vídeo «¿Moodle lento? Optimizar Moodle, Rendimiento y Memoria RAM»](https://img.youtube.com/vi/-md6YPEflqw/hqdefault.jpg)](https://www.youtube.com/watch?v=-md6YPEflqw)
+
+La [guía rápida oficial de optimización de Moodle](https://docs.moodle.org/all/es/Gu%C3%ADa_r%C3%A1pida_de_optimizaci%C3%B3n_de_Moodle_en_espa%C3%B1ol) sirve para contrastar las recomendaciones con la versión instalada.
 
 ## 13. Publicación
 
-Para publicar Moodle en Internet se necesita un dominio que resuelva a la dirección del servidor, reglas de red adecuadas y un certificado TLS válido. En un dominio real, Certbot puede automatizar la configuración de HTTPS para Apache:
+Publicar Moodle significa dejarlo disponible para sus usuarios a través de Internet, con un dominio público y una conexión HTTPS segura. Este apartado trata de esa puesta en producción: no de acceder al servidor desde la propia red ni de utilizar nombres de dominio locales. Para ello se necesita un servidor con una dirección pública accesible o un servicio de alojamiento que proporcione esa conectividad.
+
+### Configurar el dominio y el servidor público
+
+1. **Registra o utiliza un dominio público** bajo tu control, por ejemplo, `aula.midominio.es`.
+2. **Configura el DNS** en el proveedor del dominio: crea un registro `A` que apunte a la dirección IPv4 pública del servidor. Añade un registro `AAAA` solo si el servidor dispone de IPv6 público y está configurado para recibir conexiones. Espera a que los cambios DNS se propaguen.
+3. **Permite el acceso web desde Internet**. En el cortafuegos del servidor y, si corresponde, en el del proveedor o la red perimetral, permite el tráfico de los puertos 80 y 443. El puerto 80 puede utilizarse para redirigir a HTTPS y validar el certificado. Restringe SSH a las redes de administración y no expongas MySQL a Internet.
+4. **Configura Apache para el dominio público**. El nombre del sitio debe coincidir con `aula.midominio.es` y su raíz pública debe apuntar a `/var/www/moodle/public`, no a `/var/moodledata`.
+5. **Obtén e instala un certificado TLS**. Cuando el DNS ya apunte al servidor y este sea accesible públicamente, Certbot puede automatizar la configuración de HTTPS para Apache:
 
 ```bash
 sudo apt install certbot python3-certbot-apache
-sudo certbot --apache -d aula.ejemplo.org
+sudo certbot --apache -d aula.midominio.es
 ```
 
-El dominio del ejemplo debe sustituirse por uno real configurado previamente. No se puede obtener un certificado público para un nombre ficticio o exclusivamente local. Comprueba la renovación automática del certificado y configura en Moodle la URL pública `https://aula.ejemplo.org`.
+Sustituye `aula.midominio.es` por el dominio público que hayas configurado. En `/var/www/moodle/config.php`, cambia el valor de la línea `$CFG->wwwroot` existente por la URL pública segura; no añadas una segunda asignación:
 
-Antes de anunciar el sitio, verifica desde una red externa el acceso HTTPS, el inicio de sesión, la carga de recursos, los permisos, las copias de seguridad y la ausencia de errores. Documenta la versión instalada, los cambios realizados, las cuentas entregadas de forma segura y el procedimiento de recuperación.
+```php
+$CFG->wwwroot = 'https://aula.midominio.es';
+```
+
+Comprueba que el sitio redirige HTTP a HTTPS y que la renovación del certificado funciona:
+
+```bash
+sudo certbot renew --dry-run
+curl -I https://aula.midominio.es
+```
+
+### Ejemplo: trasladar Moodle a Oracle Cloud Always Free
+
+Oracle Cloud ofrece recursos **Always Free** que permiten practicar con una máquina virtual Ubuntu y acceso SSH. Las cuotas y la disponibilidad pueden cambiar. Según la documentación vigente, la cuota gratuita de Ampere A1 equivale a **2 OCPU y 12 GB de memoria** en la región principal de la cuenta. El almacenamiento de bloques gratuito tiene un límite total compartido de **200 GB** y cada volumen de arranque requiere al menos 47 GB. No planifiques el servidor con las antiguas cifras de 4 OCPU y 24 GB: revisa los [límites Always Free de Oracle](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) antes de crearlo. La capacidad A1 puede no estar disponible temporalmente en una región.
+
+Esta opción es adecuada para prácticas y demostraciones, pero no ofrece una garantía de servicio para un Moodle de producción. Según la política vigente, Oracle puede recuperar instancias gratuitas si durante siete días se mantienen por debajo de ciertos umbrales de uso; consulta los [criterios de inactividad](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) y no dependas de esta VM como único alojamiento. Los recursos que excedan las cuotas gratuitas pueden generar cargos. Al registrarte, Oracle puede pedir un medio de pago para verificar la cuenta. Consulta las [condiciones de Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/) y vigila el uso y los costes desde la consola.
+
+#### 1. Crear la máquina virtual
+
+1. Crea una cuenta en Oracle Cloud y selecciona la **región principal** de la cuenta.
+2. En la consola, abre **Networking > Virtual Cloud Networks** y usa el asistente **Create VCN with Internet Connectivity**. Este crea una red con subred pública y salida a Internet.
+3. Abre **Compute > Instances > Create Instance**. Elige **Ubuntu 24.04**, una forma compatible con Always Free (por ejemplo, `VM.Standard.A1.Flex`) y asigna recursos dentro de la cuota gratuita. Activa la asignación de una dirección IPv4 pública y selecciona o genera una clave SSH. Oracle documenta este flujo en [Creating an Instance](https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/launchinginstance.htm).
+4. En la lista de seguridad de la subred o en un grupo de seguridad de red, permite el tráfico TCP entrante a los puertos **80 y 443** desde Internet. Permite SSH (**22**) solo desde tu dirección IP de administración cuando sea posible. No abras MySQL (**3306**) al público. Estas reglas se configuran en OCI y, si el cortafuegos del servidor está activo, también allí. Consulta la documentación de Oracle sobre [listas de seguridad](https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/securitylists.htm).
+
+En Windows PowerShell puedes generar una clave RSA para el acceso SSH. Sube a OCI únicamente el archivo público terminado en `.pub`; conserva la clave privada en tu equipo y no la compartas:
+
+```powershell
+ssh-keygen -t rsa -b 4096 -f "$HOME\.ssh\oci_moodle"
+```
+
+Cuando la instancia esté activa, copia su dirección IPv4 pública desde la consola y conéctate como `ubuntu`:
+
+```powershell
+ssh -i "$HOME\.ssh\oci_moodle" ubuntu@DIRECCION_IP_PUBLICA
+```
+
+Sustituye `DIRECCION_IP_PUBLICA` por la dirección mostrada en OCI.
+
+#### 2. Preparar y transferir la instalación local
+
+En el servidor Moodle local, activa el modo de mantenimiento y detén temporalmente el cron (comenta su línea programada y restáurala después) para que los datos no cambien durante la copia. Crea una copia de la base de datos, del directorio de datos y del código. Los comandos siguientes usan el usuario y la base de datos de esta unidad (`moodleuser` y `moodle`); la contraseña se solicitará de forma interactiva. El archivo `config.php` se excluye porque contiene credenciales y tendrá que configurarse de nuevo en el servidor público.
+
+```bash
+umask 077
+mysqldump --single-transaction --default-character-set=utf8mb4 \
+  -u moodleuser -p moodle > "$HOME/moodle.sql"
+sudo tar -czf - -C /var moodledata > "$HOME/moodledata.tar.gz"
+sudo tar --exclude='moodle/config.php' -czf - -C /var/www moodle \
+  > "$HOME/moodle-code.tar.gz"
+```
+
+Transfiere `moodle.sql`, `moodledata.tar.gz` y `moodle-code.tar.gz` a la instancia mediante SFTP (por ejemplo, con WinSCP) o SCP sobre SSH. No los publiques en una web ni los envíes sin protección: contienen datos de cursos y cuentas. Conserva el Moodle local y sus copias hasta haber verificado la migración.
+
+#### 3. Restaurar Moodle en Oracle Cloud
+
+1. En la VM, instala Apache, PHP y MySQL siguiendo el apartado 7.1. Crea una base de datos vacía y el usuario `moodleuser` siguiendo el 7.2. Utiliza una contraseña nueva y segura para el servidor público.
+2. No ejecutes el instalador web como si fuera un Moodle nuevo. Extrae el código y los datos, e importa la base de datos:
+
+   ```bash
+   sudo tar -xzf "$HOME/moodle-code.tar.gz" -C /var/www
+   sudo tar -xzf "$HOME/moodledata.tar.gz" -C /var
+   sudo mysql -u moodleuser -p moodle < "$HOME/moodle.sql"
+   ```
+
+3. Ajusta los permisos: el código debe ser propiedad de `root:www-data` y `moodledata` debe pertenecer a `www-data:www-data`, con permisos restringidos. Por ejemplo:
+
+   ```bash
+   sudo chown -R root:www-data /var/www/moodle
+   sudo chown -R www-data:www-data /var/moodledata
+   sudo chmod 770 /var/moodledata
+   ```
+
+4. Recrea `/var/www/moodle/config.php` tomando como referencia la configuración local. Conserva los demás parámetros necesarios (como `dbtype`, `dblibrary`, `prefix` y `dboptions`), pero usa la contraseña nueva de la base de datos y configura las rutas y el dominio públicos. Por ejemplo:
+
+   ```php
+   $CFG->dbhost = 'localhost';
+   $CFG->dbname = 'moodle';
+   $CFG->dbuser = 'moodleuser';
+   $CFG->dbpass = 'NUEVA_CONTRASENA';
+   $CFG->wwwroot = 'https://aula.midominio.es';
+   $CFG->dataroot = '/var/moodledata';
+   ```
+
+   No copies la contraseña del servidor local ni dejes `config.php` dentro de la carpeta pública `public`. Protege el archivo con propietario `root:www-data` y permisos `640`, como se explica en el apartado 7.6.
+5. Configura Apache para el dominio público siguiendo el apartado 7.4. Cuando el DNS apunte a la IP pública de la VM y los puertos necesarios sean accesibles, activa HTTPS con Certbot según las instrucciones anteriores.
+6. Inicia el cron de nuevo y prueba el acceso, los cursos, los archivos, las actividades y los permisos con cuentas de prueba. Si todo funciona, desactiva el modo de mantenimiento y retira las copias temporales de la VM o guárdalas con acceso restringido. Conserva una copia de respaldo fuera del servidor.
+
+**Importante:** esta migración conserva el código y la versión existentes; el Moodle de destino debe utilizar la misma versión y los mismos complementos antes de abrirse al público. No actualices Moodle como parte de la copia inicial: primero valida la migración y luego planifica cualquier actualización por separado.
+
+### Comprobaciones antes de anunciar el sitio
+
+- Accede al dominio desde una conexión a Internet externa al servidor y comprueba que el certificado es válido y que no aparecen avisos de contenido inseguro.
+- Prueba el inicio de sesión, la navegación por los cursos, la carga de archivos y los permisos con cuentas de prueba de distintos roles.
+- Verifica el cron, los registros, el espacio disponible y la realización de copias de seguridad. Asegúrate de que el procedimiento de restauración está documentado.
+- Elimina las cuentas de prueba, revisa que no haya cursos o datos personales expuestos por error y comunica a las personas usuarias cómo acceder y solicitar ayuda.
+- Documenta el dominio, las versiones, los cambios de configuración, la persona responsable de la administración y los pasos para recuperar el servicio. No incluyas contraseñas en esa documentación.
+
+Para ampliar la configuración segura de la publicación, consulta la guía oficial de Moodle sobre cómo [hacer la transición a HTTPS](https://docs.moodle.org/all/es/Haciendo_la_transici%C3%B3n_a_HTTPS).
+
 
 ## 14. Proyecto práctico final
 
 ### Enunciado
 
-Prepara en **Moodle** un curso de demostración para un centro educativo. Partiendo de la instalación realizada en la práctica 2, crea y personaliza el curso, incorpora recursos y actividades, y gestiona una cuenta de alumno para comprobar cómo se ve y se utiliza desde su perfil.
+Desarrolla en Moodle un curso completo sobre el tema que se te asigne, dirigido a un alumnado real de un centro educativo. Partiendo de la instalación de la práctica 2, el proyecto integra todo lo visto en la unidad: material teórico, documentos, enlaces, recursos, actividades, una encuesta, un banco de preguntas, la personalización de la interfaz y un pequeño componente propio en PHP. Además, comprobarás el curso desde el punto de vista de un alumno.
 
 ### Temas a elegir
 
@@ -1357,18 +1495,57 @@ Cada alumno tendrá asignado uno de estos temas introductorios:
 
 ### Trabajo que debes realizar
 
-1. **Crea un curso de demostración.** Elige uno de los temas de la lista y organiza el curso en al menos tres secciones. Explica brevemente qué aprenderá el alumnado.
-2. **Personaliza el curso.** Configura su presentación y añade una descripción, una imagen o elementos visuales relacionados con el tema. Incorpora al menos dos recursos (por ejemplo, una página y un archivo o enlace) y dos actividades (por ejemplo, un cuestionario y una tarea).
-3. **Gestiona al alumnado.** Crea una cuenta de alumno de prueba y matricúlala en el curso. Revisa su perfil y accede al curso con esa cuenta para comprobar cómo se presenta el contenido y qué opciones tiene disponibles.
-4. **Comprueba el funcionamiento.** Desde la cuenta de alumno, abre los recursos y realiza o envía las actividades. Registra los resultados y añade capturas legibles de la vista del curso, su personalización, la matrícula y el perfil del alumno. Oculta cualquier dato personal innecesario.
+#### Parte obligatoria
+
+1. **Diseña y crea el curso.** Elige el tema asignado y crea el curso en una categoría adecuada. Defínelo con nombre completo y corto, descripción, imagen, formato y fechas. Organízalo en al menos cuatro secciones (por ejemplo: presentación, bloques teóricos, práctica y evaluación) e indica los objetivos de aprendizaje.
+2. **Prepara el material teórico y los documentos.** Redacta el contenido teórico del tema con recursos de tipo Página o Libro, con capítulos y apartados. Añade al menos dos documentos descargables (por ejemplo, un PDF de apuntes y una guía de referencia) y una etiqueta o recurso visual que oriente al alumno. Utiliza solo contenido propio, con licencia libre o con permiso de uso, y cita las fuentes.
+3. **Incorpora enlaces y recursos externos.** Añade al menos tres enlaces o recursos externos de calidad (documentación oficial, vídeos o artículos), con una breve explicación de por qué son útiles. Comprueba que funcionan.
+4. **Crea actividades.** Incluye como mínimo una tarea con fecha límite y criterios de evaluación y una actividad de participación o colaboración (foro, glosario, taller, lección u otra adecuada).
+5. **Crea un banco de preguntas y un cuestionario.** Organiza el banco de preguntas por categorías y crea al menos 15 preguntas de al menos tres tipos distintos (por ejemplo, opción múltiple, verdadero/falso y respuesta corta), con retroalimentación. Utiliza una parte de ellas en un cuestionario con intentos, límite de tiempo y calificación configurados. Si lo deseas, importa algunas preguntas en formato GIFT.
+6. **Añade una encuesta.** Crea una encuesta de satisfacción con la actividad de Retroalimentación o Encuesta, con al menos cinco preguntas sobre el contenido, las actividades y la dificultad del curso.
+7. **Configura seguimiento y finalización.** Activa el seguimiento de finalización en el curso y define condiciones de finalización razonables para recursos y actividades. Revisa el libro de calificaciones y la disponibilidad de cada elemento.
+8. **Personaliza la interfaz.** Aplica una personalización coherente: tema, logotipo, colores, página principal, bloques o ajustes visuales, según las opciones de la práctica 3. Instala al menos un complemento (plugin) adicional compatible con Moodle 5.1 (por ejemplo, un tema, bloque o actividad), obtenido del directorio oficial de Moodle, y explica su función y su origen. Si no resulta adecuado, desinstálalo y justifícalo.
+9. **Desarrolla un pequeño componente en PHP.** Crea un complemento local propio (por ejemplo, el listado de cursos de la práctica 3 o una variante nueva, como un resumen de recursos del curso o una página de información del sitio). Debe seguir la estructura de un complemento de Moodle, incluir cadenas de idioma, exigir inicio de sesión y utilizar las API de Moodle. No modifiques el núcleo ni el tema instalado.
+10. **Matricula al grupo y comprueba el resultado.** Matricula en el curso a todos los alumnos de la clase y al profesor, asignando a cada persona el rol correspondiente. Crea además una cuenta de alumno de prueba si fuera necesario y accede con ella. Abre los recursos, realiza el cuestionario, envía la tarea y responde la encuesta. Revisa el perfil, el progreso, las calificaciones y el componente PHP desde la vista del alumno. Corrige los problemas que encuentres.
+11. **Copia de seguridad.** Genera una copia de seguridad del curso y comprueba que puede restaurarse en un curso nuevo o de prueba.
+
+#### Apartados opcionales
+
+Estos apartados no son obligatorios, pero permiten mejorar la calificación del proyecto:
+
+1. **Opcional A: mostrar el componente PHP en la barra superior de navegación.** Haz que el acceso al componente que has creado aparezca en la barra de navegación superior de Moodle. Utiliza un procedimiento compatible con Moodle 5.1: por ejemplo, el ajuste de elementos de menú personalizados del sitio (Administración del sitio > Apariencia > Ajustes del tema) o la API de navegación que documenta Moodle para tu versión. Consulta la documentación oficial antes de programar y evita modificar el núcleo. Justifica la solución elegida y comprueba que el enlace funciona también con la cuenta de alumno.
+2. **Opcional B: desplegar el curso en Oracle Cloud Always Free.** Publica Moodle en una máquina virtual de Oracle Cloud siguiendo el apartado 13: crea la VM, configura la red y el cortafuegos, restaura tu instalación o reinstálala, configura el dominio y HTTPS y comprueba el acceso desde una red externa. Documenta el proceso y los problemas resueltos. No incluyas contraseñas, claves privadas ni datos de acceso. Si no puedes abrir una cuenta de Oracle, justifícalo y documenta cómo lo habrías hecho.
 
 ### Entrega
 
-Entrega una memoria ordenada que describa el tema y la organización del curso, las personalizaciones realizadas, los recursos y actividades incluidos y las comprobaciones efectuadas con la cuenta de alumno. Acompáñala de capturas legibles del curso y de la gestión del alumno (matrícula y perfil); oculta cualquier dato personal innecesario.
+Entrega una memoria ordenada que incluya:
+
+- El tema elegido, los objetivos y la estructura del curso, con una captura de cada sección.
+- El material teórico, los documentos, los enlaces y los recursos creados, con su fuente y licencia.
+- La configuración de las actividades, el banco de preguntas, el cuestionario y la encuesta, con capturas legibles de cada uno.
+- La personalización de la interfaz y el complemento instalado, indicando su origen, versión y función.
+- El código del componente PHP (estructura de archivos y contenido) y capturas de su funcionamiento.
+- La matrícula de todos los alumnos y del profesor, junto con las comprobaciones realizadas con la cuenta de alumno: perfil, progreso, resultados y encuesta.
+- La prueba de la copia de seguridad del curso.
+- Si se realizan, la evidencia de los apartados opcionales.
+
+Entrega también la copia de seguridad del curso (.mbz) y el código del componente PHP, sin incluir contraseñas, claves privadas ni datos personales reales. Oculta cualquier dato personal innecesario en las capturas.
+
+### Rúbrica orientativa
+
+| Apartado | Qué se valora |
+|---|---|
+| Diseño y contenido del curso | Estructura clara, objetivos, calidad y corrección del material teórico, documentos, enlaces y fuentes. |
+| Actividades y evaluación | Tarea, actividad participativa, banco de preguntas, cuestionario, encuesta y finalización correctamente configurados. |
+| Personalización y complementos | Interfaz coherente, complemento adicional justificado y origen verificado. |
+| Componente PHP | Estructura correcta, seguridad básica, cadenas de idioma, funcionamiento y claridad del código. |
+| Comprobaciones | Pruebas con la cuenta de alumno, corrección de errores y copia de seguridad restaurada. |
+| Memoria y presentación | Orden, evidencias legibles, redacción y protección de datos personales. |
+| Opcionales | Navegación superior y despliegue en Oracle Cloud, con evidencia y explicación. |
 
 ### Criterios de finalización
 
-El proyecto estará completo cuando el curso esté organizado en al menos tres secciones, incluya las personalizaciones, recursos y actividades solicitados, y una cuenta de alumno esté matriculada y permita comprobar la vista del curso, el perfil y la realización de las actividades. La memoria debe explicar el trabajo y aportar evidencias de estas comprobaciones.
+La parte obligatoria estará completa cuando el curso tenga al menos cuatro secciones, material teórico, documentos, enlaces, tarea, actividad participativa, banco de preguntas con al menos 15 preguntas, cuestionario y encuesta; cuando la interfaz esté personalizada, se haya instalado un complemento adicional y funcione el componente PHP propio; y cuando una cuenta de alumno pueda recorrer el curso y completar las actividades. La memoria debe aportar evidencias de todo ello y de la copia de seguridad. Los apartados opcionales A y B se valoran de forma adicional.
 
 ## 15. Fuentes y documentación
 
