@@ -1514,22 +1514,24 @@ Cada alumno tendrá asignado uno de estos temas introductorios:
 Estos apartados no son obligatorios, pero permiten mejorar la calificación del proyecto:
 
 1. **Opcional A: mostrar el componente PHP en la barra superior de navegación.** Haz que el acceso al componente que has creado aparezca en la barra de navegación superior de Moodle. Utiliza un procedimiento compatible con Moodle 5.1: por ejemplo, el ajuste de elementos de menú personalizados del sitio (Administración del sitio > Apariencia > Ajustes del tema) o la API de navegación que documenta Moodle para tu versión. Consulta la documentación oficial antes de programar y evita modificar el núcleo. Justifica la solución elegida y comprueba que el enlace funciona también con la cuenta de alumno.
-2. **Opcional B: desplegar el curso en Oracle Cloud Always Free.** Publica Moodle en una máquina virtual de Oracle Cloud siguiendo el apartado 13: crea la VM, configura la red y el cortafuegos, restaura tu instalación o reinstálala, configura el dominio y HTTPS y comprueba el acceso desde una red externa. Documenta el proceso y los problemas resueltos. No incluyas contraseñas, claves privadas ni datos de acceso. Si no puedes abrir una cuenta de Oracle, justifícalo y documenta cómo lo habrías hecho.
+2. **Opcional B: desplegar el curso en Oracle Cloud Always Free.** Publica Moodle en una máquina virtual de Oracle Cloud siguiendo el apartado 13: crea la VM, configura la red y el cortafuegos, restaura tu instalación o reinstálala, configura el dominio y HTTPS y comprueba el acceso desde una red externa. Muestra en el videotutorial el proceso y los problemas resueltos. No incluyas contraseñas, claves privadas ni datos de acceso. Si no puedes abrir una cuenta de Oracle, explica en el videotutorial cómo lo habrías hecho.
 
 ### Entrega
 
-Entrega una memoria ordenada que incluya:
+No se entregará una memoria escrita ni en papel. La entrega principal será un **videotutorial** que muestre el curso y explique el trabajo realizado. Súbelo a YouTube con la visibilidad **Oculto (no listado)** y entrega el enlace; comprueba que se puede reproducir con ese enlace.
 
-- El tema elegido, los objetivos y la estructura del curso, con una captura de cada sección.
-- El material teórico, los documentos, los enlaces y los recursos creados, con su fuente y licencia.
-- La configuración de las actividades, el banco de preguntas, el cuestionario y la encuesta, con capturas legibles de cada uno.
-- La personalización de la interfaz y el complemento instalado, indicando su origen, versión y función.
-- El código del componente PHP (estructura de archivos y contenido) y capturas de su funcionamiento.
-- La matrícula de todos los alumnos y del profesor, junto con las comprobaciones realizadas con la cuenta de alumno: perfil, progreso, resultados y encuesta.
-- La prueba de la copia de seguridad del curso.
-- Si se realizan, la evidencia de los apartados opcionales.
+En el videotutorial:
 
-Entrega también la copia de seguridad del curso (.mbz) y el código del componente PHP, sin incluir contraseñas, claves privadas ni datos personales reales. Oculta cualquier dato personal innecesario en las capturas.
+- Presenta el tema, los objetivos y la estructura del curso, recorriendo sus secciones.
+- Muestra el material teórico, los documentos, los enlaces y los recursos, e indica sus fuentes y licencias.
+- Enseña las actividades, el banco de preguntas, el cuestionario y la encuesta.
+- Explica la personalización de la interfaz y el complemento instalado, indicando su origen, versión y función.
+- Muestra el componente PHP, explica brevemente su código y comprueba que funciona.
+- Accede con una cuenta de alumno y enseña el recorrido por el curso, el progreso y la realización de las actividades.
+- Explica y muestra la copia de seguridad y la comprobación de su restauración.
+- Si se realizan, presenta los apartados opcionales.
+
+Entrega además la copia de seguridad del curso (.mbz) y el código fuente del componente PHP. No incluyas contraseñas, claves privadas ni datos personales reales; oculta cualquier dato personal innecesario que aparezca en el vídeo.
 
 ### Rúbrica orientativa
 
@@ -1540,12 +1542,12 @@ Entrega también la copia de seguridad del curso (.mbz) y el código del compone
 | Personalización y complementos | Interfaz coherente, complemento adicional justificado y origen verificado. |
 | Componente PHP | Estructura correcta, seguridad básica, cadenas de idioma, funcionamiento y claridad del código. |
 | Comprobaciones | Pruebas con la cuenta de alumno, corrección de errores y copia de seguridad restaurada. |
-| Memoria y presentación | Orden, evidencias legibles, redacción y protección de datos personales. |
+| Videotutorial y presentación | Explicación clara y ordenada, demostraciones legibles de las evidencias y protección de datos personales. |
 | Opcionales | Navegación superior y despliegue en Oracle Cloud, con evidencia y explicación. |
 
 ### Criterios de finalización
 
-La parte obligatoria estará completa cuando el curso tenga al menos cuatro secciones, material teórico, documentos, enlaces, tarea, actividad participativa, banco de preguntas con al menos 15 preguntas, cuestionario y encuesta; cuando la interfaz esté personalizada, se haya instalado un complemento adicional y funcione el componente PHP propio; y cuando una cuenta de alumno pueda recorrer el curso y completar las actividades. La memoria debe aportar evidencias de todo ello y de la copia de seguridad. Los apartados opcionales A y B se valoran de forma adicional.
+La parte obligatoria estará completa cuando el curso tenga al menos cuatro secciones, material teórico, documentos, enlaces, tarea, actividad participativa, banco de preguntas con al menos 15 preguntas, cuestionario y encuesta; cuando la interfaz esté personalizada, se haya instalado un complemento adicional y funcione el componente PHP propio; y cuando una cuenta de alumno pueda recorrer el curso y completar las actividades. El videotutorial debe mostrar evidencias de todo ello y de la copia de seguridad restaurada, y estar disponible mediante un enlace de YouTube con visibilidad Oculto (no listado). También se entregarán el archivo de copia de seguridad y el código fuente del componente PHP. Los apartados opcionales A y B se valoran de forma adicional.
 
 ## 15. Fuentes y documentación
 
