@@ -1301,12 +1301,12 @@ La seguridad de Moodle depende tanto de la configuración de la plataforma como 
 
 ### Proteger cuentas, roles y datos
 
-- Crea una cuenta individual para cada persona; no compartas cuentas administrativas. Utiliza contraseñas únicas y activa la autenticación multifactor si la versión y el método de acceso lo permiten.
-- Asigna únicamente los roles y capacidades necesarios. Un docente, por ejemplo, no necesita permisos de administración del sitio. Revisa también los permisos heredados en los contextos de sistema, categoría y curso.
-- Desactiva o elimina cuentas de prueba y accesos que ya no se necesiten. Revisa periódicamente las cuentas administrativas y los métodos de autenticación habilitados.
-- Configura copias de seguridad que incluyan, de forma coordinada, la base de datos y `moodledata`; conserva además el código, los complementos y la información de configuración necesaria para recuperar la misma versión. Guarda las copias en una ubicación separada y con acceso restringido.
+- **Crea una cuenta individual para cada persona; no compartas cuentas administrativas**. Utiliza contraseñas únicas y activa la autenticación multifactor si la versión y el método de acceso lo permiten.
+- **Asigna únicamente los roles y capacidades necesarios**. Un docente, por ejemplo, no necesita permisos de administración del sitio. Revisa también los permisos heredados en los contextos de sistema, categoría y curso.
+- **Desactiva o elimina cuentas de prueba y accesos que ya no se necesiten**. Revisa periódicamente las cuentas administrativas y los métodos de autenticación habilitados.
+- **Configura copias de seguridad** que incluyan, de forma coordinada, la base de datos y `moodledata`; conserva además el código, los complementos y la información de configuración necesaria para recuperar la misma versión. Guarda las copias en una ubicación separada y con acceso restringido.
 - **Comprueba que las copias se pueden restaurar** en un entorno de prueba. Una copia que nunca se ha restaurado no garantiza que el servicio pueda recuperarse.
-- Revisa los registros de Moodle y de Apache para detectar errores o accesos inusuales. Limita quién puede consultarlos y conserva solo los datos necesarios, de acuerdo con las políticas de privacidad del centro.
+- **Revisa los registros de Moodle y de Apache para detectar errores o accesos inusuales**. Limita quién puede consultarlos y conserva solo los datos necesarios, de acuerdo con las políticas de privacidad del centro.
 
 La licencia de software libre no sustituye las obligaciones de privacidad, protección de datos ni las políticas del centro. Consulta también las [recomendaciones de seguridad de Moodle](https://docs.moodle.org/es/Recomendaciones_de_Seguridad) y la [guía de copias de seguridad del sitio](https://docs.moodle.org/all/es/Respaldo_del_sitio).
 
