@@ -1518,7 +1518,7 @@ Estos apartados no son obligatorios, pero permiten mejorar la calificación del 
 
 ### Entrega
 
-No se entregará una memoria escrita ni en papel. La entrega principal será un **videotutorial** que muestre el curso y explique el trabajo realizado. Súbelo a YouTube con la visibilidad **Oculto (no listado)** y entrega el enlace; comprueba que se puede reproducir con ese enlace.
+No se entregará una memoria escrita ni en papel. La entrega principal será un **videotutorial** que muestre el curso y explique el trabajo realizado. Súbelo a YouTube con la visibilidad **Oculto** y entrega el enlace. L.a duración deberá de estar comprendida **entre 10 y 20 minutos**.
 
 En el videotutorial:
 
