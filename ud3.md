@@ -72,24 +72,143 @@ flowchart LR
 
 ## 3. WordPress: conceptos básicos
 
-### 3.1 WordPress.org y WordPress.com
+### 3.1 ¿Qué es WordPress?
 
-Es una confusión muy habitual. Ambos usan el mismo software, pero el modelo es muy distinto:
+WordPress es un sistema de gestión de contenidos (CMS, *Content Management System*) de código abierto, escrito en PHP y que guarda la información en una base de datos MySQL o MariaDB. Permite crear, organizar y publicar contenido web desde el navegador, a través de un panel de administración, sin tener que programar cada página.
+
+La idea central de cualquier CMS, y de WordPress en particular, es separar tres cosas:
+
+- **El contenido:** los textos, imágenes, documentos y datos que escriben los usuarios. Se guarda en la base de datos.
+- **La presentación:** el diseño, es decir, cómo se ve ese contenido. Lo decide el tema activo.
+- **La funcionalidad:** lo que el sitio sabe hacer, como formularios, tienda, copias de seguridad o estadísticas. La aportan el núcleo y los plugins.
+
+Gracias a esa separación, una persona sin conocimientos técnicos puede publicar una noticia mientras otra cambia el diseño del sitio sin tocar ni una línea del contenido.
+
+```mermaid
+flowchart LR
+    U[Personas que publican] -->|escriben en el panel| C[(Contenido<br/>base de datos)]
+    C --> N[Núcleo de WordPress]
+    T[Tema<br/>presentación] --> N
+    P[Plugins<br/>funcionalidad] --> N
+    N -->|página HTML| V[Visitantes]
+```
+
+**Un poco de historia.** WordPress nació en 2003, cuando Matt Mullenweg y Mike Little partieron del código de un programa de blogs abandonado (b2/cafelog) para crear uno nuevo. Desde entonces lo desarrolla una comunidad abierta de miles de personas voluntarias y de empresas. Cada versión principal lleva el nombre de un músico de jazz.
+
+```mermaid
+timeline
+    title Evolución de WordPress
+    2003 : Primera versión (0.7) : herramienta de blogs
+    2004 : Versión 1.2 : llegan los plugins
+    2005 : Versión 1.5 : temas y páginas
+    2010 : Versión 3.0 : tipos de contenido personalizados y multisitio
+    2016 : Versión 4.7 : API REST de contenidos
+    2018 : Versión 5.0 : editor de bloques
+    2022 : Versión 5.9 : edición completa del sitio con bloques
+```
+
+Esa evolución explica cómo ha pasado de ser una herramienta para blogs a un CMS de uso general: primero se pudo ampliar (plugins), luego cambiar el diseño (temas), después crear cualquier tipo de contenido (productos, cursos, eventos) y, por último, diseñar el sitio entero con bloques.
+
+**Vocabulario básico.** Estos términos aparecerán a lo largo de toda la unidad:
+
+| Término | Qué es |
+| --- | --- |
+| Núcleo (*core*) | El código base de WordPress, común a todas las instalaciones |
+| Escritorio (*dashboard*) | El panel de administración, en `/wp-admin` |
+| Entrada (*post*) | Contenido fechado: noticias, artículos de blog |
+| Página (*page*) | Contenido estable: Inicio, Contacto, Aviso legal |
+| Medios | Imágenes, vídeos, PDF y otros archivos subidos |
+| Categorías y etiquetas | Formas de clasificar las entradas |
+| Bloque | Cada elemento del contenido en el editor: párrafo, imagen, tabla, botón… |
+| Tema | Paquete que define el diseño del sitio |
+| Plantilla | Diseño de un tipo de vista concreto (una entrada, una página, un archivo…) |
+| Plugin | Complemento que añade funciones |
+| Shortcode | Código entre corchetes, como `[gallery]`, que un plugin sustituye por contenido |
+| Rol | Conjunto de permisos de un usuario: administrador, editor, autor… |
+| Feed | Archivo RSS o Atom con las últimas publicaciones, para la sindicación |
+
+**Ventajas e inconvenientes**
+
+| Ventajas | Inconvenientes |
+| --- | --- |
+| Gratuito y libre, sin dependencia de un proveedor | Hay que mantenerlo: actualizaciones, copias y seguridad |
+| Fácil de usar para quien publica | Es el objetivo principal de los ataques automatizados, precisamente por ser el más usado |
+| Miles de temas y plugins | Abusar de plugins lo vuelve lento, inestable e inseguro |
+| Comunidad enorme, documentación y traducción al español | La calidad de temas y plugins de terceros es muy desigual |
+| Funciona en casi cualquier servidor con PHP y MySQL | Para aplicaciones web muy específicas puede quedarse corto o complicarse |
+| Exporta sus contenidos en formatos estándar | Algunos plugins comerciales encarecen el proyecto con licencias anuales |
+
+### 3.2 ¿Para qué se usa?
+
+Aunque nació para blogs, hoy WordPress sirve para casi cualquier tipo de sitio web. Según W3Techs, lo usan en torno a cuatro de cada diez sitios de Internet, desde blogs personales hasta webs de grandes organizaciones. El escaparate oficial, [wordpress.org/showcase](https://wordpress.org/showcase/), recoge ejemplos como la web de la Casa Blanca, el centro de noticias de Microsoft o TechCrunch.
+
+| Tipo de sitio | Cómo lo resuelve WordPress | Ejemplo de uso |
+| --- | --- | --- |
+| Blog | Entradas, categorías, comentarios y feeds de serie | Blog personal, blog de un departamento |
+| Web corporativa o institucional | Páginas, menús, formularios de contacto | Web de una empresa, un ayuntamiento o un instituto |
+| Periódico o revista digital | Entradas por secciones, varios autores y roles, flujo editorial | Diario local, revista de tecnología |
+| Tienda en línea | Plugin WooCommerce: productos, carrito, pagos y envíos | Comercio local que vende por Internet |
+| Portafolio | Galerías, proyectos y diseño visual | Fotógrafo, estudio de diseño |
+| Plataforma de formación | Plugins LMS (Tutor LMS, LearnDash, Sensei) | Academia que vende cursos en línea |
+| Comunidad o foro | Plugins bbPress y BuddyPress | Asociación, club de usuarios |
+| Intranet | Sitio privado con acceso por roles | Documentación interna de una empresa |
+| Sitio multilingüe | Plugins Polylang o TranslatePress | Web turística en varios idiomas |
+| CMS desacoplado (*headless*) | WordPress gestiona el contenido y lo entrega por la API REST a otra aplicación | App móvil o web hecha con React que lee las noticias de WordPress |
+
+**Cuándo no es la mejor opción.** WordPress no siempre es la respuesta:
+
+- Para una plataforma de aprendizaje con matriculaciones, calificaciones y seguimiento académico, un LMS como Moodle (UD2) está mejor preparado.
+- Para una aplicación web a medida (gestión de citas compleja, un ERP, una red social), suele ser mejor un *framework* de programación como Laravel o Django.
+- Para una página sencilla que casi nunca cambia, un sitio estático es más rápido, barato y seguro.
+- Para quien no puede o no quiere mantener un servidor, un servicio alojado (WordPress.com, Wix, Squarespace) evita ese trabajo, a cambio de menos control.
+
+**Comparación con otros CMS**
+
+| CMS | Puntos fuertes | Puntos débiles |
+| --- | --- | --- |
+| WordPress | Facilidad de uso, ecosistema enorme, comunidad | Mantenimiento y seguridad de plugins |
+| Joomla | Gestión de usuarios y multilingüe integrados | Comunidad y ecosistema menores |
+| Drupal | Muy potente y flexible para sitios grandes y complejos | Curva de aprendizaje alta |
+| Wix, Squarespace | Sin servidor ni mantenimiento, editor visual | Propietarios, menos control, difícil migrar |
+
+### 3.3 WordPress.org y WordPress.com
+
+Es una de las confusiones más habituales. Los dos nombres se refieren al mismo software, pero a dos formas muy distintas de usarlo:
+
+- **WordPress.org:** es la web del proyecto libre. Desde ella se descarga WordPress para instalarlo en un servidor propio o contratado (de ahí que se llame "autoalojado", *self-hosted*). También alberga la documentación, los foros de soporte y los directorios oficiales de temas y plugins. El software pertenece a la comunidad y su marca la protege la Fundación WordPress.
+- **WordPress.com:** es un servicio comercial de la empresa Automattic, fundada por Matt Mullenweg, uno de los creadores de WordPress. Ofrece WordPress ya instalado y mantenido: creas una cuenta y empiezas a publicar, sin servidor. Tiene un plan gratuito, con publicidad, subdominio del tipo `misitio.wordpress.com` y funciones limitadas, y planes de pago que añaden dominio propio, plugins y temas.
 
 | | **WordPress.org** (autoalojado) | **WordPress.com** (servicio) |
 | --- | --- | --- |
 | Qué es | El software libre que descargas e instalas | Una plataforma comercial que aloja WordPress por ti |
-| Servidor | Lo pones tú (hosting, VPS, nube) | Lo pone la empresa Automattic |
-| Control | Total: código, base de datos, plugins y temas | Limitado según el plan contratado |
-| Mantenimiento | Tu responsabilidad: copias, actualizaciones, seguridad | Lo hace el proveedor |
+| Servidor | Lo pones tú: hosting, VPS, nube o, como en esta unidad, una máquina virtual | Lo pone Automattic |
+| Dominio | El que contrates | Subdominio `.wordpress.com` gratis; dominio propio en planes de pago |
+| Temas y plugins | Cualquiera, incluidos los tuyos | Limitados en los planes básicos; libres en los superiores |
+| Acceso al código y a la base de datos | Total | Muy limitado o nulo, según el plan |
+| Publicidad | Solo la que tú pongas | El plan gratuito muestra anuncios de la plataforma |
+| Mantenimiento | Tu responsabilidad: copias, actualizaciones y seguridad | Lo hace el proveedor |
 | Coste | Software gratuito; pagas el servidor y el dominio | Plan gratuito limitado y planes de pago |
 | En esta unidad | **Sí: es lo que vamos a implantar** | No |
 
-### 3.2 Licencia
+Entre ambos extremos hay una tercera vía muy común: los proveedores de *hosting* que ofrecen WordPress instalado con un clic o "WordPress gestionado". Es WordPress.org, con control total, pero el proveedor se encarga de parte del mantenimiento.
+
+```mermaid
+flowchart TD
+    A{¿Necesitas plugins propios, control<br/>del servidor o acceso a la base de datos?} -->|Sí| B{¿Puedes encargarte<br/>del mantenimiento?}
+    A -->|No| C[WordPress.com<br/>u otro servicio alojado]
+    B -->|Sí| D[WordPress.org en servidor propio<br/>VPS, nube o máquina virtual]
+    B -->|No| E[WordPress.org en<br/>hosting gestionado]
+```
+
+Como técnicos de implantación, nos interesa WordPress.org: es el que instalaremos, configuraremos y mantendremos en nuestro propio servidor.
+
+> **Probar WordPress sin instalar nada.** [WordPress Playground](https://playground.wordpress.net/) ejecuta un WordPress completo dentro del navegador, sin servidor. Es útil para curiosear el panel o probar un plugin antes de instalarlo, pero todo se borra al cerrar la pestaña.
+
+### 3.4 Licencia
 
 WordPress se distribuye bajo la licencia GNU GPL versión 2 o posterior. Los temas y plugins que se publican en el directorio oficial también deben ser compatibles con la GPL. Sin embargo, muchos temas y plugins comerciales (*premium*) tienen condiciones adicionales para el soporte o las actualizaciones, y las imágenes, fuentes o textos que los acompañan pueden tener licencias diferentes. Comprueba siempre la licencia de cada elemento antes de usarlo y respeta los derechos de autor de los contenidos que publiques.
 
-### 3.3 Arquitectura y requisitos
+### 3.5 Arquitectura y requisitos
 
 WordPress es una aplicación web escrita en PHP que guarda la información en una base de datos MySQL o MariaDB. Cuando un visitante pide una página, el proceso es:
 
@@ -119,7 +238,7 @@ Requisitos recomendados (consulta siempre la [página oficial de requisitos](htt
 | Servidor web | Apache con `mod_rewrite` o Nginx |
 | Conexión | HTTPS (certificado TLS) |
 
-### 3.4 Estructura de archivos y de la base de datos
+### 3.6 Estructura de archivos y de la base de datos
 
 ![Estructura de archivos y tablas de WordPress](assets/img/ud3/estructura-wordpress.svg)
 
@@ -1645,6 +1764,7 @@ Para desactivar XML-RPC (una vía antigua de acceso remoto muy usada en ataques 
 
 ## 16. Proyecto práctico final
 
+{% comment %}
 ### Enunciado
 
 Implanta, configura y diseña en WordPress la página web completa de una organización ficticia, instalada en una máquina virtual con Ubuntu Server 24.04 y accesible por HTTPS desde el equipo anfitrión con Windows. El proyecto integra todo lo trabajado en la unidad: instalación del servidor, diseño con plantillas, plugins, usuarios y roles, sindicación, importación y exportación, copias de seguridad, actualizaciones e informes de acceso. Partirás de una instalación limpia, distinta de la de las prácticas, o de la de las prácticas si la reinicias por completo.
@@ -1730,6 +1850,7 @@ Entrega además el `.zip` del tema hijo, el código fuente del plugin propio, el
 ### Criterios de finalización
 
 La parte obligatoria estará completa cuando el sitio sea accesible por HTTPS desde el navegador del host; tenga el contenido, las páginas legales, el tema hijo, las plantillas y el patrón indicados; funcionen los cinco plugins y el plugin propio; existan los usuarios con sus roles, incluido el rol personalizado; se ofrezcan y consuman feeds; se haya importado contenido desde CSV y exportado e importado en WXR; existan copias automáticas con una restauración comprobada; se haya documentado una actualización segura; y se presenten los informes de acceso y de actividad. El videotutorial debe mostrar evidencias de todo ello y estar disponible mediante un enlace de YouTube con visibilidad Oculto (no listado). También se entregarán el `.zip` del tema hijo, el código del plugin propio, el archivo WXR y el CSV. Los apartados opcionales A, B y C se valoran de forma adicional.
+{% endcomment %}
 
 ## 17. Fuentes y documentación
 
