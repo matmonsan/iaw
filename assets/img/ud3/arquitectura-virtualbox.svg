@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" font-family="Segoe UI, Arial, sans-serif">
+  <title>WordPress en una máquina virtual de VirtualBox con red NAT y reenvío de puertos</title>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2a5542"/></marker>
+  </defs>
+  <rect width="960" height="460" fill="#ffffff"/>
+  <!-- Host Windows -->
+  <rect x="10" y="10" width="940" height="440" rx="14" fill="#f3f6f9" stroke="#0078d4" stroke-width="2"/>
+  <g transform="translate(30,26)">
+    <rect width="11" height="11" fill="#0078d4"/><rect x="13" width="11" height="11" fill="#0078d4"/>
+    <rect y="13" width="11" height="11" fill="#0078d4"/><rect x="13" y="13" width="11" height="11" fill="#0078d4"/>
+  </g>
+  <text x="66" y="45" font-size="16" font-weight="bold" fill="#005a9e">Equipo anfitrión (host) · Windows</text>
+  <!-- Navegador -->
+  <rect x="30" y="80" width="230" height="150" rx="10" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+  <rect x="30" y="80" width="230" height="30" rx="10" fill="#dbeaf7"/>
+  <rect x="30" y="98" width="230" height="12" fill="#dbeaf7"/>
+  <rect x="42" y="87" width="206" height="18" rx="9" fill="#fff" stroke="#9bbbd8"/>
+  <text x="52" y="100" font-size="12" fill="#222">https://localhost:8443</text>
+  <text x="145" y="150" text-anchor="middle" font-size="15" font-weight="bold" fill="#21759b">Navegador</text>
+  <text x="145" y="172" text-anchor="middle" font-size="12" fill="#555">Edge, Chrome, Firefox</text>
+  <rect x="30" y="250" width="230" height="80" rx="10" fill="#1d2327"/>
+  <text x="45" y="276" font-size="13" font-weight="bold" fill="#f0f0f1">PowerShell</text>
+  <text x="45" y="300" font-size="12" fill="#9fe0b0" font-family="Consolas, monospace">&gt; ssh -p 2222 usuario@localhost</text>
+  <!-- NAT -->
+  <rect x="300" y="70" width="210" height="300" rx="12" fill="#fff7ec" stroke="#c76f00" stroke-width="2"/>
+  <text x="405" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#c76f00">VirtualBox · red NAT</text>
+  <text x="405" y="116" text-anchor="middle" font-size="12" fill="#555">Reenvío de puertos</text>
+  <g font-size="12" font-family="Consolas, monospace" fill="#222">
+    <rect x="315" y="130" width="180" height="34" rx="6" fill="#fff" stroke="#c76f00"/>
+    <text x="405" y="152" text-anchor="middle">127.0.0.1:8443 → 8443</text>
+    <rect x="315" y="172" width="180" height="34" rx="6" fill="#fff" stroke="#c76f00"/>
+    <text x="405" y="194" text-anchor="middle">127.0.0.1:8080 → 8080</text>
+    <rect x="315" y="214" width="180" height="34" rx="6" fill="#fff" stroke="#c76f00"/>
+    <text x="405" y="236" text-anchor="middle">127.0.0.1:8081 → 8081</text>
+    <rect x="315" y="276" width="180" height="34" rx="6" fill="#fff" stroke="#c76f00"/>
+    <text x="405" y="298" text-anchor="middle">127.0.0.1:2222 → 22</text>
+  </g>
+  <text x="405" y="340" text-anchor="middle" font-size="11" fill="#555">Puerta de enlace NAT: 10.0.2.2</text>
+  <text x="405" y="356" text-anchor="middle" font-size="11" fill="#555">(3306 no se reenvía)</text>
+  <line x1="260" y1="155" x2="310" y2="155" stroke="#2a5542" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="260" y1="293" x2="310" y2="293" stroke="#2a5542" stroke-width="2.5" marker-end="url(#a)"/>
+  <!-- VM -->
+  <rect x="550" y="60" width="380" height="370" rx="12" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+  <text x="565" y="86" font-size="15" font-weight="bold" fill="#2a5542">Máquina virtual · Ubuntu Server 24.04</text>
+  <text x="565" y="106" font-size="12" fill="#555">IP en la red NAT: 10.0.2.15</text>
+  <line x1="510" y1="155" x2="566" y2="155" stroke="#2a5542" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="510" y1="293" x2="566" y2="293" stroke="#2a5542" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="570" y="120" width="190" height="200" rx="8" fill="#fff" stroke="#2a5542"/>
+  <text x="665" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">Apache + PHP</text>
+  <text x="665" y="160" text-anchor="middle" font-size="11" fill="#555">escucha en 8080 y 8443</text>
+  <rect x="590" y="172" width="150" height="40" rx="6" fill="#21759b"/>
+  <text x="665" y="197" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">WordPress</text>
+  <text x="665" y="228" text-anchor="middle" font-size="11" fill="#555">/var/www/wordpress</text>
+  <rect x="590" y="244" width="150" height="34" rx="6" fill="#7fb59a"/>
+  <text x="665" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Sitio de pruebas</text>
+  <text x="665" y="296" text-anchor="middle" font-size="11" fill="#555">/var/www/pruebas · 8081</text>
+  <rect x="780" y="120" width="135" height="200" rx="8" fill="#fff" stroke="#2a5542"/>
+  <path d="M805,150 a42,10 0 0 0 84,0 a42,10 0 0 0 -84,0 v60 a42,10 0 0 0 84,0 v-60" fill="#dbe9f3" stroke="#21759b" stroke-width="2"/>
+  <text x="847" y="192" text-anchor="middle" font-size="13" font-weight="bold" fill="#21759b">MySQL</text>
+  <text x="847" y="250" text-anchor="middle" font-size="11" fill="#555">wordpress</text>
+  <text x="847" y="266" text-anchor="middle" font-size="11" fill="#555">wp_pruebas</text>
+  <text x="847" y="290" text-anchor="middle" font-size="11" fill="#555">solo localhost</text>
+  <line x1="740" y1="192" x2="801" y2="192" stroke="#2a5542" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="570" y="340" width="345" height="70" rx="8" fill="#fff" stroke="#2a5542"/>
+  <text x="585" y="364" font-size="13" font-weight="bold" fill="#222">OpenSSH (puerto 22)</text>
+  <text x="585" y="386" font-size="12" fill="#555">Administración remota y copia de archivos (scp)</text>
+  <text x="585" y="402" font-size="12" fill="#555">WP-CLI: wp core version, wp plugin list…</text>
+</svg>

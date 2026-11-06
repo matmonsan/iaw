@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" font-family="Segoe UI, Arial, sans-serif">
+  <title>Jerarquía de plantillas de WordPress para una entrada individual</title>
+  <defs>
+    <marker id="h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <rect width="960" height="330" fill="#fff"/>
+  <text x="480" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#2a5542">¿Qué plantilla usa WordPress para mostrar la entrada «hola-mundo»?</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#555">Busca de la más específica a la más general y usa la primera que existe en el tema</text>
+  <g font-size="14" font-family="Consolas, monospace">
+    <rect x="20" y="90" width="210" height="56" rx="8" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+    <text x="125" y="115" text-anchor="middle" fill="#2a5542" font-weight="bold">single-post-</text>
+    <text x="125" y="134" text-anchor="middle" fill="#2a5542" font-weight="bold">hola-mundo</text>
+    <line x1="230" y1="118" x2="262" y2="118" stroke="#555" stroke-width="2" marker-end="url(#h)"/>
+    <rect x="265" y="90" width="150" height="56" rx="8" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+    <text x="340" y="124" text-anchor="middle" fill="#2a5542" font-weight="bold">single-post</text>
+    <line x1="415" y1="118" x2="447" y2="118" stroke="#555" stroke-width="2" marker-end="url(#h)"/>
+    <rect x="450" y="90" width="120" height="56" rx="8" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+    <text x="510" y="124" text-anchor="middle" fill="#2a5542" font-weight="bold">single</text>
+    <line x1="570" y1="118" x2="602" y2="118" stroke="#555" stroke-width="2" marker-end="url(#h)"/>
+    <rect x="605" y="90" width="130" height="56" rx="8" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+    <text x="670" y="124" text-anchor="middle" fill="#2a5542" font-weight="bold">singular</text>
+    <line x1="735" y1="118" x2="767" y2="118" stroke="#555" stroke-width="2" marker-end="url(#h)"/>
+    <rect x="770" y="90" width="170" height="56" rx="8" fill="#21759b" stroke="#21759b" stroke-width="2"/>
+    <text x="855" y="124" text-anchor="middle" fill="#fff" font-weight="bold">index</text>
+  </g>
+  <g font-size="12" fill="#555" text-anchor="middle">
+    <text x="125" y="168">solo esa entrada</text>
+    <text x="340" y="168">todas las entradas</text>
+    <text x="510" y="168">cualquier tipo</text>
+    <text x="670" y="168">entradas y páginas</text>
+    <text x="855" y="168">obligatoria: último recurso</text>
+  </g>
+  <rect x="20" y="200" width="920" height="110" rx="8" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="13" fill="#222">
+    <text x="40" y="228" font-weight="bold">Tema de bloques:</text>
+    <text x="180" y="228">plantillas HTML en <tspan font-family="Consolas, monospace">templates/single.html</tspan> y partes en <tspan font-family="Consolas, monospace">parts/header.html</tspan>; se editan en Apariencia &gt; Editor.</text>
+    <text x="40" y="256" font-weight="bold">Tema clásico:</text>
+    <text x="180" y="256">plantillas PHP en <tspan font-family="Consolas, monospace">single.php</tspan>, <tspan font-family="Consolas, monospace">header.php</tspan>, <tspan font-family="Consolas, monospace">footer.php</tspan>…; se editan con código.</text>
+    <text x="40" y="284" font-weight="bold">Otras rutas:</text>
+    <text x="180" y="284">page-{slug} › page › singular › index   ·   category-{slug} › category › archive › index</text>
+  </g>
+</svg>

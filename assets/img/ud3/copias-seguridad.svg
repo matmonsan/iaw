@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" font-family="Segoe UI, Arial, sans-serif">
+  <title>Componentes de una copia de seguridad de WordPress y regla 3-2-1</title>
+  <defs>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2a5542"/></marker>
+  </defs>
+  <rect width="960" height="360" fill="#fff"/>
+  <text x="250" y="32" text-anchor="middle" font-size="17" font-weight="bold" fill="#2a5542">Qué hay que copiar</text>
+  <rect x="30" y="55" width="190" height="110" rx="10" fill="#dbe9f3" stroke="#21759b" stroke-width="2"/>
+  <path d="M85,80 a40,9 0 0 0 80,0 a40,9 0 0 0 -80,0 v40 a40,9 0 0 0 80,0 v-40" fill="#fff" stroke="#21759b" stroke-width="2"/>
+  <text x="125" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#21759b">Base de datos (.sql)</text>
+  <text x="248" y="118" text-anchor="middle" font-size="28" font-weight="bold" fill="#2a5542">+</text>
+  <rect x="275" y="55" width="190" height="110" rx="10" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+  <rect x="330" y="75" width="80" height="50" rx="4" fill="#7fb59a"/>
+  <rect x="330" y="70" width="34" height="10" rx="3" fill="#7fb59a"/>
+  <text x="370" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#2a5542">wp-content + wp-config</text>
+  <line x1="250" y1="170" x2="250" y2="205" stroke="#2a5542" stroke-width="2.5" marker-end="url(#b)"/>
+  <rect x="120" y="210" width="260" height="56" rx="10" fill="#2a5542"/>
+  <text x="250" y="236" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Copia completa y coherente</text>
+  <text x="250" y="255" text-anchor="middle" font-size="12" fill="#e8f1ec">(ambas partes del mismo momento)</text>
+  <text x="250" y="300" text-anchor="middle" font-size="13" fill="#555">Una copia que no se ha probado a restaurar</text>
+  <text x="250" y="320" text-anchor="middle" font-size="13" font-weight="bold" fill="#b3261e">no es una copia fiable.</text>
+  <line x1="505" y1="30" x2="505" y2="330" stroke="#ddd" stroke-width="2"/>
+  <text x="730" y="32" text-anchor="middle" font-size="17" font-weight="bold" fill="#2a5542">Regla 3-2-1</text>
+  <g>
+    <circle cx="575" cy="90" r="32" fill="#21759b"/><text x="575" y="101" text-anchor="middle" font-size="30" font-weight="bold" fill="#fff">3</text>
+    <text x="625" y="84" font-size="15" font-weight="bold" fill="#222">copias de los datos</text>
+    <text x="625" y="104" font-size="13" fill="#555">el original y dos copias</text>
+    <circle cx="575" cy="175" r="32" fill="#c76f00"/><text x="575" y="186" text-anchor="middle" font-size="30" font-weight="bold" fill="#fff">2</text>
+    <text x="625" y="169" font-size="15" font-weight="bold" fill="#222">soportes distintos</text>
+    <text x="625" y="189" font-size="13" fill="#555">p. ej. disco de la VM y disco del host</text>
+    <circle cx="575" cy="260" r="32" fill="#2a5542"/><text x="575" y="271" text-anchor="middle" font-size="30" font-weight="bold" fill="#fff">1</text>
+    <text x="625" y="254" font-size="15" font-weight="bold" fill="#222">copia fuera del servidor</text>
+    <text x="625" y="274" font-size="13" fill="#555">otra ubicación: nube, disco externo, otro equipo</text>
+  </g>
+</svg>

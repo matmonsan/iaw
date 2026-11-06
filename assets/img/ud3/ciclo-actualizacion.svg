@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" font-family="Segoe UI, Arial, sans-serif">
+  <title>Procedimiento seguro de actualización de WordPress</title>
+  <defs>
+    <marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <rect width="960" height="300" fill="#fff"/>
+  <g font-size="14" text-anchor="middle">
+    <rect x="15" y="60" width="160" height="110" rx="12" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+    <text x="95" y="92" font-size="26" font-weight="bold" fill="#2a5542">1</text>
+    <text x="95" y="120" font-weight="bold" fill="#222">Revisar</text>
+    <text x="95" y="142" font-size="12" fill="#555">notas de versión y</text>
+    <text x="95" y="158" font-size="12" fill="#555">compatibilidad</text>
+    <line x1="175" y1="115" x2="200" y2="115" stroke="#555" stroke-width="2" marker-end="url(#c)"/>
+    <rect x="205" y="60" width="160" height="110" rx="12" fill="#dbe9f3" stroke="#21759b" stroke-width="2"/>
+    <text x="285" y="92" font-size="26" font-weight="bold" fill="#21759b">2</text>
+    <text x="285" y="120" font-weight="bold" fill="#222">Copia de seguridad</text>
+    <text x="285" y="142" font-size="12" fill="#555">BD + archivos</text>
+    <text x="285" y="158" font-size="12" fill="#555">(e instantánea de la VM)</text>
+    <line x1="365" y1="115" x2="390" y2="115" stroke="#555" stroke-width="2" marker-end="url(#c)"/>
+    <rect x="395" y="60" width="160" height="110" rx="12" fill="#fff7ec" stroke="#c76f00" stroke-width="2"/>
+    <text x="475" y="92" font-size="26" font-weight="bold" fill="#c76f00">3</text>
+    <text x="475" y="120" font-weight="bold" fill="#222">Probar</text>
+    <text x="475" y="142" font-size="12" fill="#555">en un entorno de</text>
+    <text x="475" y="158" font-size="12" fill="#555">pruebas (staging)</text>
+    <line x1="555" y1="115" x2="580" y2="115" stroke="#555" stroke-width="2" marker-end="url(#c)"/>
+    <rect x="585" y="60" width="160" height="110" rx="12" fill="#e8f1ec" stroke="#2a5542" stroke-width="2"/>
+    <text x="665" y="92" font-size="26" font-weight="bold" fill="#2a5542">4</text>
+    <text x="665" y="120" font-weight="bold" fill="#222">Actualizar</text>
+    <text x="665" y="142" font-size="12" fill="#555">núcleo › plugins ›</text>
+    <text x="665" y="158" font-size="12" fill="#555">temas › traducciones</text>
+    <line x1="745" y1="115" x2="770" y2="115" stroke="#555" stroke-width="2" marker-end="url(#c)"/>
+    <rect x="775" y="60" width="170" height="110" rx="12" fill="#2a5542"/>
+    <text x="860" y="92" font-size="26" font-weight="bold" fill="#fff">5</text>
+    <text x="860" y="120" font-weight="bold" fill="#fff">Verificar</text>
+    <text x="860" y="142" font-size="12" fill="#e8f1ec">web, formularios, Salud</text>
+    <text x="860" y="158" font-size="12" fill="#e8f1ec">del sitio y registros</text>
+  </g>
+  <path d="M860,175 C860,250 285,250 285,178" fill="none" stroke="#b3261e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#c)"/>
+  <text x="572" y="262" text-anchor="middle" font-size="13" fill="#b3261e">¿Algo falla? Restaurar la copia del paso 2 y analizar la causa</text>
+</svg>

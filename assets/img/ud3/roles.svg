@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="Segoe UI, Arial, sans-serif">
+  <title>Pirámide de roles de WordPress</title>
+  <rect width="960" height="470" fill="#fff"/>
+  <text x="300" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#2a5542">Más permisos ↑</text>
+  <polygon points="300,45 360,110 240,110" fill="#7a1f1f"/>
+  <text x="300" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Superadmin</text>
+  <polygon points="240,115 360,115 410,170 190,170" fill="#b3261e"/>
+  <text x="300" y="148" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Administrador</text>
+  <polygon points="190,175 410,175 460,230 140,230" fill="#c76f00"/>
+  <text x="300" y="208" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Editor</text>
+  <polygon points="140,235 460,235 510,290 90,290" fill="#21759b"/>
+  <text x="300" y="268" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Autor</text>
+  <polygon points="90,295 510,295 560,350 40,350" fill="#2a5542"/>
+  <text x="300" y="328" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Colaborador</text>
+  <polygon points="40,355 560,355 600,410 0,410" fill="#6b8f7c"/>
+  <text x="300" y="388" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Suscriptor</text>
+  <text x="300" y="440" text-anchor="middle" font-size="14" fill="#555">Menos permisos ↓  (cada nivel suele incluir los permisos del inferior)</text>
+  <g font-size="13" fill="#222">
+    <text x="625" y="86" fill="#7a1f1f" font-weight="bold">Solo en multisitio:</text><text x="765" y="86">gestiona la red de sitios</text>
+    <text x="625" y="146" fill="#b3261e" font-weight="bold">Todo el sitio:</text><text x="725" y="146">plugins, temas, usuarios, ajustes</text>
+    <text x="625" y="206" fill="#c76f00" font-weight="bold">Todo el contenido:</text><text x="760" y="206">publica y edita lo de todos</text>
+    <text x="625" y="266" fill="#21759b" font-weight="bold">Su contenido:</text><text x="725" y="266">publica sus entradas y medios</text>
+    <text x="625" y="326" fill="#2a5542" font-weight="bold">Escribe borradores:</text><text x="770" y="326">no publica ni sube archivos</text>
+    <text x="625" y="386" fill="#6b8f7c" font-weight="bold">Solo lectura:</text><text x="725" y="386">gestiona su perfil</text>
+  </g>
+</svg>

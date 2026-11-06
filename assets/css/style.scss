@@ -11,6 +11,13 @@
   margin: 0 auto;
 }
 
+/* Ilustraciones SVG propias: ocupan todo el ancho del texto */
+.main-content img[src$=".svg"] {
+  width: 100%;
+  max-width: none;
+  height: auto;
+}
+
 .page-header {
   color: #2a5542;
   background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
