@@ -700,39 +700,258 @@ Instala WordPress en una máquina virtual de VirtualBox con Ubuntu Server 24.04 
 
 ## 5. El panel de administración
 
-Todo WordPress se administra desde `https://localhost:8443/wp-admin`. La primera pantalla es el Escritorio:
+Todo WordPress se administra desde el panel, en `https://localhost:8443/wp-admin`. Si no has iniciado sesión, WordPress te lleva primero a la pantalla de acceso (`wp-login.php`), donde también está el enlace para recuperar la contraseña.
 
-![Esquema del escritorio de WordPress](assets/img/ud3/panel-admin.svg)
+Todas las pantallas del panel tienen la misma estructura:
 
-*Figura: barra de herramientas superior, menú lateral y área de trabajo del escritorio.*
+- **Barra de herramientas:** la franja negra superior. De izquierda a derecha contiene el logotipo de WordPress (enlaces a la documentación y a WordPress.org), el nombre del sitio (lleva a la web pública), el icono de actualizaciones pendientes, el buscador de comandos (Ctrl+K), los comentarios pendientes, el botón + Añadir (entrada, medio, página o usuario) y, a la derecha, el saludo con tu nombre, que despliega tu perfil y Cerrar sesión. También aparece encima de la web pública mientras tienes la sesión iniciada.
+- **Buscador de comandos (Ctrl+K):** abre un cuadro en el que puedes escribir lo que quieres hacer o adónde quieres ir («añadir entrada», «plugins», «enlaces permanentes») y saltar directamente a esa pantalla.
+- **Menú lateral:** las secciones del panel. La sección activa se resalta y muestra su submenú. Al final, Cerrar menú lo pliega para dejar más espacio de trabajo.
+- **Avisos:** debajo de la barra aparecen los mensajes importantes, como que hay una versión nueva de WordPress disponible.
+- **Área de trabajo:** el contenido de la sección elegida. Arriba a la derecha suelen aparecer dos pestañas: Opciones de pantalla, para elegir qué columnas o cajas se muestran y cuántos elementos por página, y Ayuda, con una explicación de la pantalla actual.
 
-| Menú | Para qué sirve |
-| --- | --- |
-| **Entradas** | Artículos fechados del blog o de noticias, con categorías y etiquetas |
-| **Medios** | Biblioteca de imágenes, vídeos, PDF y otros archivos |
-| **Páginas** | Contenido estático: inicio, contacto, aviso legal… |
-| **Comentarios** | Moderación de los comentarios de los visitantes |
-| **Apariencia** | Temas, editor del sitio (plantillas, estilos, navegación) |
-| **Plugins** | Instalar, activar, actualizar y eliminar complementos |
-| **Usuarios** | Cuentas, roles y perfiles |
-| **Herramientas** | Importar, exportar, Salud del sitio, datos personales |
-| **Ajustes** | Configuración general del sitio |
+El menú que ve cada usuario depende de su rol: un autor solo verá Escritorio, Entradas, Medios, Comentarios, Perfil y Herramientas, mientras que el administrador lo ve todo. Además, muchos plugins añaden sus propios menús (por ejemplo, *Contacto*, *SEO* o *UpdraftPlus*).
 
-Los plugins pueden añadir menús propios (por ejemplo, *SEO* o *UpdraftPlus*), y el menú que ve cada usuario depende de su rol: un autor no verá *Plugins* ni *Ajustes*.
+| Menú | Para qué sirve | Se estudia en |
+| --- | --- | --- |
+| Escritorio | Resumen del sitio y actualizaciones | 5.1 y 13 |
+| Entradas | Noticias y artículos fechados, con categorías y etiquetas | 5.2 y 6 |
+| Medios | Biblioteca de imágenes, vídeos, PDF y otros archivos | 5.3 y 6.4 |
+| Páginas | Contenido estable: inicio, contacto, aviso legal… | 5.4 y 6 |
+| Comentarios | Moderación de los comentarios de los visitantes | 5.5 |
+| Apariencia | Temas, editor del sitio y fuentes | 5.6 y 7 |
+| Plugins | Instalar, activar, actualizar y eliminar complementos | 5.7 y 8 |
+| Usuarios | Cuentas, roles y perfiles | 5.8 y 9 |
+| Herramientas | Importar, exportar, Salud del sitio, datos personales y editores de archivos | 5.9, 11 y 14 |
+| Ajustes | Configuración general del sitio | 5.10 |
 
-### 5.1 Ajustes básicos
+> Las capturas de este apartado están hechas sobre una instalación recién terminada de WordPress 7.1, por eso las listas solo muestran el contenido de ejemplo que crea WordPress al instalarse: la entrada «¡Hola, mundo!», la «Página de ejemplo», un comentario y los plugins Akismet y Hello Dolly. A medida que añadas contenido, las pantallas se irán llenando.
+
+### 5.1 Escritorio
+
+Es la primera pantalla que aparece al entrar en el panel.
+
+![Escritorio de WordPress](assets/img/ud3/captura-escritorio.png)
+
+*Figura: el Escritorio de WordPress 7.1.*
+
+El área de trabajo está formada por cajas que se pueden arrastrar para cambiarlas de sitio, plegar con sus flechas o, desde Opciones de pantalla, ocultar:
+
+- **Estado de salud del sitio:** resumen del estado técnico, con enlace al informe completo (5.9). Justo después de instalar aparece vacío hasta que se ejecutan las primeras comprobaciones.
+- **De un vistazo:** número de entradas, páginas y comentarios, versión de WordPress y tema activo, con un botón para actualizar si hay una versión nueva. Si marcaste en la instalación que los buscadores no indexen el sitio, aquí aparece el aviso *Motores de búsqueda disuadidos*.
+- **Actividad:** publicaciones recientes, entradas programadas y comentarios recientes, con acciones rápidas de moderación.
+- **Borrador rápido:** escribir el título y el texto de una idea y guardarla como borrador sin abrir el editor.
+- **Eventos y noticias de WordPress:** próximos encuentros de la comunidad cerca de ti (WordCamps y Meetups) y noticias oficiales.
+- **Te damos la bienvenida:** en el primer acceso aparece además un panel con accesos directos para empezar a configurar el sitio. Se puede cerrar y recuperar desde Opciones de pantalla.
+
+Submenús:
+
+- **Inicio:** el propio escritorio.
+- **Actualizaciones:** lista de todo lo que se puede actualizar (WordPress, plugins, temas y traducciones) y permite hacerlo desde ahí. El número junto al menú indica cuántas actualizaciones hay pendientes. Lo estudiaremos en el apartado 13.
+
+### 5.2 Entradas
+
+En Entradas se gestionan las noticias y artículos del sitio.
+
+![Pantalla Entradas de WordPress](assets/img/ud3/captura-entradas.png)
+
+*Figura: la pantalla Todas las entradas.*
+
+- **Botón Añadir entrada:** junto al título de la pantalla, abre el editor de bloques con una entrada nueva.
+- **Filtros por estado:** encima de la tabla, muestran todas las entradas o solo las de un estado. En una instalación nueva solo aparecen *Todo* y *Publicado*; según vayas creando contenido aparecerán *Borrador*, *Programada*, *Pendiente*, *Privada* y *Papelera*, con el número de entradas de cada uno.
+- **Buscador:** a la derecha, encuentra entradas por palabras del título o del contenido.
+- **Acciones en lote y filtros:** marca varias entradas con las casillas y aplícales a la vez una acción (*Editar* o *Mover a la papelera*). Los desplegables filtran la lista por mes o por categoría.
+- **Tabla de entradas:** cada fila muestra el título, el autor, las categorías, las etiquetas, el número de comentarios (el bocadillo) y la fecha con su estado. Las columnas con flechas se pueden ordenar pulsando en su encabezado.
+- **Acciones de la fila:** aparecen bajo el título al pasar el ratón por encima.
+  - *Editar* abre el editor.
+  - *Edición rápida* permite cambiar sin salir de la lista el título, el *slug* (la parte final de la URL), la fecha, el autor, las categorías, las etiquetas, el estado y si admite comentarios.
+  - *Papelera* la envía a la papelera, donde se conserva 30 días antes de borrarse definitivamente. Desde el filtro *Papelera* se puede restaurar.
+  - *Ver* la abre en la web pública (o *Vista previa*, si aún no está publicada).
+
+Submenús:
+
+- **Todas las entradas:** la lista de la captura.
+- **Añadir entrada:** abre el editor de bloques con una entrada nueva (apartado 6).
+- **Categorías:** crear, editar y borrar categorías. Cada una tiene nombre, *slug*, categoría superior (para crear jerarquías como *Noticias > Eventos*) y descripción. La categoría por defecto (*Sin categoría*) no se puede borrar, pero sí cambiarle el nombre.
+- **Etiquetas:** lo mismo para las etiquetas, que no tienen jerarquía.
+
+### 5.3 Medios
+
+Medios es la biblioteca de todos los archivos subidos al sitio: imágenes, documentos, audio y vídeo.
+
+![Pantalla Biblioteca de medios de WordPress](assets/img/ud3/captura-medios.png)
+
+*Figura: la Biblioteca de medios, todavía vacía.*
+
+- **Botón Añadir medios:** abre la zona para subir archivos. Basta con arrastrarlos desde el explorador de Windows o pulsar *Seleccionar archivos*. El tamaño máximo lo fija `upload_max_filesize` de PHP (apartado 4.4).
+- **Tipo de vista:** los dos iconos de la izquierda cambian entre la vista de lista (tabla con nombre, autor, entrada a la que está adjunto y fecha) y la de cuadrícula (miniaturas).
+- **Filtros:** por tipo de archivo (imágenes, audio, vídeo, documentos, hojas de cálculo, archivos sin adjuntar) o por mes.
+- **Selección en lotes:** permite marcar varios archivos para borrarlos a la vez.
+- **Buscar medios:** encuentra archivos por su nombre o título.
+- **Detalles del adjunto:** al pulsar sobre una miniatura se abre una ventana con el nombre, la fecha, el peso y las dimensiones del archivo, y sus campos editables:
+  - *Texto alternativo:* descripción de la imagen para lectores de pantalla y buscadores. Es el campo más importante.
+  - *Título*, *Leyenda* (texto que puede mostrarse bajo la imagen) y *Descripción*.
+  - *URL del archivo* y el botón *Copiar URL*, para enlazarlo desde cualquier sitio.
+  - *Editar imagen:* recortar, girar, voltear y escalar la imagen sin programas externos.
+  - *Eliminar permanentemente:* borra el archivo del servidor. Los medios no pasan por la papelera, así que esta acción no se puede deshacer.
+
+Submenús:
+
+- **Biblioteca:** la pantalla de la captura.
+- **Añadir medios:** la página para subir archivos.
+
+Los archivos también se suben directamente desde el editor, al insertar un bloque de Imagen, Galería o Archivo; en ese caso aparecen igualmente en la biblioteca.
+
+### 5.4 Páginas
+
+Páginas funciona como Entradas, pero para el contenido estable del sitio.
+
+![Pantalla Páginas de WordPress](assets/img/ud3/captura-paginas.png)
+
+*Figura: la pantalla Todas las páginas con las dos páginas que crea la instalación.*
+
+- **Botón Añadir página, filtros, buscador y acciones en lote:** funcionan igual que en Entradas. Las páginas no tienen categorías ni etiquetas, así que no aparecen esas columnas ni ese filtro.
+- **Estados especiales:** WordPress indica junto al título las páginas que cumplen una función. En la captura, *Política de privacidad* aparece como *Borrador, Página de política de privacidad*: WordPress la crea al instalarse, pero sin publicar, para que la completes. Otros estados especiales son *Portada* (la página de inicio) y *Página de entradas* (donde se listan las noticias); se asignan en Ajustes > Lectura y Ajustes > Privacidad.
+- **Jerarquía:** una página puede tener una página superior. Las páginas hijas aparecen en la lista con un guion delante, y su URL incluye la de la página superior: si *Desarrollo web* es hija de *Cursos*, su dirección será `/cursos/desarrollo-web/`.
+- **Acciones de la fila:** las mismas que en Entradas. La *Edición rápida* de una página permite, además, cambiar la página superior, el orden y la plantilla que usa.
+
+Submenús:
+
+- **Todas las páginas:** la lista de la captura.
+- **Añadir página:** abre el editor de bloques con una página nueva.
+
+### 5.5 Comentarios
+
+Desde aquí se moderan los comentarios que dejan los visitantes en las entradas.
+
+![Pantalla Comentarios de WordPress](assets/img/ud3/captura-comentarios.png)
+
+*Figura: la pantalla Comentarios con el comentario de ejemplo de la instalación.*
+
+- **Filtros:** *Todos*, *Míos*, *Pendientes*, *Aprobado*, *Spam* y *Papelera*. Cuando hay comentarios pendientes, el menú lateral y la barra de herramientas muestran un número junto al icono de comentarios.
+- **Columnas:** el autor (con su avatar, web y correo), el texto del comentario, la entrada en la que se escribió (*En respuesta a*) y la fecha de envío.
+- **Comentarios pendientes:** se distinguen por su fondo amarillo y una barra a la izquierda. No son visibles en la web hasta que se aprueban.
+- **Acciones de moderación:** aparecen bajo el texto al pasar el ratón.
+  - *Aprobar* o *No aprobar*: lo publica o lo devuelve a pendiente.
+  - *Responder*: escribe una respuesta sin salir de la lista.
+  - *Edición rápida* y *Editar*: corrigen el texto o los datos del autor.
+  - *Spam*: lo marca como correo basura (los plugins antispam, como Akismet, aprenden de esta marca).
+  - *Papelera*: lo elimina.
+
+Cómo se comportan los comentarios (si se permiten, si requieren aprobación, si se cierran en entradas antiguas) se decide en Ajustes > Comentarios (5.10).
+
+### 5.6 Apariencia
+
+Apariencia controla el aspecto del sitio.
+
+![Pantalla Temas de WordPress](assets/img/ud3/captura-temas.png)
+
+*Figura: Apariencia > Temas con los temas por defecto de WordPress.*
+
+- **Tema activo:** aparece el primero, con su nombre en la franja azul (*Activo: Twenty Twenty-Five*). El botón *Personalizar* abre el editor del sitio para modificarlo.
+- **Otros temas instalados:** al pasar el ratón sobre ellos aparecen *Activar* y *Vista previa en vivo* (para ver cómo quedaría el sitio sin cambiar el tema). Pulsando sobre la miniatura se abren los *Detalles del tema*, con su versión, autor, descripción y el enlace *Borrar*.
+- **Añadir tema:** el botón junto al título y la tarjeta con el símbolo + abren el buscador del directorio oficial de temas y la opción *Subir tema* para instalar uno desde un archivo `.zip`.
+- **Buscar temas instalados:** útil cuando hay muchos temas.
+
+Submenús en un tema de bloques:
+
+- **Temas:** la pantalla de la captura.
+- **Editor:** el editor del sitio, donde se modifican la navegación, los estilos globales, las plantillas y los patrones. Lo estudiaremos a fondo en el apartado 7.
+- **Fuentes:** la biblioteca de tipografías del sitio. Permite activar las fuentes que trae el tema, instalar otras de Google Fonts o subir archivos de fuentes propios para usarlos luego en los estilos.
+
+Si el tema activo es clásico, en lugar de *Editor* aparecen *Personalizar*, *Widgets* y *Menús*.
+
+### 5.7 Plugins
+
+En Plugins se gestionan los complementos instalados.
+
+![Pantalla Plugins de WordPress](assets/img/ud3/captura-plugins.png)
+
+*Figura: la pantalla Plugins instalados con los dos plugins que trae WordPress.*
+
+- **Botón Añadir plugin:** abre el buscador del directorio oficial de plugins.
+- **Filtros:** *Todos*, *Activos*, *Inactivos*, *Actualización disponible* y *Actualizaciones automáticas activadas o desactivadas*. Solo aparecen los que tienen algún plugin.
+- **Acciones del plugin:** bajo su nombre, *Activar* o *Desactivar*, *Borrar* (solo cuando está desactivado) y, en muchos plugins, un enlace directo a sus *Ajustes*. Los plugins activos se muestran con fondo azulado y una barra a la izquierda.
+- **Descripción:** qué hace el plugin, su versión, su autor y el enlace *Ver detalles*, que abre su ficha del directorio oficial (descripción, valoraciones, compatibilidad y registro de cambios).
+- **Actualizaciones automáticas:** el enlace de la última columna activa o desactiva que WordPress actualice ese plugin por su cuenta cuando salga una versión nueva.
+- **Aviso de actualización:** cuando existe una versión nueva de un plugin, aparece debajo de su fila una franja amarilla desde la que se pueden ver las novedades y actualizar con un clic.
+
+Los dos plugins de la captura vienen con WordPress: Akismet (antispam, necesita una clave de su servicio) y Hello Dolly (un ejemplo sin utilidad real). Si no los vas a usar, lo recomendable es borrarlos.
+
+Submenús:
+
+- **Plugins instalados:** la lista de la captura.
+- **Añadir plugin:** busca e instala plugins del directorio oficial, con pestañas de destacados, populares y recomendados, o sube un plugin en `.zip` con el botón *Subir plugin*.
+
+### 5.8 Usuarios
+
+En Usuarios se gestionan las cuentas que pueden entrar en el panel.
+
+![Pantalla Usuarios de WordPress](assets/img/ud3/captura-usuarios.png)
+
+*Figura: la pantalla Todos los usuarios.*
+
+- **Botón Añadir usuario:** abre el formulario para crear una cuenta.
+- **Filtros por rol:** muestran solo los usuarios de un perfil concreto (*Administrador*, *Editor*, *Autor*…). Solo aparecen los roles que tienen algún usuario.
+- **Cambiar perfil a…:** marca varios usuarios con las casillas y cámbiales el rol a la vez.
+- **Columnas:** nombre de usuario, nombre (vacío si no se ha rellenado en el perfil), correo electrónico, perfil (el rol) y número de entradas publicadas.
+- **Acciones del usuario:** al pasar el ratón, *Editar* su perfil, *Ver* sus publicaciones, *Enviar restablecimiento de contraseña* (le llega un correo para crear una nueva) y *Borrar*. Al borrar un usuario, WordPress pregunta a quién atribuir sus entradas para no perderlas.
+
+Submenús:
+
+- **Todos los usuarios:** la lista de la captura.
+- **Añadir usuario:** formulario con nombre de usuario (no se puede cambiar después), correo, nombre y apellidos, web, contraseña (WordPress propone una segura), la casilla para enviar un aviso por correo al nuevo usuario y el perfil (rol).
+- **Perfil:** los datos de tu propia cuenta: esquema de colores del panel, si quieres ver la barra de herramientas en la web, nombre público, correo, biografía, cambio de contraseña, *contraseñas de aplicación* (para que otros programas accedan por la API REST) y el botón *Cerrar el resto de sesiones*, útil si has iniciado sesión en un equipo ajeno.
+
+Los roles y permisos se explican en detalle en el apartado 9.
+
+### 5.9 Herramientas
+
+Herramientas reúne utilidades de mantenimiento. La más importante es Salud del sitio.
+
+![Pantalla Salud del sitio de WordPress](assets/img/ud3/captura-salud.png)
+
+*Figura: Herramientas > Salud del sitio en una instalación recién hecha.*
+
+- **Indicador de salud:** valoración global del estado técnico del sitio. En la captura aparece *Necesita mejoras*; cuando todo está correcto pasa a *Bien*.
+- **Pestañas Estado e Información:** *Estado* muestra los problemas detectados; *Información* recoge todos los datos técnicos del sitio y del servidor (versiones de WordPress, PHP y MySQL, rutas, permisos, plugins, constantes de `wp-config.php`…) con un botón para *Copiar la información del sitio al portapapeles*, muy útil para pedir soporte.
+- **Errores críticos y mejoras recomendadas:** cada problema se despliega con una explicación y cómo resolverlo, y lleva una etiqueta con su categoría (seguridad, rendimiento). En la captura hay un error crítico (hay una actualización de WordPress pendiente) y cinco mejoras recomendadas, entre ellas eliminar los plugins y temas que no se usan.
+
+Submenús:
+
+- **Herramientas disponibles:** utilidades varias, como el conversor de categorías a etiquetas.
+- **Importar y Exportar:** mover contenidos entre sitios (apartado 11).
+- **Salud del sitio:** la pantalla de la captura. El número junto al menú indica los errores críticos.
+- **Exportar los datos personales y Borrar los datos personales:** atender las solicitudes que el RGPD reconoce a las personas usuarias. Se introduce el correo de la persona, WordPress le envía un mensaje para confirmar la solicitud y, una vez confirmada, genera un archivo con sus datos o los elimina.
+- **Editor de archivos de temas y Editor de archivos de plugins:** permiten modificar el código de temas y plugins desde el navegador. Son peligrosos: un error de sintaxis puede dejar el sitio inaccesible, y si alguien consigue entrar como administrador puede usarlos para inyectar código malicioso. Los desactivaremos con `DISALLOW_FILE_EDIT` (apartado 13.4), y entonces dejarán de aparecer en el menú.
+
+### 5.10 Ajustes
 
 Antes de crear contenido, conviene revisar los Ajustes. Cambiarlos más tarde, especialmente los enlaces permanentes, puede romper enlaces ya compartidos.
 
+![Pantalla Ajustes generales de WordPress](assets/img/ud3/captura-ajustes.png)
+
+*Figura: Ajustes > Generales (la pantalla continúa hacia abajo con el perfil predeterminado, el idioma, la zona horaria y los formatos de fecha y hora).*
+
+- **Título del sitio y descripción corta:** el nombre del sitio y su lema. Aparecen en la cabecera, en la pestaña del navegador y en los resultados de los buscadores.
+- **Icono del sitio:** la imagen que se muestra en la pestaña del navegador y en los favoritos. Debe ser cuadrada y de al menos 512 × 512 píxeles.
+- **Direcciones de WordPress y del sitio:** la URL de la instalación y la de la web pública. Normalmente son la misma. Cambiarlas mal deja el sitio inaccesible; si ocurre, se corrige con WP-CLI (`wp option update home …` y `wp option update siteurl …`).
+- **Correo electrónico de administración:** recibe los avisos del sitio (actualizaciones, nuevos usuarios, errores). Si lo cambias, WordPress pide confirmarlo desde la nueva dirección.
+- **Miembros:** si se marca *Cualquiera puede registrarse*, cualquier visitante puede crear una cuenta con el *Perfil predeterminado* indicado debajo. Déjalo desmarcado salvo que lo necesites.
+- **Idioma, zona horaria y formatos:** afectan a la fecha de las publicaciones, a las entradas programadas y a los registros.
+
+Cada submenú de Ajustes agrupa un tipo de configuración:
+
 | Ajuste | Qué revisar |
 | --- | --- |
-| **Generales** | Título y descripción corta del sitio, direcciones de WordPress y del sitio (con `https`), correo de administración, idioma, zona horaria (`Madrid`), formato de fecha. Desmarca "Cualquiera puede registrarse" salvo que lo necesites. |
-| **Escritura** | Categoría por defecto y formato de entrada. |
-| **Lectura** | Qué muestra la portada (últimas entradas o una página estática), número de entradas por página, número de elementos y texto completo o extracto en el feed, visibilidad para buscadores. |
-| **Comentarios** | Si se permiten, si requieren aprobación manual, cierre automático en entradas antiguas, avatares. |
-| **Medios** | Tamaños en los que WordPress recorta automáticamente las imágenes subidas. |
-| **Enlaces permanentes** | Estructura de las URL. Elige Nombre de la entrada (`/mi-primera-entrada/`): es legible y mejor para el SEO. |
-| **Privacidad** | Página de política de privacidad del sitio. |
+| **Generales** | Título y descripción, icono, direcciones, correo de administración, registro de usuarios, idioma, zona horaria (`Madrid`) y formato de fecha. |
+| **Conectores** | Conexiones del sitio con servicios externos, como proveedores de inteligencia artificial, y sus claves de acceso. |
+| **Escritura** | Categoría y formato de entrada por defecto. |
+| **Lectura** | Qué muestra la portada (últimas entradas o una página estática, y cuál es la página de entradas), número de entradas por página, número de elementos y texto completo o extracto en el feed, y visibilidad para los buscadores. |
+| **Comentarios** | Si se permiten, si requieren aprobación manual, datos obligatorios del autor, cierre automático en entradas antiguas, avisos por correo y avatares. |
+| **Medios** | Tamaños en los que WordPress recorta automáticamente las imágenes subidas y si se organizan en carpetas por año y mes. |
+| **Enlaces permanentes** | Estructura de las URL. Elige *Nombre de la entrada* (`/mi-primera-entrada/`): es legible y mejor para el SEO. |
+| **Privacidad** | Página de política de privacidad del sitio, con una guía para redactarla. |
 
 Puedes consultar o cambiar cualquier ajuste también con WP-CLI:
 
@@ -744,60 +963,353 @@ wp rewrite structure '/%postname%/'
 
 ## 6. Creación de contenidos
 
+En este apartado vamos a aprender a crear contenido construyendo un ejemplo real, paso a paso: la página «Curso de Desarrollo Web» de un centro de formación, desde que se crea hasta que se ve publicada en la web. Después crearemos una noticia con categorías, etiquetas e imagen destacada, y veremos los patrones, las revisiones y la navegación.
+
 ### 6.1 Entradas y páginas
+
+Lo primero es decidir qué tipo de contenido vamos a crear. WordPress tiene dos tipos principales:
 
 | | **Entradas** | **Páginas** |
 | --- | --- | --- |
 | Naturaleza | Contenido fechado que se va publicando con el tiempo | Contenido estable, sin fecha relevante |
-| Orden | Cronológico inverso (lo más reciente primero) | Jerárquico (páginas padre e hijas) |
+| Orden | Cronológico inverso (lo más reciente primero) | Jerárquico (páginas superiores e hijas) |
 | Clasificación | Categorías y etiquetas | No tienen |
 | Aparecen en el feed RSS | Sí | No |
+| Plantilla del tema | Muestra autor, fecha, categorías, etiquetas y comentarios | Muestra solo el título y el contenido |
 | Ejemplos | Noticias, artículos, novedades | Inicio, Quiénes somos, Contacto, Aviso legal |
 
-**Categorías y etiquetas.** Las categorías son la clasificación principal y jerárquica (*Noticias > Eventos*); toda entrada tiene al menos una. Las etiquetas son palabras clave libres y no jerárquicas (*php*, *seguridad*). Úsalas con moderación: diez entradas con cuarenta etiquetas distintas no ayudan a nadie a encontrar nada.
+La información de un curso (qué se aprende, duración, horario) es estable y no caduca, así que la crearemos como una página. El anuncio del plazo de matrícula es una novedad con fecha, así que será una entrada.
 
 ### 6.2 El editor de bloques
 
-Desde la versión 5.0, WordPress usa el editor de bloques (conocido por su nombre de proyecto, *Gutenberg*). Cada elemento del contenido —un párrafo, un título, una imagen, una tabla, un botón— es un bloque independiente que se puede mover, configurar y combinar.
+Desde la versión 5.0, WordPress usa el editor de bloques (conocido por su nombre de proyecto, *Gutenberg*). Cada elemento del contenido (un párrafo, un título, una imagen, una tabla, un botón) es un bloque independiente que se puede mover, configurar y combinar con otros.
 
-![Partes del editor de bloques](assets/img/ud3/editor-bloques.svg)
+Al abrir el editor se ven tres zonas:
 
-*Figura: el insertador de bloques, el lienzo y el panel de ajustes.*
-
-- **Insertador (+)**: añade bloques. Atajo: escribe `/` en una línea vacía y el nombre del bloque (`/imagen`, `/tabla`).
-- **Barra del bloque**: aparece sobre el bloque seleccionado; permite moverlo, transformarlo en otro tipo y aplicar formato.
-- **Panel de ajustes**: la pestaña Entrada (o *Página*) contiene el estado, la URL, las categorías, la imagen destacada y el extracto; la pestaña Bloque contiene el color, la tipografía y el espaciado del bloque seleccionado.
-- **Vista de lista (☰)**: muestra la estructura de bloques del documento. Muy útil cuando hay bloques anidados.
+- **Barra superior:** a la izquierda, el botón para volver al panel, el insertador de bloques (+), deshacer y rehacer, y la vista de lista. En el centro, el título del documento. A la derecha, *Guardar como borrador*, la vista previa, el botón para mostrar u ocultar el panel de ajustes, *Publicar* y el menú de opciones (⋮).
+- **Lienzo:** el contenido, bloque a bloque, con un aspecto muy parecido al que tendrá en la web.
+- **Panel de ajustes:** con dos pestañas. *Página* (o *Entrada*) contiene los ajustes del documento completo; *Bloque* contiene los del bloque seleccionado.
 
 Bloques más utilizados:
 
 | Grupo | Bloques |
 | --- | --- |
-| Texto | Párrafo, Encabezado, Lista, Cita, Tabla, Código |
-| Medios | Imagen, Galería, Audio, Vídeo, Archivo, Medios y texto |
-| Diseño | Grupo, Columnas, Fila, Pila, Separador, Espaciador, Botones, Portada |
+| Texto | Párrafo, Encabezado, Lista, Cita, Tabla, Código, Detalles |
+| Medios | Imagen, Galería, Audio, Vídeo, Archivo, Medios y texto, Portada |
+| Diseño | Grupo, Columnas, Fila, Pila, Separador, Espaciador, Botones |
 | Widgets | Últimas entradas, Categorías, Calendario, Buscar, RSS, Shortcode |
-| Incrustados | YouTube, Vimeo, X, Spotify y otros servicios (pegando la URL) |
+| Incrustados | YouTube, Vimeo, Spotify y otros servicios (basta con pegar la URL) |
 
-**Patrones.** Un patrón es un conjunto de bloques ya diseñado (una cabecera con imagen y botón, una sección de precios, un pie de página…) que se inserta con un clic. Si creas uno propio y lo marcas como sincronizado, al editarlo cambiará en todos los lugares donde se use (por ejemplo, un aviso que aparece en varias páginas).
+Atajos que ahorran mucho tiempo:
 
-### 6.3 Estados, visibilidad y revisiones
+- Escribir `/` en una línea vacía y el nombre del bloque (`/imagen`, `/tabla`) para insertarlo sin abrir el insertador.
+- Empezar una línea con `## ` crea un encabezado de nivel 2; con `- ` o `1. ` crea una lista.
+- Pegar una URL de YouTube en una línea vacía crea directamente el bloque de vídeo incrustado.
+- `Ctrl + Z` deshace y `Ctrl + S` guarda.
 
-- **Estados**: *Borrador*, *Pendiente de revisión* (lo usa el rol Colaborador), *Programado* (fecha futura) y *Publicado*.
-- **Visibilidad**: *Pública*, *Privada* (solo usuarios con permiso) o *Protegida con contraseña*.
-- **Revisiones**: WordPress guarda versiones anteriores de cada entrada y página. Desde el panel Entrada > Revisiones puedes comparar dos versiones y restaurar una anterior.
+### 6.3 Ejemplo guiado: la página «Curso de Desarrollo Web»
+
+#### Paso 1. Crear la página
+
+Ve a Páginas > Añadir página. En los temas de bloques, WordPress muestra primero la ventana *Elige un patrón* con diseños de página completos ya preparados. Son útiles para partir de un diseño hecho, pero en este ejemplo queremos construir la página desde cero, así que la cerramos con la X. Si desmarcas *Mostrar siempre patrones de inicio para las páginas nuevas*, no volverá a aparecer.
+
+![Ventana Elige un patrón al crear una página](assets/img/ud3/contenido-01-patron-inicial.png)
+
+*Figura: patrones de inicio que ofrece el tema al crear una página nueva.*
+
+Al cerrarla aparece el editor vacío, con el texto *Escribe un título* y, debajo, *Teclea / para elegir un bloque*. En el panel de la derecha ya se ven los ajustes de la página: estado *Borrador*, fecha de publicación, slug, autor, plantilla, comentarios y página superior.
+
+![Editor de bloques vacío](assets/img/ud3/contenido-02-editor-vacio.png)
+
+*Figura: el editor de bloques con una página nueva.*
+
+#### Paso 2. Escribir el título y el primer párrafo
+
+Pulsa en *Escribe un título*, escribe «Curso de Desarrollo Web» y pulsa Intro: el cursor baja a un bloque de párrafo. Escribe el texto de presentación del curso.
+
+![Título y primer párrafo](assets/img/ud3/contenido-03-titulo-parrafo.png)
+
+*Figura: el bloque de párrafo seleccionado, con su barra de herramientas y sus ajustes.*
+
+Fíjate en lo que cambia al seleccionar un bloque:
+
+- **La barra de herramientas del bloque:** aparece encima del bloque (en la captura está fijada en la barra superior con la opción *Barra de herramientas superior* del menú ⋮). Contiene el tipo de bloque (pulsando en él se puede transformar, por ejemplo, de párrafo a encabezado o a lista), la alineación, negrita, cursiva, enlace y más opciones de formato.
+- **La pestaña Bloque del panel derecho:** muestra los ajustes del párrafo: estilos (*Por defecto*, *Decorativo*, *Subtítulo*, *Notas*, que dependen del tema), color del texto, tamaño de la fuente, color de fondo y dimensiones.
+- **La ruta de navegación inferior:** *Página > Párrafo* indica dónde está el bloque seleccionado. Es útil cuando hay bloques dentro de otros.
+
+#### Paso 3. El insertador de bloques
+
+Para añadir bloques de cualquier tipo, pulsa el botón azul + de la barra superior. Se abre el insertador, con tres pestañas:
+
+- **Bloques:** todos los bloques disponibles, agrupados por categorías (texto, medios, diseño, widgets, temas, incrustados). El buscador de arriba los filtra por nombre.
+- **Patrones:** diseños formados por varios bloques (los veremos en el apartado 6.6).
+- **Medios:** las imágenes y vídeos de la biblioteca, para insertarlos directamente.
+
+![Insertador de bloques abierto](assets/img/ud3/contenido-04-insertador.png)
+
+*Figura: el insertador de bloques con la pestaña Bloques.*
+
+Al pulsar sobre un bloque, se inserta debajo del bloque seleccionado. También se puede arrastrar al lugar exacto del lienzo. Al guardar, aparece abajo el aviso *Borrador guardado* con el enlace *Ver una vista previa*.
+
+#### Paso 4. Añadir un encabezado y una lista
+
+Debajo del párrafo añadimos la sección «¿Qué aprenderás?»:
+
+1. Pulsa Intro al final del párrafo para crear un bloque nuevo y escribe `/encabezado` (o `## ` seguido del texto).
+2. Escribe «¿Qué aprenderás?». En la barra del bloque puedes elegir el nivel: usa H2 para las secciones de la página y H3 para las subsecciones. No elijas el nivel por el tamaño de la letra, sino por la estructura: los lectores de pantalla y los buscadores se guían por ellos.
+3. Pulsa Intro y escribe `- ` para empezar una lista. Cada Intro crea un elemento nuevo; dos Intro seguidos terminan la lista.
+
+![Encabezado y lista](assets/img/ud3/contenido-05-encabezado-lista.png)
+
+*Figura: el bloque Lista seleccionado; en su barra se elige entre lista con viñetas o numerada.*
+
+El bloque Lista contiene un bloque *Elemento de la lista* por cada línea; por eso el panel derecho muestra sus elementos. En la barra del bloque se cambia entre lista con viñetas y lista numerada, y se aumenta o reduce la sangría para crear sublistas.
+
+#### Paso 5. Insertar una imagen
+
+Vamos a añadir el cartel del curso debajo del párrafo de presentación:
+
+1. Selecciona el párrafo de presentación, pulsa + y elige el bloque Imagen.
+2. En el bloque aparecen tres opciones: *Subir* (desde tu ordenador), *Biblioteca de medios* (una imagen ya subida) e *Insertar desde URL*. Pulsa *Subir* y elige el archivo.
+3. Con la imagen seleccionada, escribe en el panel derecho el texto alternativo: una descripción breve de lo que muestra la imagen. Es lo que leen los lectores de pantalla y lo que indexan los buscadores.
+4. Debajo de la imagen puedes escribir una leyenda, que se mostrará en la web como pie de foto.
+
+![Bloque de imagen con texto alternativo](assets/img/ud3/contenido-06-imagen.png)
+
+*Figura: el bloque Imagen con su barra de herramientas, la leyenda y el texto alternativo en el panel derecho.*
+
+La barra del bloque Imagen permite alinearla, enlazarla, recortarla, añadir texto encima o reemplazarla por otra. La imagen subida queda guardada en la biblioteca de medios (apartado 6.4).
+
+#### Paso 6. Organizar en columnas y añadir un botón
+
+Para mostrar la duración, la modalidad y las plazas una junto a otra usamos el bloque Columnas:
+
+1. Inserta el bloque Columnas y elige la distribución *33 / 33 / 33* (tres columnas iguales).
+2. Dentro de cada columna, añade un encabezado H3 («Duración», «Modalidad», «Plazas») y un párrafo con el dato.
+3. Debajo, inserta el bloque Botones, escribe «Solicitar información» y, con el icono de enlace de su barra, indica la página a la que lleva (por ejemplo, `/contacto/`).
+
+![Columnas y botón](assets/img/ud3/contenido-07-columnas-boton.png)
+
+*Figura: tres columnas con encabezado y párrafo, y el bloque Botones seleccionado.*
+
+Columnas y Botones son bloques contenedores: dentro llevan otros bloques (Columna y Botón). En la web, las columnas se colocan una debajo de otra automáticamente cuando la pantalla es estrecha, como en un móvil.
+
+#### Paso 7. Añadir una tabla
+
+Añadimos el horario del curso:
+
+1. Inserta un encabezado H2 «Horario».
+2. Inserta el bloque Tabla, indica 3 columnas y 5 filas y pulsa *Crear tabla*.
+3. Rellena las celdas moviéndote con el tabulador.
+4. En el panel derecho, activa *Sección de la cabecera* para que la primera fila sea el encabezado de la tabla, y *Celdas de tabla de ancho fijo* para que todas las columnas midan lo mismo.
+
+![Bloque de tabla con sus ajustes](assets/img/ud3/contenido-08-tabla.png)
+
+*Figura: el bloque Tabla con la sección de cabecera activada.*
+
+Desde el botón de edición de la tabla de su barra (el icono de cuadrícula) se pueden insertar o borrar filas y columnas.
+
+#### Paso 8. Revisar la estructura con la vista de lista
+
+Cuando la página crece, es fácil perderse. El botón Vista de lista (☰, en la barra superior) muestra todos los bloques del documento en orden, como un índice:
+
+- Pulsando en un bloque de la lista se selecciona y el lienzo salta hasta él.
+- Arrastrando los bloques en la lista se cambia su orden.
+- Las flechas despliegan los bloques que contienen otros (Lista, Columnas, Botones).
+- La pestaña *Esquema* muestra solo los encabezados, para comprobar que la jerarquía H2/H3 es correcta.
+
+![Vista de lista del documento](assets/img/ud3/contenido-09-vista-lista.png)
+
+*Figura: la vista de lista con la estructura completa de la página.*
+
+#### Paso 9. Ajustes de la página
+
+Antes de publicar, revisa la pestaña Página del panel derecho:
+
+- **Estado:** *Borrador* hasta que se publique (apartado 6.7).
+- **Publicar:** *Inmediatamente* o una fecha futura para programar la publicación.
+- **Slug:** la parte final de la URL. WordPress la genera a partir del título (`curso-de-desarrollo-web`); se puede acortar, pero conviene decidirla antes de publicar.
+- **Plantilla:** el diseño del tema con el que se mostrará la página (apartado 7).
+- **Comentarios:** si se permiten en esta página (normalmente no).
+- **Revisiones:** el número de versiones guardadas (apartado 6.7).
+- **Superior:** la página de la que depende. Hemos creado antes una página «Cursos» y la elegimos como superior, de modo que la URL será `/cursos/curso-de-desarrollo-web/` y aparecerá como submenú de *Cursos*.
+- **Imagen destacada:** la imagen que representa la página en listados y portadas. En este ejemplo no la usamos, porque el tema Twenty Twenty-Five la muestra encima del título y aparecería repetida con la imagen que ya hemos puesto en el contenido. La usaremos en la entrada del apartado 6.5.
+- **Mover a la papelera:** al final del panel.
+
+![Ajustes de la página](assets/img/ud3/contenido-10-ajustes-pagina.png)
+
+*Figura: la pestaña Página del panel de ajustes, con la página superior «Cursos».*
+
+#### Paso 10. Guardar el borrador y ver la vista previa
+
+Pulsa Guardar como borrador cada cierto tiempo (WordPress también guarda automáticamente cada pocos minutos). El borrador no es visible en la web.
+
+Para ver cómo quedará antes de publicar, pulsa el icono de la vista previa (el portátil, junto a *Publicar*). Desde ahí se puede ver cómo quedaría en escritorio, tableta o móvil, o abrir la vista previa en una pestaña nueva, que muestra la página con el diseño real del tema: cabecera, menú, tipografías y pie.
+
+![Vista previa de la página](assets/img/ud3/contenido-11-vista-previa.png)
+
+*Figura: la vista previa del borrador con el diseño del tema.*
+
+#### Paso 11. Publicar
+
+Cuando esté lista, pulsa Publicar. WordPress abre las comprobaciones previas a la publicación: un último resumen con la visibilidad (*Pública*, *Privada* o *Protegida con contraseña*) y la fecha de publicación, que todavía se pueden cambiar. Pulsa Publicar otra vez para confirmar.
+
+![Comprobaciones previas a la publicación](assets/img/ud3/contenido-12-prepublicacion.png)
+
+*Figura: el panel «¿Estás listo para publicar?».*
+
+Tras publicar, el panel confirma que la página «está ahora visible» y ofrece su dirección, el botón Ver la página y el botón *Añadir página* para crear otra.
+
+![Página publicada](assets/img/ud3/contenido-13-publicada.png)
+
+*Figura: confirmación de la publicación con la dirección de la página.*
+
+A partir de ahora, el botón *Publicar* se convierte en Guardar (o *Actualizar*): los cambios que hagas en una página publicada no se ven en la web hasta que pulses ese botón.
+
+#### Paso 12. La página en la web
+
+Pulsa Ver la página. Así es como la verá cualquier visitante:
+
+![La página publicada en la web](assets/img/ud3/contenido-14-pagina-web.png)
+
+*Figura: la página «Curso de Desarrollo Web» publicada, con la cabecera y el pie del tema.*
+
+Compara la página con el editor:
+
+- **Lo que hemos escrito:** el título, el párrafo, la imagen con su leyenda, la lista, las columnas, el botón y la tabla aparecen en el mismo orden que en el editor.
+- **Lo que pone el tema:** la cabecera con el nombre del sitio y el menú, el pie de página y el estilo de todos los elementos (tipografías, colores, separaciones). Por eso la misma página cambiaría de aspecto con otro tema.
+- **El menú:** *Cursos* aparece con una flecha y, al pasar por encima, muestra *Curso de Desarrollo Web*. Como todavía no hemos creado ningún menú, WordPress muestra automáticamente todas las páginas publicadas respetando su jerarquía (apartado 6.8).
+- **La barra de herramientas superior:** solo la ves tú porque has iniciado sesión. Desde *Editar la página* vuelves al editor.
 
 ### 6.4 Medios
 
-Al subir una imagen, WordPress la guarda en `wp-content/uploads/AAAA/MM/` y genera copias en varios tamaños. Buenas prácticas:
+La imagen que subimos en el paso 5 quedó guardada en la biblioteca de medios. Si vas a Medios > Biblioteca y pulsas sobre ella, se abren sus detalles:
+
+![Detalles de un archivo en la biblioteca de medios](assets/img/ud3/contenido-20-medio-detalle.png)
+
+*Figura: los detalles del adjunto de la imagen del curso.*
+
+- **Datos del archivo:** fecha de subida, autor, nombre, tipo, tamaño y dimensiones.
+- **Campos editables:** texto alternativo (el que escribimos en el paso 5), título, leyenda y descripción.
+- **URL del archivo:** la dirección directa de la imagen, con el botón para copiarla.
+- **Editar la imagen:** recortar, girar, voltear y escalar sin programas externos.
+- **Enlaces inferiores:** ver la página del adjunto, editar más detalles, descargar el archivo o borrarlo permanentemente.
+
+Al subir una imagen, WordPress la guarda en `wp-content/uploads/AAAA/MM/` (en el ejemplo, `uploads/2026/11/curso-desarrollo-web.jpg`) y genera además copias en varios tamaños (miniatura, mediana y grande) para usar la más adecuada en cada sitio. Buenas prácticas:
 
 - Sube imágenes optimizadas: un ancho de 1600–2000 px suele ser suficiente, en formato WebP o JPEG comprimido.
-- Rellena siempre el texto alternativo: lo leen los lectores de pantalla y los buscadores.
+- Pon nombres de archivo descriptivos (`curso-desarrollo-web.jpg`, no `IMG_2034.jpg`).
+- Rellena siempre el texto alternativo. Si la imagen es solo decorativa, déjalo vacío o marca *Marcar como decorativo* en el bloque.
 - Usa solo imágenes propias, con licencia libre (Openverse, Wikimedia Commons, Unsplash) o con permiso, y cita al autor cuando la licencia lo exija.
 
-### 6.5 Navegación
+### 6.5 Entradas: categorías, etiquetas e imagen destacada
 
-En un tema de bloques, el menú se gestiona con el bloque Navegación, desde Apariencia > Editor > Navegación. En un tema clásico, se gestiona desde Apariencia > Menús. En ambos casos el menú puede incluir páginas, entradas, categorías y enlaces personalizados, y admite submenús.
+Ahora creamos una noticia: «Abierto el plazo de matrícula».
+
+#### Paso 1. Crear las categorías
+
+Las categorías son la clasificación principal y jerárquica de las entradas (*Noticias > Eventos*); toda entrada tiene al menos una. Antes de escribir, crea las que vayas a usar en Entradas > Categorías: escribe el nombre, opcionalmente el slug, la categoría superior y una descripción, y pulsa *Añadir nueva categoría*. Creamos *Noticias* y *Eventos*.
+
+![Pantalla de categorías](assets/img/ud3/contenido-16-categorias.png)
+
+*Figura: Entradas > Categorías con las categorías Noticias y Eventos.*
+
+La columna *Cantidad* indica cuántas entradas tiene cada categoría. La categoría *Sin categoría* es la categoría por defecto: no se puede borrar, pero sí cambiarle el nombre.
+
+#### Paso 2. Escribir la entrada y clasificarla
+
+Ve a Entradas > Añadir entrada. El editor es el mismo que el de las páginas, pero la pestaña Entrada del panel derecho tiene paneles propios:
+
+- **Categorías:** marca *Noticias*. Desde *Añadir categoría* se puede crear una nueva sin salir del editor.
+- **Etiquetas:** escribe palabras clave separadas por comas o con Intro (*matrícula*, *cursos*). Las etiquetas son libres y no jerárquicas. Úsalas con moderación: diez entradas con cuarenta etiquetas distintas no ayudan a nadie a encontrar nada.
+- **Imagen destacada:** en la parte superior del panel, *Establecer la imagen destacada* permite elegir o subir la imagen que representará la entrada en la página del blog, en los listados y al compartirla en redes sociales.
+- **Extracto:** un resumen breve que se muestra en los listados en lugar del texto completo.
+- **Formato:** algunos temas muestran de forma distinta las entradas de tipo cita, galería, vídeo, etc.
+
+![Entrada con categorías y etiquetas](assets/img/ud3/contenido-17-entrada-editor.png)
+
+*Figura: el editor de una entrada con los paneles Categorías y Etiquetas.*
+
+#### Paso 3. Publicar y ver la entrada
+
+Publica la entrada igual que la página y pulsa Ver la entrada:
+
+![La entrada publicada en la web](assets/img/ud3/contenido-19-entrada-web.png)
+
+*Figura: la entrada publicada, con su imagen destacada, autor, categoría, etiquetas y comentarios.*
+
+La plantilla de entrada del tema muestra elementos que la página no tenía:
+
+- **La imagen destacada:** debajo del título.
+- **Los metadatos:** «Escrito por *capturas* en *Noticias*»; el nombre de la categoría es un enlace al archivo con todas las noticias.
+- **Las etiquetas:** al final del texto, cada una enlazada a su archivo.
+- **La navegación entre entradas:** el enlace a la entrada anterior (*¡Hola, mundo!*).
+- **El formulario de comentarios:** porque en las entradas los comentarios están abiertos por defecto.
+- **Más entradas:** la lista de las últimas publicaciones.
+
+Además, la entrada aparece en la página del blog y en el feed RSS del sitio (apartado 10).
+
+### 6.6 Patrones
+
+Un patrón es un conjunto de bloques ya diseñado (una cabecera con imagen y botón, una sección de precios, un pie de página…) que se inserta con un clic y luego se edita como cualquier otro contenido. Se encuentran en la pestaña Patrones del insertador, agrupados por categorías: *Contenido inicial*, *Banners*, *Cabeceras*, *Contacto*, *Llamada a la acción*, *Galería*, *Pies de página*, etc. La mayoría los aporta el tema activo.
+
+![Pestaña Patrones del insertador](assets/img/ud3/contenido-18-patrones.png)
+
+*Figura: las categorías de patrones disponibles en el insertador.*
+
+También puedes crear patrones propios: selecciona uno o varios bloques, abre el menú ⋮ de su barra y elige *Crear patrón*. Al crearlo hay que decidir si es sincronizado:
+
+- **No sincronizado:** cada vez que lo insertas se copia; después, cada copia se edita por separado. Sirve como plantilla para ahorrar tiempo.
+- **Sincronizado:** todas las copias son el mismo contenido. Si lo editas en un sitio, cambia en todas las páginas donde se usa. Es ideal para un aviso que aparece en varias páginas («Matrícula abierta hasta el 30 de junio»).
+
+Los patrones propios se gestionan en Apariencia > Editor > Patrones (apartado 7).
+
+### 6.7 Estados, visibilidad y revisiones
+
+Cada entrada o página tiene un estado:
+
+| Estado | Significado |
+| --- | --- |
+| Borrador | En preparación. No es visible en la web. |
+| Pendiente de revisión | Terminado, a la espera de que un editor lo publique. Lo usan los colaboradores, que no pueden publicar (apartado 9). |
+| Programado | Se publicará automáticamente en la fecha y hora indicadas. |
+| Publicado | Visible en la web. |
+| Privado | Publicado, pero solo lo ven los usuarios con permiso (editores y administradores). |
+
+La visibilidad se elige en el panel de ajustes o en las comprobaciones previas: *Pública*, *Privada* o *Protegida con contraseña* (el visitante debe escribir una contraseña para ver el contenido).
+
+Las revisiones son las versiones guardadas de cada entrada y página. Cada vez que guardas, WordPress conserva la versión anterior. Pulsando el número de revisiones del panel de ajustes se abre la pantalla de comparación:
+
+![Comparación de revisiones](assets/img/ud3/contenido-15-revisiones.png)
+
+*Figura: comparación entre dos revisiones de la página del curso.*
+
+- **El control deslizante** de la parte superior recorre todas las revisiones, de la más antigua a la más reciente. Los botones *Anterior* y *Siguiente* hacen lo mismo paso a paso.
+- **La comparación** muestra en rojo lo eliminado y en verde lo añadido. En la captura se ve que tras publicar se añadió la frase «No necesitas conocimientos previos de programación». El contenido se muestra en el código que WordPress guarda realmente: el HTML de cada bloque con sus comentarios `<!-- wp:... -->`.
+- **Compara dos revisiones cualquiera:** permite comparar dos versiones no consecutivas.
+- **Restaurar esta revisión:** vuelve a la versión seleccionada. La versión actual no se pierde: queda guardada como una revisión más.
+
+### 6.8 Navegación
+
+El menú del sitio se gestiona de forma diferente según el tipo de tema:
+
+- **En un tema de bloques:** con el bloque Navegación, desde Apariencia > Editor > Navegación.
+- **En un tema clásico:** desde Apariencia > Menús.
+
+Si todavía no has creado ningún menú, como en nuestro ejemplo, el bloque Navegación muestra automáticamente todas las páginas publicadas respetando su jerarquía: por eso *Curso de Desarrollo Web* aparece dentro de *Cursos*.
+
+![Editor de navegación](assets/img/ud3/contenido-21-navegacion.png)
+
+*Figura: Apariencia > Editor > Navegación con las páginas del sitio y su jerarquía.*
+
+Desde esta pantalla, el menú ⋮ permite editar la navegación para:
+
+- añadir páginas, entradas, categorías o enlaces personalizados (por ejemplo, a una red social);
+- cambiar el orden arrastrando los elementos;
+- crear submenús arrastrando un elemento debajo de otro;
+- cambiar el texto que se muestra en el menú sin cambiar el título de la página.
+
+Al editar la navegación por primera vez, WordPress convierte la lista automática en un menú propio. A partir de entonces, las páginas nuevas ya no se añaden solas: hay que incluirlas en el menú a mano.
 
 ## 7. Temas y plantillas
 
