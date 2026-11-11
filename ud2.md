@@ -1549,6 +1549,97 @@ Entrega además la copia de seguridad del curso (.mbz) y el código fuente del c
 
 La parte obligatoria estará completa cuando el curso tenga al menos cuatro secciones, material teórico, documentos, enlaces, tarea, actividad participativa, banco de preguntas con al menos 15 preguntas, cuestionario y encuesta; cuando la interfaz esté personalizada, se haya instalado un complemento adicional y funcione el componente PHP propio; y cuando una cuenta de alumno pueda recorrer el curso y completar las actividades. El videotutorial debe mostrar evidencias de todo ello y de la copia de seguridad restaurada, y estar disponible mediante un enlace de YouTube con visibilidad Oculto (no listado). También se entregarán el archivo de copia de seguridad y el código fuente del componente PHP. Los apartados opcionales A y B se valoran de forma adicional.
 
+### Galería de temas para Moodle 5.1
+
+Si tienes problemas para descargar un tema desde el directorio de complementos, puedes usar uno de estos diez temas gratuitos. Todos proceden del [directorio oficial de complementos de Moodle](https://moodle.org/plugins/?q=type:theme), declaran compatibilidad con Moodle 5.1 y no necesitan otros complementos adicionales: solo dependen del tema Boost, que ya viene con Moodle.
+
+Los ZIP se han preparado para que la carpeta raíz tenga el nombre del tema (por ejemplo, `moove/`), que es lo que espera el instalador de Moodle. El contenido es el mismo que el publicado por sus autores, sin modificaciones.
+
+Para instalar un tema:
+
+1. Descarga el ZIP del tema que quieras.
+2. En Moodle, entra en Administración del sitio > Extensiones > Instalar complementos, arrastra el ZIP y pulsa Instalar complemento desde el archivo ZIP.
+3. Revisa la validación, continúa y completa la actualización de la base de datos.
+4. Actívalo en Administración del sitio > Apariencia > Temas y revisa sus ajustes.
+
+Si la subida falla por el tamaño del archivo, comprueba los límites de PHP del apartado de instalación (`upload_max_filesize` y `post_max_size`). Como alternativa, descomprime el ZIP en `/var/www/moodle/public/theme/` desde el servidor y visita la página de notificaciones de la administración del sitio.
+
+<div class="galeria-temas">
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/moove.jpg" alt="Captura del tema Moove">
+    <h4>Moove</h4>
+    <p>Uno de los temas más populares. Diseño limpio y moderno basado en Boost, con página principal personalizable. Versión 5.1.2.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_moove.zip" download>Descargar ZIP (3,1 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/boost_union.jpg" alt="Logotipo del tema Boost Union">
+    <h4>Boost Union</h4>
+    <p>Amplía Boost con muchísimos ajustes desde la administración: colores, logotipos, pie de página, bloques y navegación, sin tocar código. Versión v5.1-r27.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_boost_union.zip" download>Descargar ZIP (2,6 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/academi.jpg" alt="Captura del tema Academi">
+    <h4>Academi</h4>
+    <p>Página principal con carrusel de imágenes, cursos destacados y bloques informativos, pensada para la portada de un centro. Versión v5.1.1.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_academi.zip" download>Descargar ZIP (9 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/snap.jpg" alt="Captura del tema Snap">
+    <h4>Snap</h4>
+    <p>Tema de Open LMS con una navegación propia muy centrada en el curso y en el uso desde dispositivos móviles. Versión 5.1.4.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_snap.zip" download>Descargar ZIP (18,9 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/trema.jpg" alt="Captura del tema Trema">
+    <h4>Trema</h4>
+    <p>Portada de estilo corporativo con imagen de cabecera a pantalla completa y mensaje de presentación. Versión 5.3.0.0.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_trema.zip" download>Descargar ZIP (18 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/stream.jpg" alt="Captura del tema Stream">
+    <h4>Stream</h4>
+    <p>Aspecto actual con cabecera de color, menú de curso horizontal e índice lateral para recorrer las secciones. Versión 1.6.1.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_stream.zip" download>Descargar ZIP (2,8 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/almondb.jpg" alt="Imagen de presentación del tema Almondb">
+    <h4>Almondb</h4>
+    <p>Portada dinámica configurable, colores ilimitados y diseño adaptable orientado a centros educativos. Versión 513.26.0325.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_almondb.zip" download>Descargar ZIP (1,9 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/liquid.jpg" alt="Captura del tema Liquid">
+    <h4>Liquid</h4>
+    <p>Diseño con menú lateral oscuro y grandes imágenes de fondo en la portada. Versión 1.1.1.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_liquid.zip" download>Descargar ZIP (2,5 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/atrium.jpg" alt="Captura del tema Atrium">
+    <h4>Atrium</h4>
+    <p>Portada con carrusel y tarjetas informativas, escrita específicamente para Moodle 5.1 en adelante. Versión 1.4.0.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_atrium.zip" download>Descargar ZIP (1,1 MB)</a>
+  </div>
+
+  <div class="tema">
+    <img src="./assets/img/temas-moodle/logini.jpg" alt="Captura del tema Logini">
+    <h4>Logini</h4>
+    <p>Centrado en una página de inicio de sesión moderna a dos columnas, con imagen y mensaje de bienvenida personalizables. Versión 1.1.0.</p>
+    <a class="descarga" href="./assets/temas-moodle/theme_logini.zip" download>Descargar ZIP (1,2 MB)</a>
+  </div>
+
+</div>
+
+Cada tema conserva su licencia GPL y la autoría de sus creadores. En el videotutorial indica el tema elegido, su versión y su página en el directorio de Moodle como origen.
+
 ## 15. Fuentes y documentación
 
 - [Documentación oficial de Moodle](https://docs.moodle.org/)
