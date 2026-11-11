@@ -1551,7 +1551,7 @@ La parte obligatoria estará completa cuando el curso tenga al menos cuatro secc
 
 ### Galería de temas para Moodle 5.1
 
-Si tienes problemas para descargar un tema desde el directorio de complementos, puedes usar uno de estos diez temas gratuitos. Todos proceden del [directorio oficial de complementos de Moodle](https://moodle.org/plugins/?q=type:theme), declaran compatibilidad con Moodle 5.1 y no necesitan otros complementos adicionales: solo dependen del tema Boost, que ya viene con Moodle.
+Si tienes problemas para descargar un tema desde el directorio de complementos, puedes usar uno de estos nueve temas gratuitos. Todos proceden del [directorio oficial de complementos de Moodle](https://moodle.org/plugins/?q=type:theme), declaran compatibilidad con Moodle 5.1 y no necesitan otros complementos adicionales: solo dependen del tema Boost, que ya viene con Moodle.
 
 Los ZIP se han preparado para que la carpeta raíz tenga el nombre del tema (por ejemplo, `moove/`), que es lo que espera el instalador de Moodle. El contenido es el mismo que el publicado por sus autores, sin modificaciones.
 
@@ -1627,13 +1627,6 @@ Si la subida falla por el tamaño del archivo, comprueba los límites de PHP del
     <h4>Atrium</h4>
     <p>Portada con carrusel y tarjetas informativas, escrita específicamente para Moodle 5.1 en adelante. Versión 1.4.0.</p>
     <a class="descarga" href="./assets/temas-moodle/theme_atrium.zip" download>Descargar ZIP (1,1 MB)</a>
-  </div>
-
-  <div class="tema">
-    <img src="./assets/img/temas-moodle/logini.jpg" alt="Captura del tema Logini">
-    <h4>Logini</h4>
-    <p>Centrado en una página de inicio de sesión moderna a dos columnas, con imagen y mensaje de bienvenida personalizables. Versión 1.1.0.</p>
-    <a class="descarga" href="./assets/temas-moodle/theme_logini.zip" download>Descargar ZIP (1,2 MB)</a>
   </div>
 
 </div>
