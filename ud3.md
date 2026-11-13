@@ -1315,43 +1315,72 @@ Al editar la navegación por primera vez, WordPress convierte la lista automáti
 
 Un tema determina el aspecto y la estructura del sitio: tipografías, colores, disposición, cabecera, pie y cómo se muestra cada tipo de contenido. Cambiar de tema no borra el contenido, porque este está en la base de datos y no en el tema.
 
+Todo lo que se explica en este apartado se hace desde el panel de administración de WordPress, sin usar la terminal.
+
 ### 7.1 Temas de bloques y temas clásicos
 
 | | **Tema de bloques** | **Tema clásico** |
 | --- | --- | --- |
 | Plantillas | Archivos HTML con bloques (`templates/*.html`) | Archivos PHP (`single.php`, `header.php`…) |
-| Personalización | **Editor del sitio** (visual) | Personalizador y widgets, o código |
-| Estilos globales | Archivo `theme.json` y panel *Estilos* | CSS y opciones del tema |
-| Ejemplos | Twenty Twenty-Five, Twenty Twenty-Four, Ollie, Kadence Blocks | Twenty Twenty-One, Astra, GeneratePress |
+| Personalización | **Editor del sitio** (Apariencia > Editor) | **Personalizador** (Apariencia > Personalizar) y widgets |
+| Estilos globales | Archivo `theme.json` y panel *Estilos* | Opciones del tema en el Personalizador y CSS adicional |
+| Ejemplos | Twenty Twenty-Five, Twenty Twenty-Four, Ollie | Astra, GeneratePress, Kadence, Twenty Twenty-One |
 
 Los temas por defecto de WordPress (*Twenty Twenty-…*) son temas de bloques mantenidos por el propio proyecto. Son una buena base: ligeros, accesibles y siempre actualizados.
 
+Para saber qué tipo de tema tienes activo, mira el menú Apariencia: si aparece Editor, es un tema de bloques; si aparece Personalizar, es un tema clásico.
+
 ### 7.2 Instalar y gestionar temas
 
-Desde Apariencia > Temas > Añadir tema puedes buscar en el [directorio oficial](https://wordpress.org/themes/), previsualizar e instalar. También se puede subir un tema en `.zip` o usar WP-CLI:
+#### Buscar e instalar un tema del directorio oficial
 
-```bash
-wp theme list
-wp theme install twentytwentyfour
-wp theme activate twentytwentyfive
-wp theme delete twentytwentythree
-```
+1. **Abre el directorio.** Ve a Apariencia > Temas y pulsa Añadir tema. WordPress muestra los temas del [directorio oficial](https://wordpress.org/themes/), con pestañas para ver los Populares, los Recientes y los Temas de bloques.
+2. **Busca o filtra.** Escribe el nombre en Buscar temas o usa Filtrar por características para elegir por diseño, funciones (por ejemplo, *Editor del sitio* o *Menú personalizado*) o temática.
 
-Elimina los temas que no utilices (deja solo el activo y uno por defecto de reserva): un tema inactivo pero desactualizado también puede contener vulnerabilidades.
+![Buscar un tema en Añadir temas](assets/img/ud3/temas-01-buscar-tema.png)
+
+*Figura: búsqueda del tema Ollie en Apariencia > Temas > Añadir tema.*
+
+3. **Previsualiza.** Pasa el ratón por encima del tema y pulsa Detalles y vista previa. A la izquierda verás el autor, la valoración, la versión y la descripción; a la derecha, una vista previa del tema con contenido de ejemplo.
+4. **Instala.** Pulsa Instalar. Cuando termine, el botón cambia a Activar.
+
+![Detalles y vista previa de un tema](assets/img/ud3/temas-02-detalle-tema.png)
+
+*Figura: ventana de detalles del tema, con el botón Instalar arriba a la izquierda.*
+
+5. **Prueba antes de activar.** En Apariencia > Temas, los temas instalados tienen el botón Vista previa en vivo, que muestra tu sitio real con ese tema sin que los visitantes lo vean. Si te convence, pulsa Activar.
+
+#### Subir un tema en ZIP
+
+Si el tema no está en el directorio oficial (por ejemplo, un tema comprado o uno exportado de otro sitio), ve a Apariencia > Temas > Añadir tema, pulsa Subir tema, selecciona el archivo `.zip` y pulsa Instalar ahora. Después, actívalo.
+
+Descarga los temas solo de fuentes de confianza: el directorio oficial o la web del autor. Los temas "premium gratis" de webs desconocidas suelen contener código malicioso.
+
+#### Actualizar y borrar temas
+
+- **Actualizar:** cuando hay una versión nueva, aparece un aviso sobre el tema en Apariencia > Temas y en Escritorio > Actualizaciones.
+- **Borrar:** pulsa sobre el tema (no puede ser el activo) para abrir Detalles del tema y usa el enlace Borrar de la esquina inferior derecha.
+
+Elimina los temas que no utilices (deja solo el activo, su tema padre si lo tiene y uno por defecto de reserva): un tema inactivo pero desactualizado también puede contener vulnerabilidades.
 
 Para elegir un tema, revisa: fecha de la última actualización, número de instalaciones activas, valoraciones, compatibilidad con tu versión de WordPress, accesibilidad, si es de bloques o clásico y si su licencia y soporte se ajustan a lo que necesitas.
 
 ### 7.3 El editor del sitio
 
-En un tema de bloques, Apariencia > Editor permite diseñar el sitio completo de forma visual:
+En un tema de bloques, Apariencia > Editor abre el editor del sitio. En el panel de la izquierda aparecen sus secciones y, a la derecha, una vista previa del sitio. Al pulsar sobre la vista previa se entra en modo edición.
+
+![Editor del sitio](assets/img/ud3/temas-03-editor-sitio.png)
+
+*Figura: pantalla inicial del editor del sitio (Apariencia > Editor).*
 
 | Sección | Qué contiene |
 | --- | --- |
-| **Navegación** | Los menús del sitio |
+| **Identidad** | Título, descripción, logotipo e icono del sitio |
 | **Estilos** | Estilos globales: paleta de colores, tipografías, tamaños, espaciados y estilo de cada tipo de bloque. Incluye variaciones de estilo predefinidas. |
 | **Páginas** | Las páginas, editables en contexto |
-| **Plantillas** | El diseño de cada tipo de vista: Índice, Entrada individual, Página, Archivo, Búsqueda, 404… |
+| **Navegación** | Los menús del sitio |
 | **Patrones** | Patrones del sitio y partes de plantilla: Cabecera, Pie de página, Barra lateral |
+| **Plantillas** | El diseño de cada tipo de vista: Índice, Entradas individuales, Páginas, Archivo, Búsqueda, 404… |
 
 Plantilla y parte de plantilla son conceptos clave:
 
@@ -1369,9 +1398,15 @@ flowchart TD
 
 Una parte de plantilla (como la cabecera) se reutiliza en muchas plantillas: si la cambias una vez, cambia en todo el sitio.
 
+En Plantillas aparecen todas las plantillas del tema con una miniatura. Al pulsar sobre una se abre para editarla con bloques, igual que una página.
+
+![Lista de plantillas](assets/img/ud3/temas-04-plantillas.png)
+
+*Figura: Apariencia > Editor > Plantillas, con el botón Añadir plantilla.*
+
 Puedes crear plantillas nuevas desde Plantillas > Añadir plantilla: por ejemplo, una plantilla específica para la categoría *Noticias* o para una página concreta. También puedes crear plantillas personalizadas y asignarlas a páginas concretas desde el panel *Página > Plantilla* del editor (por ejemplo, una plantilla "Ancho completo sin título" para la página de inicio).
 
-> Los cambios que haces en el editor del sitio se guardan en la base de datos, no en los archivos del tema. Si quieres volver al diseño original, en la lista de plantillas aparece la acción Restablecer. Y si quieres llevarte el diseño a otro sitio, hay que exportarlo (apartado 7.6).
+> Los cambios que haces en el editor del sitio se guardan en la base de datos, no en los archivos del tema. Si quieres volver al diseño original, en la lista de plantillas aparece la acción Restablecer. Si quieres que los cambios pasen a formar parte del tema, hay que guardarlos en sus archivos con Create Block Theme (apartado 7.7).
 
 ### 7.4 Jerarquía de plantillas
 
@@ -1385,119 +1420,247 @@ Así, si creas una plantilla `category-noticias`, solo afectará al archivo de l
 
 ### 7.5 Tema hijo
 
-Si modificas directamente los archivos de un tema, perderás los cambios en cuanto se actualice. La solución es un tema hijo: un tema que hereda todo del tema padre y solo contiene lo que cambia. Si se actualiza el padre, el hijo se conserva.
+Si modificas un tema de otra persona y luego se actualiza, puedes perder tus cambios. La solución es un tema hijo: un tema que hereda todo del tema padre y solo contiene lo que cambia. Si se actualiza el padre, el hijo se conserva.
 
-Vamos a crear un tema hijo de *Twenty Twenty-Five* que cambia la paleta de colores y la tipografía. Desde la terminal del servidor:
+Para crearlo sin tocar archivos usaremos el plugin oficial Create Block Theme, desarrollado por el equipo de WordPress.
 
-```bash
-sudo -u www-data mkdir -p /var/www/wordpress/wp-content/themes/iaw-hijo
-sudo -u www-data nano /var/www/wordpress/wp-content/themes/iaw-hijo/style.css
-```
+#### Paso 1. Instalar Create Block Theme
 
-**`style.css`**: la cabecera identifica el tema. La línea `Template` indica la carpeta del tema padre.
+Ve a Plugins > Añadir plugin, busca «Create Block Theme», pulsa Instalar ahora y después Activar. Su interfaz está en inglés.
 
-```css
-/*
-Theme Name:   IAW Hijo
-Description:  Tema hijo de Twenty Twenty-Five para el módulo IAW
-Author:       Tu nombre
-Template:     twentytwentyfive
-Version:      1.0.0
-License:      GNU General Public License v2 or later
-Text Domain:  iaw-hijo
-*/
+#### Paso 2. Abrir el plugin en el editor del sitio
 
-/* Estilos adicionales que no se puedan definir en theme.json */
-.wp-block-post-title {
-    letter-spacing: -0.02em;
-}
-```
+Activa el tema que quieres usar como padre (en el ejemplo, *Twenty Twenty-Five*) y entra en Apariencia > Editor. Pulsa sobre la vista previa para entrar en modo edición y, en la barra superior, pulsa el icono de la llave inglesa (Create Block Theme). Se abre un panel con estas opciones:
 
-**`theme.json`**: en los temas de bloques, los estilos globales se definen aquí. El hijo se combina con el `theme.json` del padre: solo hay que escribir lo que cambia.
+![Panel de Create Block Theme](assets/img/ud3/temas-05-create-block-theme.png)
 
-```json
-{
-  "$schema": "https://schemas.wp.org/trunk/theme.json",
-  "version": 3,
-  "settings": {
-    "color": {
-      "palette": [
-        { "slug": "base",     "color": "#ffffff", "name": "Base" },
-        { "slug": "contrast", "color": "#1b2f25", "name": "Contraste" },
-        { "slug": "accent-1", "color": "#2a5542", "name": "Verde IAW" },
-        { "slug": "accent-2", "color": "#e8f1ec", "name": "Verde claro" }
-      ]
-    }
-  },
-  "styles": {
-    "typography": {
-      "fontFamily": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
-    },
-    "elements": {
-      "link": { "color": { "text": "var(--wp--preset--color--accent-1)" } },
-      "button": {
-        "color": {
-          "background": "var(--wp--preset--color--accent-1)",
-          "text": "var(--wp--preset--color--base)"
-        }
-      }
-    }
-  }
-}
-```
+*Figura: el panel de Create Block Theme en el editor del sitio.*
 
-En los temas de bloques, el `style.css` del tema hijo no se carga automáticamente en la parte pública. Si añades CSS en él, encola la hoja con un pequeño `functions.php`:
+| Opción | Para qué sirve |
+| --- | --- |
+| **Save Changes to Theme** | Guarda en los archivos del tema los cambios hechos en el editor (estilos, plantillas, patrones) |
+| **Create Theme Variation** | Guarda los estilos actuales como una variación de estilo del tema |
+| **Edit Theme Metadata** | Cambia el nombre, la descripción, el autor o la captura del tema |
+| **View theme.json** | Muestra el `theme.json` del tema, sin tener que abrir el servidor |
+| **Export Zip** | Descarga el tema completo en un `.zip` |
+| **Create Blank Theme** | Crea un tema de bloques nuevo y vacío (apartado 7.6) |
+| **Create Theme** | Clona el tema activo (*Clone Theme*) o crea un tema hijo (*Create Child Theme*) |
+| **Reset Theme** | Descarta los cambios del editor y vuelve a lo que hay en los archivos del tema |
 
-```php
-<?php
-// Carga la hoja de estilos del tema hijo después de los estilos del tema padre.
-add_action( 'wp_enqueue_scripts', function () {
-    wp_enqueue_style(
-        'iaw-hijo-style',
-        get_stylesheet_uri(),
-        array(),
-        wp_get_theme()->get( 'Version' )
-    );
-} );
-```
+#### Paso 3. Crear el tema hijo
 
-Comprueba la sintaxis y activa el tema:
+1. **Elige el tipo.** Pulsa Create Theme y después Create Child Theme.
+2. **Ponle nombre.** En Theme Name escribe el nombre del tema hijo, por ejemplo *IAW Hijo*.
+3. **Completa los datos.** Despliega Additional Theme MetaData y rellena la descripción y el autor.
+4. **Créalo.** Pulsa el botón Create Child Theme. El plugin crea el tema y lo activa.
 
-```bash
-php -l /var/www/wordpress/wp-content/themes/iaw-hijo/functions.php
-python3 -m json.tool /var/www/wordpress/wp-content/themes/iaw-hijo/theme.json > /dev/null && echo "JSON correcto"
-wp theme activate iaw-hijo
-```
+![Formulario para crear un tema hijo](assets/img/ud3/temas-06-tema-hijo.png)
 
-Un tema hijo también puede sobrescribir plantillas: si copias `templates/single.html` del padre a `iaw-hijo/templates/single.html` y la modificas, WordPress usará la del hijo.
+*Figura: datos del tema hijo IAW Hijo en Create Block Theme.*
 
-> **Alternativa visual:** el plugin oficial Create Block Theme permite crear un tema hijo desde el propio editor, guardar en los archivos del tema los cambios hechos en el editor del sitio y exportar el tema como `.zip`.
+Si vuelves a Apariencia > Temas, verás *IAW Hijo* como tema activo. Su tema padre, *Twenty Twenty-Five*, debe seguir instalado: si lo borras, el hijo deja de funcionar.
 
-### 7.6 Exportar e importar el diseño
+El plugin ha creado en el servidor la carpeta del tema hijo con estos archivos:
 
-- **Tema completo**: con Create Block Theme (*Exportar como zip*) o comprimiendo la carpeta del tema hijo. Se importa en otro sitio desde *Apariencia > Temas > Subir tema*.
-- **Patrones**: en *Apariencia > Editor > Patrones*, cada patrón propio se puede exportar como JSON e importarse en otro sitio con *Importar desde JSON*.
-- **Plantillas y estilos editados en el editor**: se guardan en la base de datos, así que se incluyen en las copias de seguridad de la base de datos, pero no en la exportación de contenidos de *Herramientas > Exportar*.
+- **`style.css`:** la cabecera del tema. La línea `Template: twentytwentyfive` indica cuál es el tema padre.
+- **`theme.json`:** los estilos globales propios del hijo. Se combina con el del padre, así que solo contiene lo que cambia.
+- **`readme.txt` y `screenshot.png`:** la descripción y la imagen que aparece en Apariencia > Temas.
+
+A partir de aquí, todo lo que cambies en el editor del sitio y guardes con Save Changes to Theme se guardará en el tema hijo, y el tema padre quedará intacto. Lo veremos en el apartado 7.7.
+
+> Si quieres ver el contenido de esos archivos sin entrar en el servidor, usa View theme.json en el panel de Create Block Theme, o Herramientas > Editor de archivos de temas. No edites nunca los archivos del tema padre desde ese editor.
+
+### 7.6 Crear un tema
+
+Además de crear temas hijos, Create Block Theme permite crear un tema de bloques propio desde cero, sin escribir código. Es útil cuando quieres un diseño totalmente tuyo y no depender de ningún tema padre.
+
+#### Paso 1. Crear el tema vacío
+
+En el editor del sitio, abre el panel de Create Block Theme y pulsa Create Blank Theme. Escribe el nombre (por ejemplo, *IAW Escuela*), despliega Additional Theme MetaData para añadir la descripción y el autor, y pulsa Create Blank Theme.
+
+![Formulario para crear un tema vacío](assets/img/ud3/temas-07-crear-tema-vacio.png)
+
+*Figura: creación del tema IAW Escuela con Create Blank Theme.*
+
+El plugin crea el tema y lo activa. El tema nuevo contiene lo mínimo:
+
+- **`style.css`, `readme.txt` y `screenshot.png`:** la identificación del tema.
+- **`theme.json`:** la configuración de estilos, todavía casi vacía.
+- **`templates/index.html`:** una única plantilla, la de último recurso de la jerarquía.
+- **`parts/header.html` y `parts/footer.html`:** una cabecera y un pie muy sencillos.
+
+#### Paso 2. Diseñar el tema en el editor del sitio
+
+Al abrir el editor verás un sitio sin apenas estilo: tipografía del navegador, enlaces azules y una cabecera básica. A partir de aquí lo construyes todo con bloques:
+
+![Tema vacío en el editor del sitio](assets/img/ud3/temas-08-tema-vacio-editor.png)
+
+*Figura: el tema IAW Escuela recién creado, con la plantilla Índice y las partes header y footer.*
+
+1. **Estilos globales.** En Estilos define la paleta de colores (Colores > Editar paleta), las tipografías (Tipografía; puedes instalar fuentes de Google desde Apariencia > Fuentes) y la anchura del contenido (Estructura).
+2. **Cabecera y pie.** En Patrones > Partes de plantilla edita *header* y *footer*: añade el logotipo, el título del sitio, la navegación y los datos de contacto.
+3. **Plantillas.** En Plantillas > Añadir plantilla crea las que necesites: Páginas, Entradas individuales, Archivo, Búsqueda y Página 404. Si no creas una, WordPress usará *Índice*.
+4. **Patrones.** Crea patrones propios para las secciones que repitas (un aviso, una llamada a la acción, una ficha de curso).
+
+#### Paso 3. Guardar el diseño en el tema
+
+Cuando el diseño esté terminado, abre Create Block Theme y pulsa Save Changes to Theme (lo verás en el apartado siguiente). Así los estilos, las plantillas y los patrones pasan de la base de datos a los archivos del tema. Después puedes descargarlo con Export Zip e instalarlo en cualquier otro WordPress.
+
+### 7.7 Modificar un tema
+
+Hay varias formas de modificar el aspecto de un tema desde el panel. De la más sencilla a la más completa:
+
+#### Elegir una variación de estilo
+
+Muchos temas de bloques incluyen variaciones de estilo: combinaciones de colores y tipografías ya preparadas. Ve a Apariencia > Editor > Estilos, pulsa Ver estilos y elige una. La vista previa de la derecha se actualiza al momento.
+
+![Variaciones de estilo de Twenty Twenty-Five](assets/img/ud3/temas-09-variacion-estilo.png)
+
+*Figura: la variación Afternoon aplicada al tema hijo. El botón Revisar 1 cambio guarda la elección.*
+
+Para aplicarla, pulsa Revisar 1 cambio… en la parte inferior izquierda y después Guardar.
+
+#### Ajustar colores, tipografía y bloques
+
+Desde Estilos también puedes cambiar cada parte por separado:
+
+- **Tipografía:** fuentes y tamaños del texto, los enlaces, los encabezados, los botones y los pies de foto.
+- **Colores:** la paleta del tema (Editar paleta) y el color de cada elemento: enlaces, botones, encabezados y fondo.
+- **Fondo, Sombras y Estructura:** imagen de fondo, sombras disponibles y anchura del contenido y de los márgenes.
+- **Bloques:** el estilo de un tipo de bloque en todo el sitio (por ejemplo, que todos los botones sean redondeados o que todas las citas tengan un borde de color).
+- **CSS adicional:** en el menú ⋮ de Estilos puedes añadir CSS propio para lo que no se pueda hacer con las opciones anteriores.
+
+#### Cambiar plantillas y partes de plantilla
+
+En Plantillas y en Patrones > Partes de plantilla puedes modificar la estructura: mover la imagen destacada encima del título, quitar la fecha de las entradas, añadir una barra lateral, cambiar el pie de página… Recuerda que una parte de plantilla se comparte entre todas las plantillas que la usan.
+
+#### Guardar las modificaciones en el tema
+
+Todo lo anterior se guarda en la base de datos. Funciona, pero tiene dos inconvenientes: si cambias de tema se pierde la personalización y, si exportas el tema, no se incluye. Para incorporarlo al tema activo:
+
+1. Abre el panel de Create Block Theme en el editor del sitio.
+2. Pulsa Save Changes to Theme.
+3. Deja marcadas las opciones que quieras guardar: fuentes (*Save Fonts*), estilos (*Save Style Changes*), plantillas (*Save Template Changes*) y patrones (*Save Patterns*).
+4. Pulsa Save Changes.
+
+![Guardar los cambios en el tema](assets/img/ud3/temas-10-guardar-cambios-tema.png)
+
+*Figura: opciones de Save Changes to Theme. La paleta de la variación Afternoon pasa al `theme.json` del tema hijo.*
+
+> Haz esto solo con tus propios temas: un tema hijo o un tema creado por ti. Si lo haces sobre un tema de otro autor (por ejemplo, directamente sobre *Twenty Twenty-Five*), la próxima actualización sobrescribirá sus archivos y perderás los cambios.
+
+### 7.8 Temas populares y sus posibles modificaciones
+
+En el directorio oficial hay miles de temas. Estos son algunos de los más utilizados; todos tienen versión gratuita y se instalan desde Apariencia > Temas > Añadir tema.
+
+![Vista previa de cuatro temas populares](assets/img/ud3/temas-11-temas-populares.png)
+
+*Figura: el mismo sitio en vista previa con Astra, Kadence y GeneratePress (Personalizador) y Ollie (editor del sitio).*
+
+| Tema | Tipo | Se personaliza desde | Qué se puede modificar |
+| --- | --- | --- | --- |
+| **Twenty Twenty-Five** | Bloques | Apariencia > Editor | Variaciones de estilo y de tipografía, paleta, plantillas, partes de plantilla y gran cantidad de patrones de página |
+| **Ollie** | Bloques | Apariencia > Editor | Variaciones de estilo, más de 50 patrones y diseños de página completos; muy indicado para aprender el editor del sitio |
+| **Astra** | Clásico | Apariencia > Personalizar | Colores y tipografía globales, constructor de cabecera y pie, diseño del blog y de las entradas, anchura del contenido y barra lateral |
+| **Kadence** | Clásico | Apariencia > Personalizar | Colores y fuentes, constructor de cabecera y pie arrastrando elementos, diseño de entradas, páginas y resultados de búsqueda |
+| **GeneratePress** | Clásico | Apariencia > Personalizar | Anchura y disposición (contenedor, barras laterales), colores y tipografía; muy ligero y rápido |
+
+Los temas clásicos se personalizan desde el Personalizador (Apariencia > Personalizar). A la izquierda aparecen los paneles de opciones y a la derecha la vista previa del sitio, que cambia en directo. Los cambios no se ven en la web hasta que pulsas Publicar (o Activar y publicar, si estás probando un tema que aún no está activo).
+
+![Personalizador de Astra](assets/img/ud3/temas-12-personalizador-astra.png)
+
+*Figura: el Personalizador de Astra. Abajo, los botones para ver el sitio como en escritorio, tableta o móvil.*
+
+Modificaciones habituales en los temas clásicos:
+
+- **Identidad del sitio:** logotipo, título, descripción e icono del sitio.
+- **Colores y tipografía globales:** colores de texto, enlaces y botones, y las fuentes de los títulos y del cuerpo.
+- **Cabecera y pie:** en Astra (Header y Footer) y Kadence (Cabecera y Pie de Página) se construyen arrastrando elementos (logotipo, menú, buscador, botón, redes sociales) a filas y columnas.
+- **Disposición:** anchura del contenido, barra lateral a la izquierda, a la derecha o sin ella, y diseño de la lista de entradas.
+- **Menús y widgets:** los menús se asignan a las ubicaciones del tema y los widgets se colocan en las barras laterales y el pie.
+- **CSS adicional:** el último panel del Personalizador permite añadir CSS propio sin tocar los archivos del tema.
+
+Las opciones marcadas como *Pro* o *Premium* en el Personalizador (por ejemplo, *More Options Available in Kadence Pro* o *Premium Modules Available*) son de pago. Con la versión gratuita se puede hacer una web completa.
+
+> Antes de cambiar de tema en un sitio en producción, prueba el tema con Vista previa en vivo: los menús, los widgets y las opciones del Personalizador no se trasladan de un tema a otro y puede que tengas que volver a configurarlos.
+
+#### Ejemplo: transformar Astra por completo
+
+Astra es uno de los temas más instalados del directorio oficial. En este ejemplo partimos de Astra recién activado, con su aspecto por defecto, y lo convertimos en la web de un centro de formación sin escribir código, solo con el Personalizador.
+
+Este es el estado inicial: cabecera blanca con el título y el menú, entradas en tarjetas sobre fondo gris azulado, enlaces azules y un pie con el texto *Powered by Astra WordPress Theme*.
+
+![Astra con su configuración por defecto](assets/img/ud3/astra-ejemplo-inicial.png)
+
+*Figura: estado inicial, Astra recién activado.*
+
+Activa Astra en Apariencia > Temas y abre Apariencia > Personalizar. Las opciones de Astra están en inglés. Haz los cambios en este orden y comprueba cada uno en la vista previa de la derecha:
+
+1. **Paleta de colores.** En Global > Colors, despliega Global Palette y elige el preset *Sage* (verde azulado). Todo el tema usa los colores de esta paleta, así que con un solo cambio se actualizan los enlaces, los botones, los títulos y el fondo del sitio.
+2. **Tipografía.** En Global > Typography, en Body Font elige la fuente *Inter* con un tamaño de 17 px y, en Headings Font, la fuente *Poppins* con peso 700 (negrita). Astra carga estas fuentes de Google Fonts automáticamente.
+3. **Botones.** En Global > Buttons, pon un Border Radius de 30 px para que los botones sean redondeados.
+4. **Identidad del sitio.** En Header > Logo, escribe la descripción corta «Centro de Formación Profesional» y activa Site Tagline Visibility para que aparezca bajo el título. Aquí también podrías subir el logotipo del centro.
+5. **Franja superior de la cabecera.** Pulsa Header > Header Builder. En la parte inferior de la pantalla aparece el constructor de cabecera, con tres filas: Above Header, Primary Header y Below Header. En la fila Above Header, pulsa el + de la zona izquierda y añade el elemento HTML 1; en la zona derecha, añade Social Icons.
+6. **Contenido de la franja.** En Header > HTML 1 escribe los datos de contacto («Secretaría: 954 000 000 · secretaria@asir-iaw.es») y, en su pestaña Design, pon el texto en blanco. En Header > Above Header > Design, elige como fondo el color principal de la paleta y pon Bottom Border Size a 0. En Header > Social Icons > Design, pon el color de los iconos en blanco y enlaza tus redes en la pestaña General.
+7. **Botón de matrícula.** En el constructor, añade el elemento Button en la zona derecha de Primary Header, junto al menú. En Header > Button, cambia el texto a «Matricúlate» y el enlace a la página de cursos.
+8. **Fila principal.** En Header > Primary Header, sube la altura (Height) a 90 px y pon Bottom Border Size a 0 para quitar la línea gris.
+9. **Banner del blog.** En Post Types > Blog / Archive > Blog Title Area:
+   - activa Enable on Blog / Posts Page?;
+   - elige el segundo Banner Layout (banner a todo el ancho);
+   - en Structure, despliega Title y Description para escribir un título («Formación que abre puertas») y un subtítulo propios;
+   - en la pestaña Design, elige un fondo oscuro de la paleta y pon el título y el texto en blanco.
+10. **Tarjetas de las entradas.** En Post Types > Blog / Archive, sube el Border Radius de las tarjetas a 16 px.
+11. **Pie de página.** En Footer > Copyright, sustituye el texto por «© [current_year] [site_title] · Centro de Formación Profesional · Sevilla» y pon el color del texto en blanco. Los códigos entre corchetes se sustituyen automáticamente por el año actual y el título del sitio. En Footer > Below Footer > Design, elige como fondo el mismo color oscuro del banner.
+12. **Publicar.** Revisa el resultado en escritorio, tableta y móvil con los iconos de la parte inferior del Personalizador y pulsa Publicar.
+
+El resultado es un sitio completamente distinto con el mismo tema y el mismo contenido:
+
+![Astra después de la personalización](assets/img/ud3/astra-ejemplo-final.png)
+
+*Figura: estado final. Franja de contacto, botón de matrícula, banner, nueva paleta, tipografías y pie oscuro.*
+
+Fíjate en que no se ha tocado ningún archivo del tema: todas estas opciones se guardan en la base de datos (en la opción `astra-settings`). Por eso, si Astra se actualiza, la personalización se conserva. Si cambias a otro tema, se perderá, aunque se recupera al volver a activar Astra.
+
+### 7.9 Exportar e importar el diseño
+
+- **Tema completo:** con Create Block Theme > Export Zip se descarga un `.zip` con el tema y los cambios guardados. Se importa en otro sitio desde Apariencia > Temas > Añadir tema > Subir tema. Si es un tema hijo, el sitio de destino debe tener instalado también el tema padre.
+- **Patrones:** en Apariencia > Editor > Patrones, cada patrón propio se puede exportar como JSON e importarse en otro sitio con *Importar desde JSON*.
+- **Plantillas y estilos editados en el editor:** mientras no los guardes en el tema, están en la base de datos. Se incluyen en las copias de seguridad de la base de datos, pero no en la exportación de contenidos de Herramientas > Exportar.
+- **Opciones del Personalizador (temas clásicos):** se guardan en la base de datos. Algunos temas, como Astra o Kadence, tienen su propia opción de exportar e importar ajustes.
 
 ### **Práctica 2:** diseño del sitio con plantillas y tema hijo
 
 **Enunciado**
 
-Diseña la web de un centro de formación ficticio sobre tu instalación de la práctica 1.
+Diseña la web de un centro de formación ficticio sobre tu instalación de la práctica 1. En la parte A crearás el diseño definitivo con un tema hijo; en la parte B, en el mismo sitio, comprobarás que el tema exportado funciona, personalizarás un tema clásico y crearás un tema propio. Al terminar, el sitio debe quedar con el tema hijo activo. Todo se hace desde el panel de WordPress, sin usar la terminal.
 
-**Debes realizar:**
+**Parte A. Diseño con un tema hijo**
 
 1. Configura los ajustes básicos: título, descripción, zona horaria, enlaces permanentes con el nombre de la entrada y una página estática como portada.
 2. Crea al menos cuatro páginas (*Inicio*, *Cursos*, *Quiénes somos*, *Contacto*) y seis entradas repartidas en dos categorías (*Noticias* y *Eventos*), con imagen destacada y texto alternativo.
-3. Crea un tema hijo de un tema de bloques con su `style.css` y un `theme.json` que defina una paleta de colores propia y la tipografía. Actívalo.
-4. En el editor del sitio:
-   - Modifica la cabecera (logotipo, título y navegación con submenú) y el pie (datos de contacto y enlaces legales).
+3. Desde Apariencia > Temas > Añadir tema, instala un tema de bloques del directorio oficial (por ejemplo, Ollie) y pruébalo con Vista previa en vivo sin activarlo. Anota qué te ofrece frente a Twenty Twenty-Five.
+4. Instala el plugin Create Block Theme y crea un tema hijo de Twenty Twenty-Five. Actívalo y, desde Apariencia > Editor > Estilos, elige una variación de estilo y ajusta la paleta de colores y la tipografía a la imagen del centro. Guarda los cambios en el tema hijo con Save Changes to Theme.
+5. En el editor del sitio:
+   - Modifica la cabecera (logotipo, título y navegación con submenú) y el pie (datos de contacto y enlaces legales), y guarda los cambios en el tema hijo.
    - Crea una plantilla específica para la categoría *Eventos* que se distinga de la de *Noticias*.
    - Crea una plantilla personalizada para la página de inicio y asígnala.
    - Crea un patrón sincronizado (por ejemplo, un aviso de "Matrícula abierta") y úsalo en al menos dos páginas.
-5. Exporta el tema hijo como `.zip` y el patrón como JSON.
+6. Exporta el tema hijo con Create Block Theme > Export Zip y el patrón como JSON. Haz las capturas del sitio con el tema hijo antes de seguir con la parte B.
 
-**Entrega:** capturas del sitio público (escritorio y móvil) y del editor del sitio, el `.zip` del tema hijo y el JSON del patrón, y una breve explicación de la diferencia entre plantilla, parte de plantilla y patrón.
+**Parte B. Otros temas en el mismo sitio**
+
+7. Comprueba que la exportación funciona: activa Twenty Twenty-Five, borra el tema hijo y vuelve a instalarlo desde Apariencia > Temas > Añadir tema > Subir tema con el `.zip` exportado. Actívalo y comprueba que el sitio se ve igual que antes.
+8. Instala Astra, actívalo y transfórmalo siguiendo el ejemplo del apartado 7.8: paleta, tipografía, cabecera con franja superior y botón, banner del blog y pie de página. Haz una captura antes y otra después. Fíjate en que las páginas, las entradas y los menús no cambian: solo cambia el aspecto.
+9. Con Create Block Theme > Create Blank Theme, crea un tema propio con tu nombre (se activa al crearlo). Define su paleta y su tipografía, diseña la cabecera y el pie, y crea al menos las plantillas *Páginas* y *Entradas individuales*. Guárdalo con Save Changes to Theme, haz una captura y expórtalo como `.zip`.
+10. Vuelve a activar el tema hijo. Después, borra los temas que no vayas a usar: deja solo el tema hijo, su tema padre y un tema por defecto de reserva.
+
+**Entrega:**
+
+- Capturas del sitio principal (escritorio y móvil) y del editor del sitio.
+- Capturas de Astra antes y después de la personalización.
+- Una captura del tema propio.
+- El `.zip` del tema hijo, el `.zip` del tema propio y el JSON del patrón.
+- Una breve explicación de la diferencia entre plantilla, parte de plantilla y patrón, y entre el editor del sitio y el Personalizador.
 
 ## 8. Plugins
 
