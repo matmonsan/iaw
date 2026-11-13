@@ -1646,8 +1646,8 @@ Diseña la web de un centro de formación ficticio sobre tu instalación de la p
 
 1. Configura los ajustes básicos: título, descripción, zona horaria, enlaces permanentes con el nombre de la entrada y una página estática como portada.
 2. Crea al menos cuatro páginas (*Inicio*, *Cursos*, *Quiénes somos*, *Contacto*) y seis entradas repartidas en dos categorías (*Noticias* y *Eventos*), con imagen destacada y texto alternativo.
-3. Desde Apariencia > Temas > Añadir tema, instala un tema de bloques del directorio oficial (por ejemplo, Ollie) y pruébalo con Vista previa en vivo sin activarlo. Anota qué te ofrece frente a Twenty Twenty-Five.
-4. Instala el plugin Create Block Theme y crea un tema hijo de Twenty Twenty-Five. Actívalo y, desde Apariencia > Editor > Estilos, elige una variación de estilo y ajusta la paleta de colores y la tipografía a la imagen del centro. Guarda los cambios en el tema hijo con Save Changes to Theme.
+3. Instala el tema Ollie desde Apariencia > Temas > Añadir tema, pruébalo con Vista previa en vivo y actívalo. Ollie es un tema de bloques muy popular, pensado para el editor del sitio, con numerosas variaciones de estilo y más de 50 patrones de diseño, por lo que permite personalizar mucho sin escribir código.
+4. Instala el plugin Create Block Theme y crea un tema hijo de Ollie. Actívalo y, desde Apariencia > Editor > Estilos, elige una variación de estilo y ajusta la paleta de colores y la tipografía a la imagen del centro. Guarda los cambios en el tema hijo con Save Changes to Theme.
 5. En el editor del sitio:
    - Modifica la cabecera (logotipo, título y navegación con submenú) y el pie (datos de contacto y enlaces legales), y guarda los cambios en el tema hijo.
    - Crea una plantilla específica para la categoría *Eventos* que se distinga de la de *Noticias*.
@@ -1657,10 +1657,10 @@ Diseña la web de un centro de formación ficticio sobre tu instalación de la p
 
 **Parte B. Otros temas en el mismo sitio**
 
-7. Comprueba que la exportación funciona: activa Twenty Twenty-Five, borra el tema hijo y vuelve a instalarlo desde Apariencia > Temas > Añadir tema > Subir tema con el `.zip` exportado. Actívalo y comprueba que el sitio se ve igual que antes.
+7. Comprueba que la exportación funciona: activa Ollie, borra el tema hijo y vuelve a instalarlo desde Apariencia > Temas > Añadir tema > Subir tema con el `.zip` exportado. Actívalo y comprueba que el sitio se ve igual que antes.
 8. Instala Astra, actívalo y transfórmalo siguiendo el ejemplo del apartado 7.7: paleta, tipografía, cabecera con franja superior y botón, banner del blog y pie de página. Haz una captura antes y otra después. Fíjate en que las páginas, las entradas y los menús no cambian: solo cambia el aspecto.
 9. Con Create Block Theme > Create Blank Theme, crea un tema propio con tu nombre (se activa al crearlo). Define su paleta y su tipografía, diseña la cabecera y el pie, y crea al menos las plantillas *Páginas* y *Entradas individuales*. Guárdalo con Save Changes to Theme, haz una captura y expórtalo como `.zip`.
-10. Vuelve a activar el tema hijo. Después, borra los temas que no vayas a usar: deja solo el tema hijo, su tema padre y un tema por defecto de reserva.
+10. Vuelve a activar el tema hijo. Después, borra los temas que no vayas a usar: deja solo el tema hijo, Ollie (su tema padre) y un tema por defecto de reserva.
 
 **Entrega:**
 
