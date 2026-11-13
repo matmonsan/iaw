@@ -1373,6 +1373,14 @@ En un tema de bloques, Apariencia > Editor abre el editor del sitio. En el panel
 
 *Figura: pantalla inicial del editor del sitio (Apariencia > Editor).*
 
+En el siguiente vídeo, de la Academia de Hostinger, se explica cómo usar el editor del sitio. Pulsa la imagen para abrirlo: empieza directamente en el minuto 0:28 y la parte del editor del sitio llega hasta el 2:53. El resto del vídeo trata de Elementor, el Personalizador de los temas clásicos y la edición de código, que no forman parte de este apartado.
+
+[![Vídeo: Cómo personalizar WordPress, de la Academia de Hostinger](assets/img/ud3/video-editor-sitio-hostinger.jpg)](https://www.youtube.com/watch?v=FKp0dvhEN8o&t=28s)
+
+*Vídeo: [Cómo personalizar WordPress](https://www.youtube.com/watch?v=FKp0dvhEN8o&t=28s), de la Academia de Hostinger. Mira del 0:28 al 2:53.*
+
+Estas son las secciones del editor del sitio:
+
 | Sección | Qué contiene |
 | --- | --- |
 | **Identidad** | Título, descripción, logotipo e icono del sitio |
@@ -1406,7 +1414,7 @@ En Plantillas aparecen todas las plantillas del tema con una miniatura. Al pulsa
 
 Puedes crear plantillas nuevas desde Plantillas > Añadir plantilla: por ejemplo, una plantilla específica para la categoría *Noticias* o para una página concreta. También puedes crear plantillas personalizadas y asignarlas a páginas concretas desde el panel *Página > Plantilla* del editor (por ejemplo, una plantilla "Ancho completo sin título" para la página de inicio).
 
-> Los cambios que haces en el editor del sitio se guardan en la base de datos, no en los archivos del tema. Si quieres volver al diseño original, en la lista de plantillas aparece la acción Restablecer. Si quieres que los cambios pasen a formar parte del tema, hay que guardarlos en sus archivos con Create Block Theme (apartado 7.7).
+> Los cambios que haces en el editor del sitio se guardan en la base de datos, no en los archivos del tema. Si quieres volver al diseño original, en la lista de plantillas aparece la acción Restablecer. Si quieres que los cambios pasen a formar parte del tema, hay que guardarlos en sus archivos con Create Block Theme (apartado 7.6).
 
 ### 7.4 Jerarquía de plantillas
 
@@ -1418,19 +1426,44 @@ Puedes crear plantillas nuevas desde Plantillas > Añadir plantilla: por ejemplo
 
 Así, si creas una plantilla `category-noticias`, solo afectará al archivo de la categoría *Noticias*; el resto de categorías seguirá usando `category`, `archive` o `index`.
 
-### 7.5 Tema hijo
+### 7.5 Modificar un tema desde el editor del sitio
 
-Si modificas un tema de otra persona y luego se actualiza, puedes perder tus cambios. La solución es un tema hijo: un tema que hereda todo del tema padre y solo contiene lo que cambia. Si se actualiza el padre, el hijo se conserva.
+Hay varias formas de modificar el aspecto de un tema de bloques desde Apariencia > Editor, sin instalar nada. De la más sencilla a la más completa:
 
-Para crearlo sin tocar archivos usaremos el plugin oficial Create Block Theme, desarrollado por el equipo de WordPress.
+#### Elegir una variación de estilo
 
-#### Paso 1. Instalar Create Block Theme
+Muchos temas de bloques incluyen variaciones de estilo: combinaciones de colores y tipografías ya preparadas. Ve a Apariencia > Editor > Estilos, pulsa Ver estilos y elige una. La vista previa de la derecha se actualiza al momento.
 
-Ve a Plugins > Añadir plugin, busca «Create Block Theme», pulsa Instalar ahora y después Activar. Su interfaz está en inglés.
+![Variaciones de estilo de Twenty Twenty-Five](assets/img/ud3/temas-09-variacion-estilo.png)
 
-#### Paso 2. Abrir el plugin en el editor del sitio
+*Figura: la variación Afternoon de Twenty Twenty-Five. El botón Revisar 1 cambio guarda la elección.*
 
-Activa el tema que quieres usar como padre (en el ejemplo, *Twenty Twenty-Five*) y entra en Apariencia > Editor. Pulsa sobre la vista previa para entrar en modo edición y, en la barra superior, pulsa el icono de la llave inglesa (Create Block Theme). Se abre un panel con estas opciones:
+Para aplicarla, pulsa Revisar 1 cambio… en la parte inferior izquierda y después Guardar.
+
+#### Ajustar colores, tipografía y bloques
+
+Desde Estilos también puedes cambiar cada parte por separado:
+
+- **Tipografía:** fuentes y tamaños del texto, los enlaces, los encabezados, los botones y los pies de foto.
+- **Colores:** la paleta del tema (Editar paleta) y el color de cada elemento: enlaces, botones, encabezados y fondo.
+- **Fondo, Sombras y Estructura:** imagen de fondo, sombras disponibles y anchura del contenido y de los márgenes.
+- **Bloques:** el estilo de un tipo de bloque en todo el sitio (por ejemplo, que todos los botones sean redondeados o que todas las citas tengan un borde de color).
+- **CSS adicional:** en el menú ⋮ de Estilos puedes añadir CSS propio para lo que no se pueda hacer con las opciones anteriores.
+
+#### Cambiar plantillas y partes de plantilla
+
+En Plantillas y en Patrones > Partes de plantilla puedes modificar la estructura: mover la imagen destacada encima del título, quitar la fecha de las entradas, añadir una barra lateral, cambiar el pie de página… Recuerda que una parte de plantilla se comparte entre todas las plantillas que la usan.
+
+> Todo lo anterior se guarda en la base de datos, no en los archivos del tema. Funciona, pero tiene dos inconvenientes: si cambias de tema se pierde la personalización y, si exportas el tema, no se incluye. Para que los cambios pasen a formar parte del tema se usa el plugin Create Block Theme (apartado 7.6).
+
+### 7.6 El plugin Create Block Theme
+
+Create Block Theme es el plugin oficial de WordPress para trabajar con temas de bloques sin tocar archivos ni escribir código. Con él puedes crear un tema hijo, guardar en los archivos del tema los cambios hechos en el editor del sitio, crear un tema nuevo desde cero y exportarlo como `.zip`.
+
+#### Instalar y abrir el plugin
+
+1. **Instálalo.** Ve a Plugins > Añadir plugin, busca «Create Block Theme», pulsa Instalar ahora y después Activar. Su interfaz está en inglés.
+2. **Ábrelo.** Entra en Apariencia > Editor y pulsa sobre la vista previa para entrar en modo edición. En la barra superior, pulsa el icono de la llave inglesa (Create Block Theme). Se abre un panel con estas opciones:
 
 ![Panel de Create Block Theme](assets/img/ud3/temas-05-create-block-theme.png)
 
@@ -1443,11 +1476,15 @@ Activa el tema que quieres usar como padre (en el ejemplo, *Twenty Twenty-Five*)
 | **Edit Theme Metadata** | Cambia el nombre, la descripción, el autor o la captura del tema |
 | **View theme.json** | Muestra el `theme.json` del tema, sin tener que abrir el servidor |
 | **Export Zip** | Descarga el tema completo en un `.zip` |
-| **Create Blank Theme** | Crea un tema de bloques nuevo y vacío (apartado 7.6) |
+| **Create Blank Theme** | Crea un tema de bloques nuevo y vacío |
 | **Create Theme** | Clona el tema activo (*Clone Theme*) o crea un tema hijo (*Create Child Theme*) |
 | **Reset Theme** | Descarta los cambios del editor y vuelve a lo que hay en los archivos del tema |
 
-#### Paso 3. Crear el tema hijo
+#### Crear un tema hijo
+
+Si modificas un tema de otra persona y luego se actualiza, puedes perder tus cambios. La solución es un tema hijo: un tema que hereda todo del tema padre y solo contiene lo que cambia. Si se actualiza el padre, el hijo se conserva.
+
+Activa primero el tema que quieres usar como padre (en el ejemplo, *Twenty Twenty-Five*) y, en el panel del plugin:
 
 1. **Elige el tipo.** Pulsa Create Theme y después Create Child Theme.
 2. **Ponle nombre.** En Theme Name escribe el nombre del tema hijo, por ejemplo *IAW Hijo*.
@@ -1466,77 +1503,11 @@ El plugin ha creado en el servidor la carpeta del tema hijo con estos archivos:
 - **`theme.json`:** los estilos globales propios del hijo. Se combina con el del padre, así que solo contiene lo que cambia.
 - **`readme.txt` y `screenshot.png`:** la descripción y la imagen que aparece en Apariencia > Temas.
 
-A partir de aquí, todo lo que cambies en el editor del sitio y guardes con Save Changes to Theme se guardará en el tema hijo, y el tema padre quedará intacto. Lo veremos en el apartado 7.7.
-
 > Si quieres ver el contenido de esos archivos sin entrar en el servidor, usa View theme.json en el panel de Create Block Theme, o Herramientas > Editor de archivos de temas. No edites nunca los archivos del tema padre desde ese editor.
 
-### 7.6 Crear un tema
+#### Guardar los cambios en el tema
 
-Además de crear temas hijos, Create Block Theme permite crear un tema de bloques propio desde cero, sin escribir código. Es útil cuando quieres un diseño totalmente tuyo y no depender de ningún tema padre.
-
-#### Paso 1. Crear el tema vacío
-
-En el editor del sitio, abre el panel de Create Block Theme y pulsa Create Blank Theme. Escribe el nombre (por ejemplo, *IAW Escuela*), despliega Additional Theme MetaData para añadir la descripción y el autor, y pulsa Create Blank Theme.
-
-![Formulario para crear un tema vacío](assets/img/ud3/temas-07-crear-tema-vacio.png)
-
-*Figura: creación del tema IAW Escuela con Create Blank Theme.*
-
-El plugin crea el tema y lo activa. El tema nuevo contiene lo mínimo:
-
-- **`style.css`, `readme.txt` y `screenshot.png`:** la identificación del tema.
-- **`theme.json`:** la configuración de estilos, todavía casi vacía.
-- **`templates/index.html`:** una única plantilla, la de último recurso de la jerarquía.
-- **`parts/header.html` y `parts/footer.html`:** una cabecera y un pie muy sencillos.
-
-#### Paso 2. Diseñar el tema en el editor del sitio
-
-Al abrir el editor verás un sitio sin apenas estilo: tipografía del navegador, enlaces azules y una cabecera básica. A partir de aquí lo construyes todo con bloques:
-
-![Tema vacío en el editor del sitio](assets/img/ud3/temas-08-tema-vacio-editor.png)
-
-*Figura: el tema IAW Escuela recién creado, con la plantilla Índice y las partes header y footer.*
-
-1. **Estilos globales.** En Estilos define la paleta de colores (Colores > Editar paleta), las tipografías (Tipografía; puedes instalar fuentes de Google desde Apariencia > Fuentes) y la anchura del contenido (Estructura).
-2. **Cabecera y pie.** En Patrones > Partes de plantilla edita *header* y *footer*: añade el logotipo, el título del sitio, la navegación y los datos de contacto.
-3. **Plantillas.** En Plantillas > Añadir plantilla crea las que necesites: Páginas, Entradas individuales, Archivo, Búsqueda y Página 404. Si no creas una, WordPress usará *Índice*.
-4. **Patrones.** Crea patrones propios para las secciones que repitas (un aviso, una llamada a la acción, una ficha de curso).
-
-#### Paso 3. Guardar el diseño en el tema
-
-Cuando el diseño esté terminado, abre Create Block Theme y pulsa Save Changes to Theme (lo verás en el apartado siguiente). Así los estilos, las plantillas y los patrones pasan de la base de datos a los archivos del tema. Después puedes descargarlo con Export Zip e instalarlo en cualquier otro WordPress.
-
-### 7.7 Modificar un tema
-
-Hay varias formas de modificar el aspecto de un tema desde el panel. De la más sencilla a la más completa:
-
-#### Elegir una variación de estilo
-
-Muchos temas de bloques incluyen variaciones de estilo: combinaciones de colores y tipografías ya preparadas. Ve a Apariencia > Editor > Estilos, pulsa Ver estilos y elige una. La vista previa de la derecha se actualiza al momento.
-
-![Variaciones de estilo de Twenty Twenty-Five](assets/img/ud3/temas-09-variacion-estilo.png)
-
-*Figura: la variación Afternoon aplicada al tema hijo. El botón Revisar 1 cambio guarda la elección.*
-
-Para aplicarla, pulsa Revisar 1 cambio… en la parte inferior izquierda y después Guardar.
-
-#### Ajustar colores, tipografía y bloques
-
-Desde Estilos también puedes cambiar cada parte por separado:
-
-- **Tipografía:** fuentes y tamaños del texto, los enlaces, los encabezados, los botones y los pies de foto.
-- **Colores:** la paleta del tema (Editar paleta) y el color de cada elemento: enlaces, botones, encabezados y fondo.
-- **Fondo, Sombras y Estructura:** imagen de fondo, sombras disponibles y anchura del contenido y de los márgenes.
-- **Bloques:** el estilo de un tipo de bloque en todo el sitio (por ejemplo, que todos los botones sean redondeados o que todas las citas tengan un borde de color).
-- **CSS adicional:** en el menú ⋮ de Estilos puedes añadir CSS propio para lo que no se pueda hacer con las opciones anteriores.
-
-#### Cambiar plantillas y partes de plantilla
-
-En Plantillas y en Patrones > Partes de plantilla puedes modificar la estructura: mover la imagen destacada encima del título, quitar la fecha de las entradas, añadir una barra lateral, cambiar el pie de página… Recuerda que una parte de plantilla se comparte entre todas las plantillas que la usan.
-
-#### Guardar las modificaciones en el tema
-
-Todo lo anterior se guarda en la base de datos. Funciona, pero tiene dos inconvenientes: si cambias de tema se pierde la personalización y, si exportas el tema, no se incluye. Para incorporarlo al tema activo:
+Los cambios que haces en el editor del sitio (apartado 7.5) se guardan en la base de datos. Para incorporarlos a los archivos del tema activo:
 
 1. Abre el panel de Create Block Theme en el editor del sitio.
 2. Pulsa Save Changes to Theme.
@@ -1549,7 +1520,44 @@ Todo lo anterior se guarda en la base de datos. Funciona, pero tiene dos inconve
 
 > Haz esto solo con tus propios temas: un tema hijo o un tema creado por ti. Si lo haces sobre un tema de otro autor (por ejemplo, directamente sobre *Twenty Twenty-Five*), la próxima actualización sobrescribirá sus archivos y perderás los cambios.
 
-### 7.8 Temas populares y sus posibles modificaciones
+#### Crear un tema desde cero
+
+Además de crear temas hijos, el plugin permite crear un tema de bloques propio desde cero, sin escribir código. Es útil cuando quieres un diseño totalmente tuyo y no depender de ningún tema padre.
+
+En el panel del plugin, pulsa Create Blank Theme. Escribe el nombre (por ejemplo, *IAW Escuela*), despliega Additional Theme MetaData para añadir la descripción y el autor, y pulsa Create Blank Theme. El plugin crea el tema y lo activa.
+
+![Formulario para crear un tema vacío](assets/img/ud3/temas-07-crear-tema-vacio.png)
+
+*Figura: creación del tema IAW Escuela con Create Blank Theme.*
+
+El tema nuevo contiene lo mínimo:
+
+- **`style.css`, `readme.txt` y `screenshot.png`:** la identificación del tema.
+- **`theme.json`:** la configuración de estilos, todavía casi vacía.
+- **`templates/index.html`:** una única plantilla, la de último recurso de la jerarquía.
+- **`parts/header.html` y `parts/footer.html`:** una cabecera y un pie muy sencillos.
+
+Al abrir el editor verás un sitio sin apenas estilo: tipografía del navegador, enlaces azules y una cabecera básica.
+
+![Tema vacío en el editor del sitio](assets/img/ud3/temas-08-tema-vacio-editor.png)
+
+*Figura: el tema IAW Escuela recién creado, con la plantilla Índice y las partes header y footer.*
+
+A partir de aquí lo construyes todo con bloques, como en el apartado 7.5:
+
+1. **Estilos globales.** En Estilos define la paleta de colores (Colores > Editar paleta), las tipografías (Tipografía; puedes instalar fuentes de Google desde Apariencia > Fuentes) y la anchura del contenido (Estructura).
+2. **Cabecera y pie.** En Patrones > Partes de plantilla edita *header* y *footer*: añade el logotipo, el título del sitio, la navegación y los datos de contacto.
+3. **Plantillas.** En Plantillas > Añadir plantilla crea las que necesites: Páginas, Entradas individuales, Archivo, Búsqueda y Página 404. Si no creas una, WordPress usará *Índice*.
+4. **Patrones.** Crea patrones propios para las secciones que repitas (un aviso, una llamada a la acción, una ficha de curso).
+5. **Guardado en el tema.** Cuando el diseño esté terminado, pulsa Save Changes to Theme como se explica más arriba. Así los estilos, las plantillas y los patrones pasan de la base de datos a los archivos del tema.
+
+#### Exportar el tema
+
+Pulsa Export Zip en el panel del plugin para descargar un `.zip` con el tema y todos los cambios guardados en él. Ese archivo se instala en cualquier otro WordPress desde Apariencia > Temas > Añadir tema > Subir tema. Si es un tema hijo, el sitio de destino debe tener instalado también el tema padre.
+
+Antes de exportar, asegúrate de haber pulsado Save Changes to Theme: lo que solo está en la base de datos no se incluye en el `.zip`.
+
+### 7.7 Temas populares y sus posibles modificaciones
 
 En el directorio oficial hay miles de temas. Estos son algunos de los más utilizados; todos tienen versión gratuita y se instalan desde Apariencia > Temas > Añadir tema.
 
@@ -1621,9 +1629,9 @@ El resultado es un sitio completamente distinto con el mismo tema y el mismo con
 
 Fíjate en que no se ha tocado ningún archivo del tema: todas estas opciones se guardan en la base de datos (en la opción `astra-settings`). Por eso, si Astra se actualiza, la personalización se conserva. Si cambias a otro tema, se perderá, aunque se recupera al volver a activar Astra.
 
-### 7.9 Exportar e importar el diseño
+### 7.8 Exportar e importar el diseño
 
-- **Tema completo:** con Create Block Theme > Export Zip se descarga un `.zip` con el tema y los cambios guardados. Se importa en otro sitio desde Apariencia > Temas > Añadir tema > Subir tema. Si es un tema hijo, el sitio de destino debe tener instalado también el tema padre.
+- **Tema completo:** con Create Block Theme > Export Zip y Apariencia > Temas > Añadir tema > Subir tema (apartado 7.6).
 - **Patrones:** en Apariencia > Editor > Patrones, cada patrón propio se puede exportar como JSON e importarse en otro sitio con *Importar desde JSON*.
 - **Plantillas y estilos editados en el editor:** mientras no los guardes en el tema, están en la base de datos. Se incluyen en las copias de seguridad de la base de datos, pero no en la exportación de contenidos de Herramientas > Exportar.
 - **Opciones del Personalizador (temas clásicos):** se guardan en la base de datos. Algunos temas, como Astra o Kadence, tienen su propia opción de exportar e importar ajustes.
@@ -1650,7 +1658,7 @@ Diseña la web de un centro de formación ficticio sobre tu instalación de la p
 **Parte B. Otros temas en el mismo sitio**
 
 7. Comprueba que la exportación funciona: activa Twenty Twenty-Five, borra el tema hijo y vuelve a instalarlo desde Apariencia > Temas > Añadir tema > Subir tema con el `.zip` exportado. Actívalo y comprueba que el sitio se ve igual que antes.
-8. Instala Astra, actívalo y transfórmalo siguiendo el ejemplo del apartado 7.8: paleta, tipografía, cabecera con franja superior y botón, banner del blog y pie de página. Haz una captura antes y otra después. Fíjate en que las páginas, las entradas y los menús no cambian: solo cambia el aspecto.
+8. Instala Astra, actívalo y transfórmalo siguiendo el ejemplo del apartado 7.7: paleta, tipografía, cabecera con franja superior y botón, banner del blog y pie de página. Haz una captura antes y otra después. Fíjate en que las páginas, las entradas y los menús no cambian: solo cambia el aspecto.
 9. Con Create Block Theme > Create Blank Theme, crea un tema propio con tu nombre (se activa al crearlo). Define su paleta y su tipografía, diseña la cabecera y el pie, y crea al menos las plantillas *Páginas* y *Entradas individuales*. Guárdalo con Save Changes to Theme, haz una captura y expórtalo como `.zip`.
 10. Vuelve a activar el tema hijo. Después, borra los temas que no vayas a usar: deja solo el tema hijo, su tema padre y un tema por defecto de reserva.
 
